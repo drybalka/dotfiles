@@ -1,0 +1,12 @@
+#!/bin/bash 
+# This script returns results of 'locate' command in a convenient dmenu form
+
+# Request name and print results
+request=( $(echo "" \
+	| bemenu -p "file pathname contains (regexp permitted):" ) )
+
+locate --regex "${request}" \
+	| bemenu -p "select file to copy path to clipboard" -l 20 \
+	| sed '/^\//!{s/^/\//}' \
+	| tr -d "\n" \
+	| wl-copy && notify-send "path copied to clipboard"

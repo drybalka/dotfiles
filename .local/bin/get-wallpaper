@@ -1,0 +1,18 @@
+#!/bin/bash
+# This script returns a link to a current Bing wallpaper
+
+TARGET_DIR="$HOME/.cache"
+
+get_image_url() {
+    local RESPONSE=$(curl "https://www.bing.com/HPImageArchive.aspx?format=js&idx=0&n=1&uhd=1&uhdwidth=$1&uhdheight=$2")
+    RESPONSE=${RESPONSE#*url\":\"}
+    RESPONSE=${RESPONSE%\",\"urlbase*}
+    echo "$RESPONSE"
+}
+
+curl -o "$TARGET_DIR/wallpaper-small" "http://bing.com/$(get_image_url 1920 1200)"
+curl -o "$TARGET_DIR/wallpaper-large" "http://bing.com/$(get_image_url 2560 1440)"
+
+swaymsg output DP-1 bg $HOME/.cache/wallpaper-large fill
+swaymsg output DP-2 bg $HOME/.cache/wallpaper-large fill
+swaymsg output eDP-1 bg $HOME/.cache/wallpaper-large fill
