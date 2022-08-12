@@ -21,6 +21,9 @@ local keyopts = { noremap = true, silent = true }
 vim.opt.shiftwidth = 4
 vim.api.nvim_create_autocmd("FileType", { pattern = "lua", command = "setlocal shiftwidth=2" })
 
+-- Do not insert comment on newline
+vim.api.nvim_create_autocmd("FileType", { command = "set formatoptions-=o" })
+
 
 -- Appearance
 vim.opt.termguicolors = true
