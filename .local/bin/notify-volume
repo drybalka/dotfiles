@@ -1,0 +1,10 @@
+#!/bin/bash
+VOLUME=$(pactl get-sink-volume @DEFAULT_SINK@ | grep Volume: | sed -e 's,.* \([0-9][0-9]*\)%.*,\1,')
+MUTE=$(pactl get-sink-mute @DEFAULT_SINK@)
+
+if [[ "$MUTE" == "Mute: yes" ]]
+then
+    $(notify-send "Volume: muted" -h string:x-canonical-private-synchronous:volume -h int:value:$VOLUME -c "volume")
+else
+    $(notify-send "Volume: $VOLUME" -h string:x-canonical-private-synchronous:volume -h int:value:$VOLUME -c "volume")
+fi

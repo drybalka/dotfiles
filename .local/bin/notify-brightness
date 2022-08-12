@@ -1,0 +1,5 @@
+#!/bin/bash
+
+BRIGHTNESS=$(light -G)
+BRIGHTNESS=${BRIGHTNESS%.*}
+$(notify-send "Brightness: $BRIGHTNESS" -h string:x-canonical-private-synchronous:brightness -h int:value:$BRIGHTNESS -c "brightness")

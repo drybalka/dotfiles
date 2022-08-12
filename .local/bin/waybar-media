@@ -1,0 +1,8 @@
+#!/bin/bash
+VISIBLE_SIZE=40
+
+ARTIST=$(playerctl metadata artist)
+TITLE=$(playerctl metadata title)
+ALBUM=$(playerctl metadata album)
+
+echo {'"text"': '"'$TITLE'"', '"tooltip"': '"'$ARTIST\\n$ALBUM'"'}
