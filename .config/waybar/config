@@ -1,0 +1,141 @@
+{
+  "modules-left": [
+    "sway/workspaces",
+    "custom/scratchpad-indicator",
+    "sway/mode"
+  ],
+  "modules-center": [
+    "custom/media"
+  ],
+  "modules-right": [
+    "custom/weather",
+  "bluetooth",
+  "sway/language",
+  "network",
+  "memory",
+  "cpu",
+  "temperature",
+  "battery",
+  "clock"
+  ],
+
+  "fixed-center": false,
+
+  "custom/media": {
+    "format": " {}",
+    "exec": "playerctl metadata -f '{{trunc(title, 20)}} - {{trunc(artist, 20)}}' -F",
+    "on-click": "playerctl play-pause",
+    "on-click-middle": "playerctl stop",
+    "on-scroll-up": "playerctl previous",
+    "on-scroll-down": "playerctl next",
+    "smooth-scrolling-threshold": 10,
+    "escape": true,
+    "tooltip": false
+  },
+
+  "custom/weather": {
+    "exec": "waybar-weather",
+    "return-type": "json",
+    "interval": 3600
+  },
+
+  "custom/scratchpad-indicator": {
+    "interval": 3,
+    "exec": "swaymsg -t get_tree | jq 'recurse(.nodes[]) | first(select(.name==\"__i3_scratch\")) | .floating_nodes | length | select(. >= 1)'",
+    "format": " :{}",
+    "on-click": "swaymsg 'scratchpad show'"
+  },
+
+  "battery": {
+    "interval": 10,
+    "states": {
+      "warning": 30,
+      "critical": 15
+    },
+    "format": " {icon} {capacity}%",
+    "format-discharging": "{icon} {capacity}%",
+    "format-icons": [
+      "",
+    "",
+    "",
+    "",
+    "" 
+    ]
+  },
+
+  "clock": {
+    "interval": 1,
+    "format": "{:%H:%M:%S}",
+    "tooltip-format": "{:%a %e %B %Y}"
+  },
+
+
+  "cpu": {
+    "interval": 5,
+    "format": "龍 {usage}%",
+    "states": {
+      "warning": 70,
+      "critical": 90
+    }
+  },
+
+  "sway/language": {
+    "format": " {}"
+  },
+
+  "memory": {
+    "interval": 5,
+    "format": " {}%",
+    "states": {
+      "warning": 70,
+      "critical": 90
+    }
+  },
+
+  "network": {
+    "interval": 5,
+    "format-wifi": " {signalStrength}%",
+    "format-ethernet": " {ifname}: {ipaddr}/{cidr}",
+    "format-disconnected": " Disconnected",
+    "tooltip-format": "{bandwidthUpBits} / {bandwidthDownBits}",
+    "on-click": "alacritty -e nmtui &"
+  },
+
+  "bluetooth": {
+    "format": " {status}",
+    "format-off": "",
+    "format-on": "",
+    "format-connected": " {device_alias}",
+    "format-connected-battery": " {device_alias} {device_battery_percentage}%",
+    "on-click": "bluetooth-toggle",
+    "tooltip-format": "{controller_alias}\t{controller_address}\n\n{num_connections} connected",
+    "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{num_connections} connected\n\n{device_enumerate}",
+    "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
+    "tooltip-format-enumerate-connected-battery": "{device_alias}\t{device_address}\t{device_battery_percentage}%"
+  },
+
+  "sway/mode": {
+    "format": "<span style=\"italic\"> {}</span>",
+    "tooltip": false
+  },
+
+  "sway/workspaces": {
+    "disable-scroll": true
+  },
+
+  "temperature": {
+    "thermal-zone": 13,
+    "critical-threshold": 80,
+    "interval": 5,
+    "format": "{icon} {temperatureC}°C",
+    "format-icons": [
+      "",
+    "",
+    "",
+    "",
+    ""
+    ],
+    "tooltip": true
+  }
+}
+# vi:syntax=json:

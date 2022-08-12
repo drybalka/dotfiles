@@ -1,0 +1,98 @@
+/* -----------------------------------------------------------------------------
+ * Base styles
+ * -------------------------------------------------------------------------- */
+
+/* Reset all styles */
+* {
+  border: none;
+  border-radius: 0;
+  min-height: 0;
+  margin: 0;
+  padding: 0;
+}
+
+#waybar {
+  color: @fg;
+  font-family: "DejaVu Sans Mono";
+  background: linear-gradient(to bottom, @bg 60%, alpha(@bg, 0.94), alpha(@bg, 0.75), alpha(@bg, 0.44), alpha(@bg, 0));
+}
+
+#clock,
+#battery,
+#temperature,
+#cpu,
+#memory,
+#network,
+#bluetooth,
+#language,
+#custom-weather,
+#custom-media,
+#mode,
+#custom-skratchpad-indicator {
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-bottom: 4px;
+}
+
+tooltip {
+  font-family: "DejaVu Sans Mono";
+  border-radius: 4px;
+  background-color: @bg;
+}
+
+tooltip label {
+  color: @fg;
+}
+
+/* -----------------------------------------------------------------------------
+ * Module styles
+ * -------------------------------------------------------------------------- */
+
+#clock {
+  font-weight: bold;
+}
+
+#cpu.warning,
+#memory.warning,
+#battery.warning,
+#network.disconnected {
+  color: @warning;
+  font-weight: bold;
+}
+
+#cpu.critical,
+#memory.critical,
+#battery.critical,
+#temperature.critical {
+  color: @critical;
+  font-weight: bold;
+}
+
+#mode {
+  background: @fg;
+  color: @bg;
+}
+
+#workspaces button {
+  padding-left: 4px;
+  padding-right: 4px;
+  color: @fg;
+}
+
+#workspaces button:hover {
+  box-shadow: inherit;
+  text-shadow: inherit;
+  background: inherit;
+}
+
+#workspaces button.focused {
+  color: @active;
+  font-weight: bold;
+  text-shadow: 2px 1px @bg;
+}
+
+#workspaces button.urgent {
+  color: @critical;
+  font-weight: bold;
+  text-shadow: 2px 1px @bg;
+}
