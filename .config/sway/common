@@ -1,0 +1,144 @@
+### Variables
+set $mod Mod4
+set $alt Mod1
+set $left h
+set $down j
+set $up k
+set $right l
+set $term foot
+
+# Hide cursor on inactivity
+seat * hide_cursor 8000
+seat * hide_cursor when-typing enable
+
+# Move and resize floating windows while pressing $mod
+floating_modifier $mod normal
+
+# Style settings
+default_border none
+default_floating_border normal
+gaps inner 4
+gaps top -2
+
+### Idle configuration
+exec swayidle -w \
+    timeout 240 'if [[ $(session-state) == "active" ]]; then swaymsg "output * dpms off"; fi' \
+    resume      'if [[ $(session-state) == "active" ]]; then swaymsg "output * dpms on"; fi' \
+    timeout 300 'if [[ $(session-state) == "active" ]]; then systemctl suspend -i; fi' \
+    before-sleep 'swaylock -f -e -i $HOME/.cache/wallpaper-large'
+
+### Output configuration
+output DP-1 bg $HOME/.cache/wallpaper-large fill
+output DP-1 pos 0 0
+focus output DP-1
+output DP-2 bg $HOME/.cache/wallpaper-large fill
+output DP-2 pos 0 0
+focus output DP-2
+output eDP-1 bg $HOME/.cache/wallpaper-small fill
+output eDP-1 pos 2560 240
+workspace 10 output eDP-1
+
+### Input configuration
+input type:touchpad {
+    tap enabled
+    scroll_factor 0.5
+}
+
+input type:keyboard {
+    xkb_layout "us,ua"
+    xkb_options "grp:alt_shift_toggle,ctrl:nocaps,compose:ralt"
+    repeat_delay 300
+    repeat_rate 30
+}
+
+### Key bindings
+bindcode $mod+49 exec dmenu-session
+bindsym {
+    $mod+Return exec $term
+    $mod+x exec firefox
+    $mod+z exec thunderbird
+    $mod+c exec keepassxc
+
+    $mod+d exec dmenu-run-recent
+    $mod+f exec dmenu-locate
+    $mod+Escape exec dmenu-session
+
+    $mod+Shift+f fullscreen
+    $mod+q kill
+    $mod+Shift+c reload
+    $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -b 'Yes, exit sway' 'swaymsg exit'
+
+    $mod+Shift+minus move scratchpad
+    $mod+minus scratchpad show, floating disable
+
+    --locked XF86MonBrightnessUp exec light -S "$(light -G | awk '{ print int(($1 + .72) * 1.4) }')" && notify-brightness
+    --locked XF86MonBrightnessDown exec light -S "$(light -G | awk '{ print int($1 / 1.4) }')"  && notify-brightness
+    --locked XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5% && notify-volume
+    --locked XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5% && notify-volume
+    --locked XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle && notify-volume
+    --locked XF86AudioPlay exec playerctl play-pause
+}
+
+bindsym {
+    $mod+b splith
+    $mod+v splitv
+
+    $mod+s layout stacking
+    $mod+w layout tabbed
+    $mod+e layout toggle split
+
+    $mod+Shift+space floating toggle
+    $mod+space focus mode_toggle
+    $mod+a focus parent
+}
+
+mode "resize" {
+    bindsym $left resize shrink width 10px
+    bindsym $down resize grow height 10px
+    bindsym $up resize shrink height 10px
+    bindsym $right resize grow width 10px
+
+    bindsym Escape mode "default"
+}
+bindsym $mod+r mode "resize"
+
+bindsym {
+    $mod+$left exec swaymsg focus left && sway-blink
+    $mod+$down exec swaymsg focus down && sway-blink
+    $mod+$up exec swaymsg focus up && sway-blink
+    $mod+$right exec swaymsg focus right && sway-blink
+
+    $mod+Shift+$left move left
+    $mod+Shift+$down move down
+    $mod+Shift+$up move up
+    $mod+Shift+$right move right
+
+    $mod+Tab workspace back_and_forth
+    $mod+1 workspace number 1
+    $mod+2 workspace number 2
+    $mod+3 workspace number 3
+    $mod+4 workspace number 4
+    $mod+5 workspace number 5
+    $mod+6 workspace number 6
+    $mod+7 workspace number 7
+    $mod+8 workspace number 8
+    $mod+9 workspace number 9
+    $mod+0 workspace number 10
+
+    $mod+Shift+1 move container to workspace number 1
+    $mod+Shift+2 move container to workspace number 2
+    $mod+Shift+3 move container to workspace number 3
+    $mod+Shift+4 move container to workspace number 4
+    $mod+Shift+5 move container to workspace number 5
+    $mod+Shift+6 move container to workspace number 6
+    $mod+Shift+7 move container to workspace number 7
+    $mod+Shift+8 move container to workspace number 8
+    $mod+Shift+9 move container to workspace number 9
+    $mod+Shift+0 move container to workspace number 10
+}
+
+bar {
+    swaybar_command waybar
+}
+
+include /etc/sway/config.d/*
