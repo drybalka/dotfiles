@@ -30,7 +30,7 @@ cmp.setup {
   mapping = cmp.mapping.preset.insert({
     ['<C-u>'] = { i = cmp.mapping.scroll_docs(-4) },
     ['<C-d>'] = { i = cmp.mapping.scroll_docs(4) },
-    ['<C-Space>'] = { i = cmp.mapping.complete({}) },
+    ['<C-M-Space>'] = { i = cmp.mapping.complete({}) },
     ['<C-y>'] = { i = cmp.mapping.confirm({ select = true }) },
   }),
   experimental = {
@@ -59,7 +59,7 @@ cmp.setup.cmdline('/', {
     ['<C-p>'] = {
       c = cmp.mapping.select_prev_item({ behavior = require('cmp.types').cmp.SelectBehavior.Insert })
     },
-    ['<C-Space>'] = { c = cmp.mapping.complete({}) },
+    ['<C-M-Space>'] = { c = cmp.mapping.complete({}) },
     ['<C-y>'] = { c = cmp.mapping.confirm({ select = true }) },
     ['<C-e>'] = { c = cmp.mapping.abort() },
   },

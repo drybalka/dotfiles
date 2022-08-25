@@ -5,8 +5,8 @@ vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, keyopts)
 vim.keymap.set('n', 'gd', vim.lsp.buf.definition, keyopts)
 vim.keymap.set('n', 'gt', vim.lsp.buf.type_definition, keyopts)
 vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, keyopts)
-vim.keymap.set('n', '<c-/>', vim.lsp.buf.hover, keyopts)
-vim.keymap.set('n', '<c-space>', vim.lsp.buf.signature_help, keyopts)
+vim.keymap.set({ 'n', 'i' }, '<c-/>', vim.lsp.buf.hover, keyopts)
+vim.keymap.set({ 'n', 'i' }, '<c-space>', vim.lsp.buf.signature_help, keyopts)
 vim.keymap.set('n', '<leader>r', vim.lsp.buf.rename, keyopts)
 vim.keymap.set('n', '<leader>r', vim.lsp.buf.rename, keyopts)
 vim.keymap.set('n', '<leader>=', vim.lsp.buf.formatting, keyopts)
@@ -16,6 +16,9 @@ vim.keymap.set('v', '<leader>a', vim.lsp.buf.range_code_action, keyopts)
 
 vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
   border = "rounded",
+})
+vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
+  border = "rounded"
 })
 
 -- nvim-cmp supports additional completion capabilities
