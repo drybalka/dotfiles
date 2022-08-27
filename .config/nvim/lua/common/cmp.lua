@@ -99,5 +99,6 @@ null.setup({
 
     require("null-ls").builtins.code_actions.refactoring,
     require("null-ls").builtins.formatting.prettier,
+    require("null-ls").builtins.diagnostics.cfn_lint,
   },
 })
