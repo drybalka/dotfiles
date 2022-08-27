@@ -8,6 +8,6 @@ case $cmd in
 	reload) swaymsg reload;;
 	exit) swaymsg exit;;
 	reboot) systemctl reboot -i;;
-	poweroff) poweroff;;
+	poweroff) systemctl poweroff -i;;
 	*)
 esac
