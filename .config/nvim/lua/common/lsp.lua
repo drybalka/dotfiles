@@ -20,6 +20,7 @@ vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
 vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
   border = "rounded"
 })
+require('lspconfig.ui.windows').default_options.border = 'rounded'
 
 -- nvim-cmp supports additional completion capabilities
 local capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -86,19 +87,3 @@ require('lspconfig').jdtls.setup {
   end,
 }
 vim.lsp.set_log_level("debug")
-
-
--- Make LspInfo more pleasant
-local win = require('lspconfig.ui.windows')
-local _default_opts = win.default_opts
-win.default_opts = function(options)
-  local opts = _default_opts(options)
-  opts.border = 'single'
-  return opts
-end
-local _percentage_range_window = win.percentage_range_window
-win.percentage_range_window = function(col_range, row_range, options)
-  local res = _percentage_range_window(col_range, row_range, options)
-  vim.keymap.set('n', '<c-[>', '<cmd>bd<CR>', { noremap = true, silent = true, buffer = res.bufnr })
-  return res
-end
