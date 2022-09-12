@@ -100,17 +100,22 @@ local function toggle()
     ["+"] = "-"
   }
   vim.tbl_add_reverse_lookup(toggle_table)
+  local num_of_changes = 1
   local function toggle_word(word)
-    if toggle_table[word] ~= nil then
+    if toggle_table[word] ~= nil and num_of_changes ~= 0 then
+      num_of_changes = num_of_changes - 1
       return toggle_table[word]
-    else
-      return word
     end
   end
 
   local line = vim.api.nvim_get_current_line()
-  local toggled_line = line:gsub('%w+', toggle_word)
-  vim.api.nvim_set_current_line(toggled_line)
+  local cursor = vim.api.nvim_win_get_cursor(0)[2]
+  local split_point = line:sub(0, cursor + 1):find('[a-zA-Z]*$')
+  local line_start = line:sub(0, split_point - 2)
+  local line_end = line:sub(split_point - 1)
+  -- P(line_start..'|'..line_end)
+  local toggled_line = line_end:gsub('[a-zA-Z0-9-+<>]+', toggle_word)
+  vim.api.nvim_set_current_line(line_start..toggled_line)
 end
 
 vim.keymap.set('n', '<c-s>', toggle, keyopts)

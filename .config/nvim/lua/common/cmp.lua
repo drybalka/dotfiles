@@ -25,7 +25,7 @@ cmp.setup {
     { name = 'luasnip' },
     { name = 'path' },
   }, {
-    { name = 'buffer' },
+    { name = 'buffer', option = { get_bufnrs = vim.api.nvim_list_bufs } },
   }),
   mapping = cmp.mapping.preset.insert({
     ['<C-u>'] = { i = cmp.mapping.scroll_docs(-4) },

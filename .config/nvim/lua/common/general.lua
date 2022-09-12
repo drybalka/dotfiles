@@ -78,11 +78,10 @@ vim.keymap.set('t', '<c-[>', [[<c-\><c-n>]], keyopts)
 -- vim.keymap.set('n', '<F13>', '<c-i>', keyopts)
 
 
--- Diagnostic keymaps
+-- Diagnostics
+vim.diagnostic.config({ float = { border = 'rounded' } })
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, keyopts)
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next, keyopts)
--- vim.api.nvim_set_keymap('n', '<leader>e', '<cmd>lua vim.diagnostic.open_float()<CR>', keyopts)
--- vim.api.nvim_set_keymap('n', '<leader>q', '<cmd>lua vim.diagnostic.setloclist()<CR>', keyopts)
 
 local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
 for type, icon in pairs(signs) do
