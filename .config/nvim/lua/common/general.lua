@@ -39,8 +39,6 @@ vim.cmd [[highlight! link DiagnosticWarn  YellowSign]]
 vim.cmd [[highlight! link DiagnosticInfo  BlueSign  ]]
 vim.cmd [[highlight! link DiagnosticHint  AquaSign  ]]
 
-vim.cmd [[highlight! DiagnosticUnderlineError cterm=underlineline gui=underdot]]
-
 
 -- Folding
 vim.opt.foldmethod = 'expr'
