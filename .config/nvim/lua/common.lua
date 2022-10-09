@@ -30,7 +30,6 @@ require 'paq' {
   'nvim-telescope/telescope.nvim';
   { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' };
   'nvim-telescope/telescope-file-browser.nvim';
-  'AckslD/nvim-neoclip.lua';
   'kyazdani42/nvim-web-devicons';
   'tami5/sqlite.lua';
 

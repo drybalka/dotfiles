@@ -94,20 +94,6 @@ require('telescope').setup {
 require('telescope').load_extension 'fzf'
 require 'nvim-web-devicons'.setup()
 require('telescope').load_extension 'file_browser'
-require('neoclip').setup({
-  history = 100,
-  enable_persistent_history = true,
-  continuous_sync = true,
-  keys = {
-    telescope = {
-      i = {
-        paste = "<F15>",
-        paste_behind = "<F16>",
-      },
-    }
-  },
-})
-require('telescope').load_extension 'neoclip'
 
 vim.keymap.set('n', '<tab><tab>', require('telescope.builtin').resume, keyopts)
 vim.keymap.set('n', '<tab><leader>', require('telescope.builtin').builtin, keyopts)
@@ -117,7 +103,7 @@ vim.keymap.set('n', '<tab>f', require('telescope.builtin').find_files, keyopts)
 vim.keymap.set('n', '<tab>w', require('telescope.builtin').buffers, keyopts)
 vim.keymap.set('n', '<tab>o', require('telescope.builtin').oldfiles, keyopts)
 vim.keymap.set('n', '<tab>b', require('telescope').extensions.file_browser.file_browser, keyopts)
-vim.keymap.set('n', '<tab>p', require('telescope').extensions.neoclip.neoclip, keyopts)
+vim.keymap.set('n', '<tab>p', require('telescope.builtin').registers, keyopts)
 
 vim.keymap.set('n', '<tab>d', require('telescope.builtin').diagnostics, keyopts)
 vim.keymap.set('n', '<tab>s', require('telescope.builtin').lsp_document_symbols, keyopts)
