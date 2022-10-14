@@ -1,6 +1,10 @@
 local keyopts = { noremap = true, silent = true }
 
-require('gitsigns').setup {
+local gitsigns = require 'gitsigns'
+local fterm = require 'FTerm'
+local diffview = require 'diffview'
+
+gitsigns.setup {
   on_attach = function(bufnr)
     local function map(mode, lhs, rhs, opts)
       opts = vim.tbl_extend('force', { noremap = true, silent = true }, opts or {})
@@ -8,13 +12,12 @@ require('gitsigns').setup {
     end
 
     -- Navigation
-    map('n', ']h', "&diff ? ']c' : '<cmd>Gitsigns next_hunk<CR>'", { expr = true })
-    map('n', '[h', "&diff ? '[c' : '<cmd>Gitsigns prev_hunk<CR>'", { expr = true })
+    map('n', ']h', "&diff ? ']c' : '<Cmd>Gitsigns next_hunk<CR>'", { expr = true })
+    map('n', '[h', "&diff ? '[c' : '<Cmd>Gitsigns prev_hunk<CR>'", { expr = true })
   end,
 }
-vim.keymap.set('n', '<leader>hp', require('gitsigns').preview_hunk, keyopts)
-vim.keymap.set({ 'n', 'v' }, '<leader>hr', require('gitsigns').reset_hunk, keyopts)
-
+vim.keymap.set('n', '<Leader>hp', gitsigns.preview_hunk, keyopts)
+vim.keymap.set({ 'n', 'v' }, '<Leader>hr', gitsigns.reset_hunk, keyopts)
 
 local fterm_options = {
   dimensions = {
@@ -22,55 +25,61 @@ local fterm_options = {
     width = 0.9,
   },
 }
-local terminal = require('FTerm'):new(fterm_options)
-vim.keymap.set('n', '<tab>tt', function() terminal:open() end, keyopts)
+local terminal = fterm:new(fterm_options)
+vim.keymap.set('n', '<Tab>tt', function()
+  terminal:open()
+end, keyopts)
 local terminals = {}
 for i = 1, 9 do
-  local new_terminal = require('FTerm'):new(fterm_options)
+  local new_terminal = fterm:new(fterm_options)
   table.insert(terminals, new_terminal)
-  vim.keymap.set('n', '<tab>t' .. i, function() new_terminal:open() end, keyopts)
+  vim.keymap.set('n', '<Tab>t' .. i, function()
+    new_terminal:open()
+  end, keyopts)
 end
-vim.api.nvim_create_autocmd("FileType", {
-  pattern = "FTerm",
-  callback = function() vim.keymap.set({ 't', 'n' }, '<c-[>', function()
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = 'FTerm',
+  callback = function()
+    vim.keymap.set({ 't', 'n' }, '<C-[>', function()
       terminal:close(false)
       for _, term in ipairs(terminals) do
         term:close(false)
       end
     end, { buffer = 0 })
-  end
+  end,
 })
 
-
-require('diffview').setup {
+local diffview_actions = require 'diffview.actions'
+diffview.setup {
   enhanced_diff_hl = true, -- See |diffview-config-enhanced_diff_hl|
   keymaps = {
     disable_defaults = true,
     view = {
-      ["<C-[>"] = ':DiffviewClose<cr>',
+      ['<C-[>'] = ':DiffviewClose<CR>',
     },
     file_panel = {
-      ["j"] = require('diffview.actions').select_next_entry,
-      ["<C-n>"] = require('diffview.actions').select_next_entry,
-      ["k"] = require('diffview.actions').select_prev_entry,
-      ["<C-p>"] = require('diffview.actions').select_prev_entry,
-      ["<CR>"] =
-        function()
-          require('diffview.actions').goto_file_edit()
-          for _, view in pairs(require('diffview.lib').views) do
-            view:close()
-          end
-        end,
-      ["<C-[>"] = ':DiffviewClose<CR>',
-      ["<C-d>"] = require('diffview.actions').scroll_view(0.25),
-      ["<C-u>"] = require('diffview.actions').scroll_view(-0.25),
+      ['j'] = diffview_actions.select_next_entry,
+      ['<C-n>'] = diffview_actions.select_next_entry,
+      ['k'] = diffview_actions.select_prev_entry,
+      ['<C-p>'] = diffview_actions.select_prev_entry,
+      ['<CR>'] = function()
+        diffview_actions.goto_file_edit()
+        for _, view in pairs(require('diffview.lib').views) do
+          view:close()
+        end
+      end,
+      ['<C-[>'] = ':DiffviewClose<CR>',
+      ['<C-d>'] = diffview_actions.scroll_view(0.25),
+      ['<C-u>'] = diffview_actions.scroll_view(-0.25),
     },
     file_history_panel = {
-      ["<C-[>"] = ':DiffviewClose<CR>',
+      ['<C-[>'] = ':DiffviewClose<CR>',
     },
   },
   hooks = {
-    diff_buf_read = function() vim.api.nvim_win_set_cursor(0, { 1, 0 }) end,
-  }
+    diff_buf_read = function()
+      vim.api.nvim_win_set_cursor(0, { 1, 0 })
+    end,
+  },
 }
-vim.keymap.set('n', '<tab>gd', ':DiffviewOpen<cr>', keyopts)
+vim.keymap.set('n', '<Tab>gd', ':DiffviewOpen<CR>', keyopts)

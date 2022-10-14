@@ -1,3 +1,5 @@
+local keyopts = { noremap = true, silent = true }
+
 -- Standard options
 vim.opt.expandtab = true -- Use spaces instead of tabs
 vim.opt.ignorecase = true -- Ignore case
@@ -14,16 +16,13 @@ vim.opt.number = false
 vim.opt.relativenumber = false
 vim.opt.signcolumn = 'yes'
 vim.opt.showtabline = 0
-local keyopts = { noremap = true, silent = true }
-
 
 -- Indents
 vim.opt.shiftwidth = 4
-vim.api.nvim_create_autocmd("FileType", { pattern = {"lua", "html"}, command = "setlocal shiftwidth=2" })
+vim.api.nvim_create_autocmd('FileType', { pattern = { 'lua', 'html' }, command = 'setlocal shiftwidth=2' })
 
 -- Do not insert comment on newline
-vim.api.nvim_create_autocmd("FileType", { command = "set formatoptions-=o" })
-
+vim.api.nvim_create_autocmd('FileType', { command = 'set formatoptions-=o' })
 
 -- Appearance
 vim.opt.termguicolors = true
@@ -39,19 +38,16 @@ vim.cmd [[highlight! link DiagnosticWarn  YellowSign]]
 vim.cmd [[highlight! link DiagnosticInfo  BlueSign  ]]
 vim.cmd [[highlight! link DiagnosticHint  AquaSign  ]]
 
-
 -- Folding
 vim.opt.foldmethod = 'expr'
 vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
 vim.opt.foldenable = false
 
-
 --Remap space as leader key
-vim.keymap.set('', '<space>', '<Nop>', keyopts)
+vim.keymap.set('', '<Space>', '<Nop>', keyopts)
 vim.keymap.set('', '_', '<Nop>', keyopts)
-vim.g.mapleader = " "
-vim.g.maplocalleader = " "
-
+vim.g.mapleader = ' '
+vim.g.maplocalleader = ' '
 
 -- Set line wrap options
 vim.opt.linebreak = true
@@ -59,34 +55,29 @@ vim.opt.breakindent = true
 vim.opt.breakindentopt = 'shift:2,min:40,sbr'
 vim.opt.showbreak = ' >> '
 
-
 -- Allow scrolling to wraped lines with arrow keys
-vim.keymap.set('', '<up>', 'gk', keyopts)
-vim.keymap.set('i', '<up>', '<c-o>gk', keyopts)
-vim.keymap.set('', '<down>', 'gj', keyopts)
-vim.keymap.set('i', '<down>', '<c-o>gj', keyopts)
-
+vim.keymap.set('', '<Up>', 'gk', keyopts)
+vim.keymap.set('i', '<Up>', '<C-o>gk', keyopts)
+vim.keymap.set('', '<Down>', 'gj', keyopts)
+vim.keymap.set('i', '<Down>', '<C-o>gj', keyopts)
 
 -- Exit terminal mode on escape
--- vim.keymap.set('t', '<esc>', [[<c-\><c-n>]], keyopts)
-vim.keymap.set('t', '<c-[>', [[<c-\><c-n>]], keyopts)
-
+-- vim.keymap.set('t', '<Esc>', [[<C-\><C-n>]], keyopts)
+vim.keymap.set('t', '<C-[>', [[<C-\><C-n>]], keyopts)
 
 -- Restore <c-i> as jump forward keymap (see alacritty.yml)
--- vim.keymap.set('n', '<F13>', '<c-i>', keyopts)
-
+-- vim.keymap.set('n', '<F13>', '<C-i>', keyopts)
 
 -- Diagnostics
-vim.diagnostic.config({ float = { border = 'rounded' } })
+vim.diagnostic.config { float = { border = 'rounded' } }
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, keyopts)
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next, keyopts)
 
-local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
+local signs = { Error = ' ', Warn = ' ', Hint = ' ', Info = ' ' }
 for type, icon in pairs(signs) do
-  local hl = "DiagnosticSign" .. type
+  local hl = 'DiagnosticSign' .. type
   vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
 end
-
 
 function P(v)
   local function dump(o, level)
@@ -98,8 +89,10 @@ function P(v)
       local shift = string.rep(tab, level)
       local s = '{\n'
       for k, v in pairs(o) do
-        if type(k) ~= 'number' then k = '"' .. tostring(k) .. '"' end
-        s = s .. shift .. tab .. '[' .. k .. '] = ' .. dump(v, level + 1) .. ",\n"
+        if type(k) ~= 'number' then
+          k = '"' .. tostring(k) .. '"'
+        end
+        s = s .. shift .. tab .. '[' .. k .. '] = ' .. dump(v, level + 1) .. ',\n'
       end
       return s .. shift .. '}\n' .. shift
     else

@@ -1,16 +1,19 @@
 local keyopts = { noremap = true, silent = true }
 
+local telescope = require 'telescope'
+local actions = require 'telescope.actions'
+local builtin = require 'telescope.builtin'
 
-require('telescope').setup {
+telescope.setup {
   defaults = {
     mappings = {
       i = {
-        ["<esc>"] = require('telescope.actions').close,
-        ["<c-[>"] = require('telescope.actions').close,
-        ["<c-/>"] = require('telescope.actions').which_key,
+        ['<Esc>'] = actions.close,
+        ['<C-[>'] = actions.close,
+        ['<C-/>'] = actions.which_key,
       },
       n = {
-        ["<c-/>"] = require('telescope.actions').which_key,
+        ['<C-/>'] = actions.which_key,
       },
     },
     sorting_strategy = 'ascending',
@@ -46,22 +49,22 @@ require('telescope').setup {
             end
           end
 
-          vim.fn.jobstart(
-            {
-              'catimg', filepath,
-              '-w', vim.api.nvim_win_get_width(opts.winid),
-              -- '-H', vim.api.nvim_win_get_height(opts.winid),
-            },
-            { on_stdout = send_output, stdout_buffered = true })
+          vim.fn.jobstart({
+            'catimg',
+            filepath,
+            '-w',
+            vim.api.nvim_win_get_width(opts.winid),
+            -- '-H', vim.api.nvim_win_get_height(opts.winid),
+          }, { on_stdout = send_output, stdout_buffered = true })
         else
-          require("telescope.previewers.utils").set_preview_message(bufnr, opts.winid, "Binary cannot be previewed")
+          require('telescope.previewers.utils').set_preview_message(bufnr, opts.winid, 'Binary cannot be previewed')
         end
-      end
+      end,
     },
   },
   pickers = {
     diagnostics = {
-      layout_strategy = "vertical",
+      layout_strategy = 'vertical',
       layout_config = {
         mirror = true,
       },
@@ -69,46 +72,46 @@ require('telescope').setup {
   },
   extensions = {
     ['file_browser'] = {
-      dir_icon = "",
-      cwd = "%:p:h",
+      dir_icon = '',
+      cwd = '%:p:h',
       select_buffer = true,
       grouped = true,
       hide_parent_dir = true,
-      initial_mode = "normal",
+      initial_mode = 'normal',
       mappings = {
         i = {
-          ["<esc>"] = { "<esc>", type = "command" },
-          ["<c-[>"] = { "<c-[>", type = "command" },
-          ["<c-h>"] = require("telescope").extensions.file_browser.actions.toggle_hidden,
+          ['<Esc>'] = { '<Esc>', type = 'command' },
+          ['<C-[>'] = { '<C-[>', type = 'command' },
+          ['<C-h>'] = telescope.extensions.file_browser.actions.toggle_hidden,
         },
         n = {
-          ["h"] = require("telescope").extensions.file_browser.actions.goto_parent_dir,
-          ["l"] = require("telescope.actions").select_default,
-          ["<c-h>"] = require("telescope").extensions.file_browser.actions.toggle_hidden,
-          ["<c-[>"] = require('telescope.actions').close,
+          ['h'] = telescope.extensions.file_browser.actions.goto_parent_dir,
+          ['l'] = actions.select_default,
+          ['<C-h>'] = telescope.extensions.file_browser.actions.toggle_hidden,
+          ['<C-[>'] = actions.close,
         },
       },
     },
   },
 }
-require('telescope').load_extension 'fzf'
-require 'nvim-web-devicons'.setup()
-require('telescope').load_extension 'file_browser'
+telescope.load_extension 'fzf'
+require('nvim-web-devicons').setup()
+telescope.load_extension 'file_browser'
 
-vim.keymap.set('n', '<tab><tab>', require('telescope.builtin').resume, keyopts)
-vim.keymap.set('n', '<tab><leader>', require('telescope.builtin').builtin, keyopts)
-vim.keymap.set('n', '<tab>/', require('telescope.builtin').live_grep, keyopts)
-vim.keymap.set('n', '<tab>?', require('telescope.builtin').current_buffer_fuzzy_find, keyopts)
-vim.keymap.set('n', '<tab>f', require('telescope.builtin').find_files, keyopts)
-vim.keymap.set('n', '<tab>w', require('telescope.builtin').buffers, keyopts)
-vim.keymap.set('n', '<tab>o', require('telescope.builtin').oldfiles, keyopts)
-vim.keymap.set('n', '<tab>b', require('telescope').extensions.file_browser.file_browser, keyopts)
-vim.keymap.set('n', '<tab>p', require('telescope.builtin').registers, keyopts)
+vim.keymap.set('n', '<Tab><Tab>', builtin.resume, keyopts)
+vim.keymap.set('n', '<Tab><Leader>', builtin.builtin, keyopts)
+vim.keymap.set('n', '<Tab>/', builtin.live_grep, keyopts)
+vim.keymap.set('n', '<Tab>?', builtin.current_buffer_fuzzy_find, keyopts)
+vim.keymap.set('n', '<Tab>f', builtin.find_files, keyopts)
+vim.keymap.set('n', '<Tab>w', builtin.buffers, keyopts)
+vim.keymap.set('n', '<Tab>o', builtin.oldfiles, keyopts)
+vim.keymap.set('n', '<Tab>b', telescope.extensions.file_browser.file_browser, keyopts)
+vim.keymap.set('n', '<Tab>p', builtin.registers, keyopts)
 
-vim.keymap.set('n', '<tab>d', require('telescope.builtin').diagnostics, keyopts)
-vim.keymap.set('n', '<tab>s', require('telescope.builtin').lsp_document_symbols, keyopts)
-vim.keymap.set('n', '<tab>r', require('telescope.builtin').lsp_references, keyopts)
-vim.keymap.set('n', '<tab>gs', require('telescope.builtin').git_status, keyopts)
-vim.keymap.set('n', '<tab>gb', require('telescope.builtin').git_branches, keyopts)
-vim.keymap.set('n', '<tab>gc', require('telescope.builtin').git_commits, keyopts)
-vim.keymap.set('n', '<tab>gf', require('telescope.builtin').git_bcommits, keyopts)
+vim.keymap.set('n', '<Tab>d', builtin.diagnostics, keyopts)
+vim.keymap.set('n', '<Tab>s', builtin.lsp_document_symbols, keyopts)
+vim.keymap.set('n', '<Tab>r', builtin.lsp_references, keyopts)
+vim.keymap.set('n', '<Tab>gs', builtin.git_status, keyopts)
+vim.keymap.set('n', '<Tab>gb', builtin.git_branches, keyopts)
+vim.keymap.set('n', '<Tab>gc', builtin.git_commits, keyopts)
+vim.keymap.set('n', '<Tab>gf', builtin.git_bcommits, keyopts)

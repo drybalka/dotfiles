@@ -1,24 +1,26 @@
 local keyopts = { noremap = true, silent = true }
 
+local lspconfig = require 'lspconfig'
+
 -- LSP settings
 vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, keyopts)
 vim.keymap.set('n', 'gd', vim.lsp.buf.definition, keyopts)
 vim.keymap.set('n', 'gt', vim.lsp.buf.type_definition, keyopts)
 vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, keyopts)
-vim.keymap.set({ 'n', 'i' }, '<c-/>', vim.lsp.buf.hover, keyopts)
-vim.keymap.set({ 'n', 'i' }, '<c-space>', vim.lsp.buf.signature_help, keyopts)
-vim.keymap.set('n', '<leader>r', vim.lsp.buf.rename, keyopts)
-vim.keymap.set('n', '<leader>r', vim.lsp.buf.rename, keyopts)
-vim.keymap.set('n', '<leader>=', vim.lsp.buf.formatting, keyopts)
-vim.keymap.set('v', '<leader>=', vim.lsp.buf.range_formatting, keyopts)
-vim.keymap.set('n', '<leader>a', vim.lsp.buf.code_action, keyopts)
-vim.keymap.set('v', '<leader>a', vim.lsp.buf.range_code_action, keyopts)
+vim.keymap.set({ 'n', 'i' }, '<C-/>', vim.lsp.buf.hover, keyopts)
+vim.keymap.set({ 'n', 'i' }, '<C-space>', vim.lsp.buf.signature_help, keyopts)
+vim.keymap.set('n', '<Leader>r', vim.lsp.buf.rename, keyopts)
+vim.keymap.set('n', '<Leader>r', vim.lsp.buf.rename, keyopts)
+vim.keymap.set('n', '<Leader>=', vim.lsp.buf.formatting, keyopts)
+vim.keymap.set('v', '<Leader>=', vim.lsp.buf.range_formatting, keyopts)
+vim.keymap.set('n', '<Leader>a', vim.lsp.buf.code_action, keyopts)
+vim.keymap.set('v', '<Leader>a', vim.lsp.buf.range_code_action, keyopts)
 
-vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
-  border = "rounded",
+vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, {
+  border = 'rounded',
 })
-vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
-  border = "rounded"
+vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(vim.lsp.handlers.signature_help, {
+  border = 'rounded',
 })
 require('lspconfig.ui.windows').default_options.border = 'rounded'
 
@@ -26,27 +28,27 @@ require('lspconfig.ui.windows').default_options.border = 'rounded'
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
 
-require('lspconfig').pyright.setup {
+lspconfig.pyright.setup {
   capabilities = capabilities,
 }
 
-require('lspconfig').clangd.setup {
+lspconfig.clangd.setup {
   capabilities = capabilities,
 }
 
-require('lspconfig').tsserver.setup {
+lspconfig.tsserver.setup {
   capabilities = capabilities,
 }
 
-require('lspconfig').kotlin_language_server.setup {
+lspconfig.kotlin_language_server.setup {
   capabilities = capabilities,
 }
 
-require('lspconfig').metals.setup {
+lspconfig.metals.setup {
   capabilities = capabilities,
 }
 
-require 'lspconfig'.sumneko_lua.setup {
+lspconfig.sumneko_lua.setup {
   settings = {
     Lua = {
       runtime = {
@@ -56,7 +58,7 @@ require 'lspconfig'.sumneko_lua.setup {
         globals = { 'vim' }, -- Get the language server to recognize the `vim` global
       },
       workspace = {
-        library = vim.api.nvim_get_runtime_file("", true), -- Make the server aware of Neovim runtime files
+        library = vim.api.nvim_get_runtime_file('', true), -- Make the server aware of Neovim runtime files
       },
       telemetry = {
         enable = false, -- Do not send telemetry data containing a randomized but unique identifier
@@ -68,22 +70,24 @@ require 'lspconfig'.sumneko_lua.setup {
 -- vim.g.markdown_fenced_languages = {
 --   "ts=typescript"
 -- }
--- require('lspconfig').denols.setup {
+-- lspconfig.denols.setup {
 --   init_options = {
 --     lint = true,
 --   },
 -- }
 
-require('lspconfig').jdtls.setup {
+lspconfig.jdtls.setup {
   capabilities = capabilities,
   on_new_config = function(new_config, new_root_dir)
-    local conf = vim.loop.os_homedir() .. "/.cache/jdtls"
-    local data = new_root_dir:gsub("(.*)/(%w+)", conf .. "/workspaces/%1/%2")
+    local conf = vim.loop.os_homedir() .. '/.cache/jdtls'
+    local data = new_root_dir:gsub('(.*)/(%w+)', conf .. '/workspaces/%1/%2')
     new_config.cmd = {
-      "jdtls-with-latest-jvm",
-      "-configuration", conf,
-      "-data", data,
+      'jdtls-with-latest-jvm',
+      '-configuration',
+      conf,
+      '-data',
+      data,
     }
   end,
 }
-vim.lsp.set_log_level("debug")
+vim.lsp.set_log_level 'debug'
