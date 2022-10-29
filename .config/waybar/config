@@ -98,7 +98,7 @@
     "format-ethernet": " {ifname}: {ipaddr}/{cidr}",
     "format-disconnected": " Disconnected",
     "tooltip-format": "{bandwidthUpBits} / {bandwidthDownBits}",
-    "on-click": "alacritty -e nmtui &"
+    "on-click": "foot -e nmtui &"
   },
 
   "bluetooth": {
