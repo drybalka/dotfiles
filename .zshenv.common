@@ -3,8 +3,6 @@ path=("$HOME/.local/bin" "$path[@]")
 export PATH
 
 export GPG_TTY=$(tty)
-unset SSH_AGENT_PID
-export SSH_AUTH_SOCK="${XDG_RUNTIME_DIR}/gnupg/S.gpg-agent.ssh"
 
 export QT_QPA_PLATFORM="wayland;xcb"
 export __EGL_VENDOR_LIBRARY_FILENAMES="/usr/share/glvnd/egl_vendor.d/50_mesa.json"
