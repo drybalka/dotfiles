@@ -14,7 +14,14 @@
 #waybar {
   color: @fg;
   font-family: "DejaVu Sans Mono";
-  background: linear-gradient(to bottom, @bg 60%, alpha(@bg, 0.94), alpha(@bg, 0.75), alpha(@bg, 0.44), alpha(@bg, 0));
+  background: linear-gradient(
+    to bottom,
+    @bg 60%,
+    alpha(@bg, 0.94),
+    alpha(@bg, 0.75),
+    alpha(@bg, 0.44),
+    alpha(@bg, 0)
+  );
 }
 
 #clock,
@@ -73,13 +80,11 @@ tooltip label {
   color: @bg;
 }
 
-#workspaces button {
-  padding-left: 4px;
-  padding-right: 4px;
+button {
   color: @fg;
 }
 
-#workspaces button:hover {
+button:hover {
   box-shadow: inherit;
   text-shadow: inherit;
   background: inherit;
