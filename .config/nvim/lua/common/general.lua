@@ -62,11 +62,10 @@ vim.keymap.set('', '<Down>', 'gj', keyopts)
 vim.keymap.set('i', '<Down>', '<C-o>gj', keyopts)
 
 -- Exit terminal mode on escape
--- vim.keymap.set('t', '<Esc>', [[<C-\><C-n>]], keyopts)
 vim.keymap.set('t', '<C-[>', [[<C-\><C-n>]], keyopts)
 
--- Restore <c-i> as jump forward keymap (see alacritty.yml)
--- vim.keymap.set('n', '<F13>', '<C-i>', keyopts)
+-- Restore <c-i> as jump forward keymap
+vim.keymap.set('n', '<c-i>', '<c-i>')
 
 -- Diagnostics
 vim.diagnostic.config { float = { border = 'rounded' } }
