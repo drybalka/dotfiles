@@ -4,19 +4,17 @@
     "custom/scratchpad-indicator",
     "sway/mode"
   ],
-  "modules-center": [
-    "custom/media"
-  ],
+  "modules-center": ["custom/media"],
   "modules-right": [
     "custom/weather",
-  "bluetooth",
-  "sway/language",
-  "network",
-  "memory",
-  "cpu",
-  "temperature",
-  "battery",
-  "clock"
+    "bluetooth",
+    "sway/language",
+    "network",
+    "memory",
+    "cpu",
+    "temperature",
+    "battery",
+    "clock"
   ],
 
   "fixed-center": false,
@@ -54,13 +52,7 @@
     },
     "format": " {icon} {capacity}%",
     "format-discharging": "{icon} {capacity}%",
-    "format-icons": [
-      "",
-    "",
-    "",
-    "",
-    "" 
-    ]
+    "format-icons": ["", "", "", "", ""]
   },
 
   "clock": {
@@ -68,7 +60,6 @@
     "format": "{:%H:%M:%S}",
     "tooltip-format": "{:%a %e %B %Y}"
   },
-
 
   "cpu": {
     "interval": 5,
@@ -127,15 +118,8 @@
     "thermal-zone": 13,
     "critical-threshold": 80,
     "interval": 5,
-    "format": "{icon} {temperatureC}°C",
-    "format-icons": [
-      "",
-    "",
-    "",
-    "",
-    ""
-    ],
+    "format": "{icon}{temperatureC}°C",
+    "format-icons": ["", "", "", "", ""],
     "tooltip": true
   }
 }
-# vi:syntax=json:

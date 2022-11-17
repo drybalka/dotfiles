@@ -81,6 +81,8 @@ tooltip label {
 }
 
 button {
+  padding-left: 4px;
+  padding-right: 4px;
   color: @fg;
 }
 

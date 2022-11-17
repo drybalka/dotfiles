@@ -77,12 +77,12 @@ if [ -n "$current" ] && [ -n "$forecast" ]; then
     sunrise=" $(date -d @$(echo "$current" | jq ".sys.sunrise") +%H:%M)"
     sunset=" $(date -d @$(echo "$current" | jq ".sys.sunset") +%H:%M)"
     description="$(echo "$current" | jq -r ".weather[0].description")"
-    humidity="  $(echo "$current" | jq ".main.humidity") %"
-    pressure="  $(echo "$current" | jq ".main.pressure") hPa"
+    humidity=" $(echo "$current" | jq ".main.humidity") %"
+    pressure=" $(echo "$current" | jq ".main.pressure") hPa"
     wind_speed=" $(echo "$current" | jq ".wind.speed") m/s"
     wind_gust=" $(echo "$current" | jq ".wind.gust") m/s"
 
     #echo "$(get_icon "$current_icon")$current_temp$SYMBOL$trend $(get_icon "$forecast_icon")$forecast_temp$SYMBOL --- $daytime"
     #echo $current
-    echo {'"text"': '"'"$(get_icon "$current_icon") $current_temp$SYMBOL $trend $(get_icon "$forecast_icon") $forecast_temp$SYMBOL"'"', '"tooltip"': '"'$description\\n"$wind_speed  $wind_gust"\\n"$pressure  $humidity"\\n"$sunrise     $sunset"'"'}
+    echo {'"text"': '"'"$(get_icon "$current_icon") $current_temp$SYMBOL$trend$(get_icon "$forecast_icon") $forecast_temp$SYMBOL"'"', '"tooltip"': '"'$description\\n"$wind_speed  $wind_gust"\\n"$pressure   $humidity"\\n"$sunrise     $sunset"'"'}
 fi
