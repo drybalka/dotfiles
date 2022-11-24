@@ -47,6 +47,10 @@ lspconfig.metals.setup {
   capabilities = capabilities,
 }
 
+lspconfig.rust_analyzer.setup {
+  capabilities = capabilities,
+}
+
 lspconfig.sumneko_lua.setup {
   settings = {
     Lua = {
@@ -89,4 +93,4 @@ lspconfig.jdtls.setup {
     }
   end,
 }
-vim.lsp.set_log_level 'debug'
+-- vim.lsp.set_log_level 'debug'
