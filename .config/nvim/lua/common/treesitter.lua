@@ -28,7 +28,6 @@ require('nvim-treesitter.configs').setup {
 }
 
 -- Allow node movements
--- vim.opt.runtimepath:append("/home/drybalka/code/tree-climber.nvim")
 local tree_climber_opts = {
   skip_comments = false,
   highlight = true,

@@ -47,6 +47,9 @@ require 'paq' {
   'kylechui/nvim-surround',
 }
 
+-- vim.opt.runtimepath:append("/home/drybalka/code/tree-climber.nvim")
+-- vim.opt.runtimepath:append("/home/tng/code/null-ls.nvim")
+
 require 'common.general'
 require 'common.lsp'
 require 'common.git'

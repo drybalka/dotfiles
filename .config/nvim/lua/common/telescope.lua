@@ -78,6 +78,8 @@ telescope.setup {
       grouped = true,
       hide_parent_dir = true,
       initial_mode = 'normal',
+      hidden = true,
+      respect_gitignore = false,
       mappings = {
         i = {
           ['<Esc>'] = { '<Esc>', type = 'command' },
