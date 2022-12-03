@@ -16,6 +16,7 @@ vim.opt.number = false
 vim.opt.relativenumber = false
 vim.opt.signcolumn = 'yes'
 vim.opt.showtabline = 0
+vim.opt.updatetime = 300
 
 -- Indents
 vim.opt.shiftwidth = 4

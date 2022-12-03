@@ -1,20 +1,36 @@
-local keyopts = { noremap = true, silent = true }
-
 local lspconfig = require 'lspconfig'
 
--- LSP settings
-vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, keyopts)
-vim.keymap.set('n', 'gd', vim.lsp.buf.definition, keyopts)
-vim.keymap.set('n', 'gt', vim.lsp.buf.type_definition, keyopts)
-vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, keyopts)
-vim.keymap.set({ 'n', 'i' }, '<C-/>', vim.lsp.buf.hover, keyopts)
-vim.keymap.set({ 'n', 'i' }, '<C-space>', vim.lsp.buf.signature_help, keyopts)
-vim.keymap.set('n', '<Leader>r', vim.lsp.buf.rename, keyopts)
-vim.keymap.set('n', '<Leader>r', vim.lsp.buf.rename, keyopts)
-vim.keymap.set('n', '<Leader>=', vim.lsp.buf.formatting, keyopts)
-vim.keymap.set('v', '<Leader>=', vim.lsp.buf.range_formatting, keyopts)
-vim.keymap.set('n', '<Leader>a', vim.lsp.buf.code_action, keyopts)
-vim.keymap.set('v', '<Leader>a', vim.lsp.buf.range_code_action, keyopts)
+local lsp_document_highlight = vim.api.nvim_create_augroup('lsp_document_highlight', { clear = true })
+
+local on_attach = function(client, bufnr)
+  local keyopts = { noremap = true, silent = true, buffer = bufnr }
+  vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, keyopts)
+  vim.keymap.set('n', 'gd', vim.lsp.buf.definition, keyopts)
+  vim.keymap.set('n', 'gt', vim.lsp.buf.type_definition, keyopts)
+  vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, keyopts)
+  vim.keymap.set({ 'n', 'i' }, '<C-/>', vim.lsp.buf.hover, keyopts)
+  vim.keymap.set({ 'n', 'i' }, '<C-space>', vim.lsp.buf.signature_help, keyopts)
+  vim.keymap.set('n', '<Leader>r', vim.lsp.buf.rename, keyopts)
+  vim.keymap.set('n', '<Leader>r', vim.lsp.buf.rename, keyopts)
+  vim.keymap.set('n', '<Leader>=', vim.lsp.buf.formatting, keyopts)
+  vim.keymap.set('v', '<Leader>=', vim.lsp.buf.range_formatting, keyopts)
+  vim.keymap.set('n', '<Leader>a', vim.lsp.buf.code_action, keyopts)
+  vim.keymap.set('v', '<Leader>a', vim.lsp.buf.range_code_action, keyopts)
+
+  if client.server_capabilities.documentHighlightProvider then
+    vim.api.nvim_clear_autocmds { group = lsp_document_highlight, buffer = bufnr }
+    vim.api.nvim_create_autocmd('CursorHold', {
+      callback = vim.lsp.buf.document_highlight,
+      group = lsp_document_highlight,
+      buffer = bufnr,
+    })
+    vim.api.nvim_create_autocmd('CursorMoved', {
+      callback = vim.lsp.buf.clear_references,
+      group = lsp_document_highlight,
+      buffer = bufnr,
+    })
+  end
+end
 
 vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, {
   border = 'rounded',
@@ -29,26 +45,32 @@ local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
 lspconfig.pyright.setup {
   capabilities = capabilities,
+  on_attach = on_attach,
 }
 
 lspconfig.clangd.setup {
   capabilities = capabilities,
+  on_attach = on_attach,
 }
 
 lspconfig.tsserver.setup {
   capabilities = capabilities,
+  on_attach = on_attach,
 }
 
 lspconfig.kotlin_language_server.setup {
   capabilities = capabilities,
+  on_attach = on_attach,
 }
 
 lspconfig.metals.setup {
   capabilities = capabilities,
+  on_attach = on_attach,
 }
 
 lspconfig.rust_analyzer.setup {
   capabilities = capabilities,
+  on_attach = on_attach,
 }
 
 lspconfig.sumneko_lua.setup {
@@ -68,6 +90,8 @@ lspconfig.sumneko_lua.setup {
       },
     },
   },
+  capabilities = capabilities,
+  on_attach = on_attach,
 }
 
 -- vim.g.markdown_fenced_languages = {
@@ -81,6 +105,7 @@ lspconfig.sumneko_lua.setup {
 
 lspconfig.jdtls.setup {
   capabilities = capabilities,
+  on_attach = on_attach,
   on_new_config = function(new_config, new_root_dir)
     local conf = vim.loop.os_homedir() .. '/.cache/jdtls'
     local data = new_root_dir:gsub('(.*)/(%w+)', conf .. '/workspaces/%1/%2')
