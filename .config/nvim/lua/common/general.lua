@@ -27,9 +27,7 @@ vim.api.nvim_create_autocmd('FileType', { command = 'set formatoptions-=o' })
 
 -- Appearance
 vim.opt.termguicolors = true
-vim.g.gruvbox_material_transparent_background = true
---vim.g.gruvbox_italic = true
-vim.g.gruvbox_invert_selection = false
+vim.g.gruvbox_material_transparent_background = 1
 vim.cmd [[colorscheme gruvbox-material]]
 vim.cmd [[highlight! link NormalFloat Normal]]
 vim.cmd [[highlight! link FloatBorder FloatermBorder]]

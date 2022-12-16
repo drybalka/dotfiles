@@ -10,7 +10,9 @@ local twilight = require 'twilight'
 
 dressing.setup {
   input = {
-    winblend = 0,
+    win_options = {
+      winblend = 0,
+    },
   },
 }
 vim.api.nvim_create_autocmd('FileType', {
