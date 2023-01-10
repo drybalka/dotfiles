@@ -2,7 +2,6 @@ local keyopts = { noremap = true, silent = true }
 
 local lspkind = require 'lspkind'
 local luasnip = require 'luasnip'
-local null_ls = require 'null-ls'
 local cmp = require 'cmp'
 if not cmp then
   return
@@ -90,23 +89,3 @@ end, keyopts)
 vim.keymap.set({ 'i', 's' }, '<C-k>', function()
   luasnip.jump(-1)
 end, keyopts)
-
-null_ls.setup {
-  -- debug = true,
-  sources = {
-    null_ls.builtins.code_actions.eslint_d,
-    null_ls.builtins.diagnostics.eslint_d,
-
-    null_ls.builtins.diagnostics.stylelint.with {
-      extra_args = { '--config', '/usr/lib/node_modules/stylelint-config-standard/index.js' },
-    },
-    null_ls.builtins.formatting.stylelint.with {
-      extra_args = { '--config', '/usr/lib/node_modules/stylelint-config-standard/index.js' },
-    },
-
-    null_ls.builtins.code_actions.refactoring,
-    null_ls.builtins.formatting.prettier,
-    null_ls.builtins.formatting.stylua,
-    null_ls.builtins.diagnostics.cfn_lint,
-  },
-}

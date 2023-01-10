@@ -1,4 +1,5 @@
 local lspconfig = require 'lspconfig'
+local null_ls = require 'null-ls'
 
 local lsp_document_highlight = vim.api.nvim_create_augroup('lsp_document_highlight', { clear = true })
 
@@ -11,9 +12,8 @@ local on_attach = function(client, bufnr)
   vim.keymap.set({ 'n', 'i' }, '<C-/>', vim.lsp.buf.hover, keyopts)
   vim.keymap.set({ 'n', 'i' }, '<C-space>', vim.lsp.buf.signature_help, keyopts)
   vim.keymap.set('n', '<Leader>r', vim.lsp.buf.rename, keyopts)
-  vim.keymap.set('n', '<Leader>r', vim.lsp.buf.rename, keyopts)
-  vim.keymap.set('n', '<Leader>=', vim.lsp.buf.formatting, keyopts)
-  vim.keymap.set('v', '<Leader>=', vim.lsp.buf.range_formatting, keyopts)
+  vim.keymap.set('n', '<Leader>=', vim.lsp.buf.format, keyopts)
+  vim.keymap.set('v', '<Leader>=', 'gq', keyopts)
   vim.keymap.set('n', '<Leader>a', vim.lsp.buf.code_action, keyopts)
   vim.keymap.set('v', '<Leader>a', vim.lsp.buf.range_code_action, keyopts)
 
@@ -117,5 +117,27 @@ lspconfig.jdtls.setup {
       data,
     }
   end,
+}
+
+null_ls.setup {
+  -- debug = true,
+  border = 'rounded',
+  on_attach = on_attach,
+  sources = {
+    null_ls.builtins.code_actions.eslint_d,
+    null_ls.builtins.diagnostics.eslint_d,
+
+    null_ls.builtins.diagnostics.stylelint.with {
+      extra_args = { '--config', '/usr/lib/node_modules/stylelint-config-standard/index.js' },
+    },
+    null_ls.builtins.formatting.stylelint.with {
+      extra_args = { '--config', '/usr/lib/node_modules/stylelint-config-standard/index.js' },
+    },
+
+    null_ls.builtins.code_actions.refactoring,
+    null_ls.builtins.formatting.prettier,
+    null_ls.builtins.formatting.stylua,
+    null_ls.builtins.diagnostics.cfn_lint,
+  },
 }
 -- vim.lsp.set_log_level 'debug'
