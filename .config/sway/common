@@ -63,6 +63,8 @@ bindsym {
     $mod+f exec dmenu-locate
     $mod+Escape exec dmenu-session
 
+    $mod+Print exec grim -g "$(slurp)" - | wl-copy
+
     $mod+Shift+f fullscreen
     $mod+q kill
     $mod+Shift+c reload
