@@ -40,38 +40,17 @@ vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(vim.lsp.handlers.s
 })
 require('lspconfig.ui.windows').default_options.border = 'rounded'
 
+local standard_servers =
+  { 'pyright', 'clangd', 'tsserver', 'kotlin_language_server', 'metals', 'rust_analyzer', 'html', 'cssls', 'jsonls' }
+
 -- nvim-cmp supports additional completion capabilities
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
-
-lspconfig.pyright.setup {
-  capabilities = capabilities,
-  on_attach = on_attach,
-}
-
-lspconfig.clangd.setup {
-  capabilities = capabilities,
-  on_attach = on_attach,
-}
-
-lspconfig.tsserver.setup {
-  capabilities = capabilities,
-  on_attach = on_attach,
-}
-
-lspconfig.kotlin_language_server.setup {
-  capabilities = capabilities,
-  on_attach = on_attach,
-}
-
-lspconfig.metals.setup {
-  capabilities = capabilities,
-  on_attach = on_attach,
-}
-
-lspconfig.rust_analyzer.setup {
-  capabilities = capabilities,
-  on_attach = on_attach,
-}
+for _, server in ipairs(standard_servers) do
+  lspconfig[server].setup {
+    capabilities = capabilities,
+    on_attach = on_attach,
+  }
+end
 
 lspconfig.sumneko_lua.setup {
   settings = {

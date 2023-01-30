@@ -20,7 +20,7 @@ vim.opt.updatetime = 300
 
 -- Indents
 vim.opt.shiftwidth = 4
-vim.api.nvim_create_autocmd('FileType', { pattern = { 'lua', 'html' }, command = 'setlocal shiftwidth=2' })
+vim.api.nvim_create_autocmd('FileType', { pattern = { 'lua', 'html', 'css' }, command = 'setlocal shiftwidth=2' })
 
 -- Do not insert comment on newline
 vim.api.nvim_create_autocmd('FileType', { command = 'set formatoptions-=o' })
