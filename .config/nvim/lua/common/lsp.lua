@@ -41,7 +41,7 @@ vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(vim.lsp.handlers.s
 require('lspconfig.ui.windows').default_options.border = 'rounded'
 
 local standard_servers =
-  { 'pyright', 'clangd', 'tsserver', 'kotlin_language_server', 'metals', 'rust_analyzer', 'html', 'cssls', 'jsonls' }
+  { 'pylsp', 'clangd', 'tsserver', 'kotlin_language_server', 'metals', 'rust_analyzer', 'html', 'cssls', 'jsonls' }
 
 -- nvim-cmp supports additional completion capabilities
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
@@ -113,10 +113,13 @@ null_ls.setup {
       extra_args = { '--config', '/usr/lib/node_modules/stylelint-config-standard/index.js' },
     },
 
+    null_ls.builtins.formatting.yapf,
+    null_ls.builtins.diagnostics.ruff,
+
     null_ls.builtins.code_actions.refactoring,
     null_ls.builtins.formatting.prettier,
     null_ls.builtins.formatting.stylua,
     null_ls.builtins.diagnostics.cfn_lint,
   },
 }
--- vim.lsp.set_log_level 'debug'
+vim.lsp.set_log_level 'debug'
