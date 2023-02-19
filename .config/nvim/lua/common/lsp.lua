@@ -52,7 +52,7 @@ for _, server in ipairs(standard_servers) do
   }
 end
 
-lspconfig.sumneko_lua.setup {
+lspconfig.lua_ls.setup {
   settings = {
     Lua = {
       runtime = {
