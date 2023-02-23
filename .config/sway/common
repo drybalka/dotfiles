@@ -11,6 +11,9 @@ set $term foot
 seat * hide_cursor 8000
 seat * hide_cursor when-typing enable
 
+# Inhibit sleep on fullscreen
+for_window [app_id=".*"] inhibit_idle fullscreen
+
 # Move and resize floating windows while pressing $mod
 floating_modifier $mod normal
 
