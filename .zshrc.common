@@ -81,13 +81,21 @@ if (( ${+terminfo[smkx]} && ${+terminfo[rmkx]} )); then
 fi
 
 # Aliases
-alias ls="ls --color -F"
-alias ll="ls --color -lh"
-alias la="ls --color -lha"
+alias ls='exa --group-directories-first --sort=extension'
+alias l='exa -lg --group-directories-first --sort=extension --git'
+alias la='exa -lag --group-directories-first --sort=extension --git'
+alias lt='exa -l --group-directories-first --sort=extension --tree --level=2 --git'
+alias lT='exa -l --group-directories-first --sort=extension --tree --git'
+alias rg='rg --pretty --smart-case'
+
 alias -g ...="../.."
 alias -g ....="../../.."
 alias -g .....="../../../.."
 alias dotfiles="git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME"
+
+fd () {
+    /usr/bin/fd "$@" -X exa -ld --group-directories-first --sort=extension --git
+}
 
 # Plugins
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
