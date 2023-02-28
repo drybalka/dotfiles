@@ -122,4 +122,4 @@ null_ls.setup {
     null_ls.builtins.diagnostics.cfn_lint,
   },
 }
-vim.lsp.set_log_level 'debug'
+-- vim.lsp.set_log_level 'debug'
