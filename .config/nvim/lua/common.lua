@@ -8,7 +8,7 @@ require 'paq' {
   {
     'nvim-treesitter/nvim-treesitter',
     run = function()
-      vim.cmd [[:TSUpdate]]
+      vim.cmd [[:TSUpdateSync]]
     end,
   },
   'drybalka/tree-climber.nvim',
