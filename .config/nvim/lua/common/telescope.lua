@@ -33,6 +33,79 @@ local refine_filename = function(filename, cwd)
   return { icon, hl_icon }, { dir, 'TelescopeResultsSpecialComment' }, { name }
 end
 
+local lsp_entry_maker = function(entry)
+  local res = require('telescope.make_entry').gen_from_quickfix()(entry)
+  res.display = function(entry_tbl)
+    local icon, dir, name = refine_filename(entry_tbl.filename)
+    local pos = ' ' .. entry_tbl.lnum .. ':' .. entry_tbl.col
+    local offset = generate_offset(icon[1] .. dir[1] .. name[1] .. pos .. '  ', 10)
+    local trimmed_text = entry_tbl.text:gsub('^%s*(.-)%s*$', '%1')
+    return generate_display {
+      icon,
+      dir,
+      name,
+      { pos, 'TelescopeResultsLineNr' },
+      { offset .. trimmed_text },
+    }
+  end
+  return res
+end
+
+local files_entry_maker = function(entry)
+  local res = require('telescope.make_entry').gen_from_file()(entry)
+  res.display = function(entry_tbl)
+    return generate_display { refine_filename(entry_tbl[1]) }
+  end
+  return res
+end
+
+local grep_entry_maker = function(entry)
+  local res = require('telescope.make_entry').gen_from_vimgrep()(entry)
+  res.display = function(entry_tbl)
+    local _, _, filename, pos, text = string.find(entry_tbl[1], '^(.*):(%d+:%d+):(.*)$')
+    local icon, dir, name = refine_filename(filename)
+    local offset = generate_offset(icon[1] .. dir[1] .. name[1] .. ' ' .. pos .. '  ', 10)
+    return generate_display { icon, dir, name, { ' ' .. pos, 'TelescopeResultsLineNr' }, { offset .. text } }
+  end
+  return res
+end
+
+local buffers_entry_maker = function(entry)
+  local res = require('telescope.make_entry').gen_from_buffer()(entry)
+  res.display = function(entry_tbl)
+    local icon, dir, name = refine_filename(entry_tbl.filename)
+    local offset = generate_offset(tostring(entry_tbl.bufnr), 3)
+    return generate_display {
+      { tostring(entry_tbl.bufnr) .. offset, 'TelescopeResultsNumber' },
+      { entry_tbl.indicator, 'TelescopeResultsComment' },
+      icon,
+      dir,
+      name,
+      { ' ' .. tostring(entry_tbl.lnum), 'TelescopeResultsLineNr' },
+    }
+  end
+  return res
+end
+
+local diagnostics_entry_maker = function(entry)
+  local res = require('telescope.make_entry').gen_from_diagnostics()(entry)
+  res.display = function(entry_tbl)
+    print(vim.inspect(entry_tbl))
+    local sign = vim.fn.sign_getdefined('DiagnosticSign' .. entry_tbl.type:lower():gsub('^%l', string.upper))[1]
+    local icon, dir, name = refine_filename(entry_tbl.filename)
+    local trimmed_text = entry_tbl.text:gsub('^%s*(.-)%s*$', '%1')
+    return generate_display {
+      { sign.text, sign.texthl },
+      { ' ' .. entry_tbl.lnum .. ':' .. entry_tbl.col .. ' ', sign.texthl },
+      icon,
+      dir,
+      name,
+      { ': ' .. trimmed_text },
+    }
+  end
+  return res
+end
+
 telescope.setup {
   defaults = {
     mappings = {
@@ -98,93 +171,33 @@ telescope.setup {
   },
   pickers = {
     live_grep = {
-      entry_maker = function(entry)
-        local res = require('telescope.make_entry').gen_from_vimgrep()(entry)
-        res.display = function(entry_tbl)
-          local _, _, filename, pos, text = string.find(entry_tbl[1], '^(.*):(%d+:%d+):(.*)$')
-          local icon, dir, name = refine_filename(filename)
-          local offset = generate_offset(icon[1] .. dir[1] .. name[1] .. ' ' .. pos .. '  ', 10)
-          return generate_display { icon, dir, name, { ' ' .. pos, 'TelescopeResultsLineNr' }, { offset .. text } }
-        end
-        return res
-      end,
+      entry_maker = grep_entry_maker,
       additional_args = { '--trim' },
     },
     find_files = {
-      entry_maker = function(entry)
-        local res = require('telescope.make_entry').gen_from_file()(entry)
-        res.display = function(entry_tbl)
-          return generate_display { refine_filename(entry_tbl[1]) }
-        end
-        return res
-      end,
+      entry_maker = files_entry_maker,
     },
     oldfiles = {
-      entry_maker = function(entry)
-        local res = require('telescope.make_entry').gen_from_file()(entry)
-        res.display = function(entry_tbl)
-          return generate_display { refine_filename(entry_tbl[1]) }
-        end
-        return res
-      end,
+      entry_maker = files_entry_maker,
     },
     buffers = {
-      entry_maker = function(entry)
-        local res = require('telescope.make_entry').gen_from_buffer()(entry)
-        res.display = function(entry_tbl)
-          local icon, dir, name = refine_filename(entry_tbl.filename)
-          local offset = generate_offset(tostring(entry_tbl.bufnr), 3)
-          return generate_display {
-            { tostring(entry_tbl.bufnr) .. offset, 'TelescopeResultsNumber' },
-            { entry_tbl.indicator, 'TelescopeResultsComment' },
-            icon,
-            dir,
-            name,
-            { ' ' .. tostring(entry_tbl.lnum), 'TelescopeResultsLineNr' },
-          }
-        end
-        return res
-      end,
+      entry_maker = buffers_entry_maker,
       sort_mru = true,
     },
     lsp_references = {
-      entry_maker = function(entry)
-        local res = require('telescope.make_entry').gen_from_quickfix()(entry)
-        res.display = function(entry_tbl)
-          local icon, dir, name = refine_filename(entry_tbl.filename)
-          local pos = ' ' .. entry_tbl.lnum .. ':' .. entry_tbl.col
-          local offset = generate_offset(icon[1] .. dir[1] .. name[1] .. pos .. '  ', 10)
-          local trimmed_text = entry_tbl.text:gsub('^%s*(.-)%s*$', '%1')
-          return generate_display {
-            icon,
-            dir,
-            name,
-            { pos, 'TelescopeResultsLineNr' },
-            { offset .. trimmed_text },
-          }
-        end
-        return res
-      end,
+      entry_maker = lsp_entry_maker,
+    },
+    lsp_definitions = {
+      entry_maker = lsp_entry_maker,
+    },
+    lsp_type_definitions = {
+      entry_maker = lsp_entry_maker,
+    },
+    lsp_implementations = {
+      entry_maker = lsp_entry_maker,
     },
     diagnostics = {
-      entry_maker = function(entry)
-        local res = require('telescope.make_entry').gen_from_diagnostics()(entry)
-        res.display = function(entry_tbl)
-          print(vim.inspect(entry_tbl))
-          local sign = vim.fn.sign_getdefined('DiagnosticSign' .. entry_tbl.type:lower():gsub('^%l', string.upper))[1]
-          local icon, dir, name = refine_filename(entry_tbl.filename)
-          local trimmed_text = entry_tbl.text:gsub('^%s*(.-)%s*$', '%1')
-          return generate_display {
-            { sign.text, sign.texthl },
-            { ' ' .. entry_tbl.lnum .. ':' .. entry_tbl.col .. ' ', sign.texthl },
-            icon,
-            dir,
-            name,
-            { ': ' .. trimmed_text },
-          }
-        end
-        return res
-      end,
+      entry_maker = diagnostics_entry_maker,
       wrap_results = true,
     },
   },
@@ -231,6 +244,9 @@ vim.keymap.set('n', '<Tab>p', builtin.registers, keyopts)
 vim.keymap.set('n', '<Tab>d', builtin.diagnostics, keyopts)
 vim.keymap.set('n', '<Tab>s', builtin.lsp_document_symbols, keyopts)
 vim.keymap.set('n', '<Tab>r', builtin.lsp_references, keyopts)
+vim.keymap.set('n', 'gd', builtin.lsp_definitions, keyopts)
+vim.keymap.set('n', 'gt', builtin.lsp_type_definitions, keyopts)
+vim.keymap.set('n', 'gi', builtin.lsp_implementations, keyopts)
 vim.keymap.set('n', '<Tab>gs', builtin.git_status, keyopts)
 vim.keymap.set('n', '<Tab>gb', builtin.git_branches, keyopts)
 vim.keymap.set('n', '<Tab>gc', builtin.git_commits, keyopts)
