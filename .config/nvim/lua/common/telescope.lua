@@ -74,7 +74,7 @@ local buffers_entry_maker = function(entry)
   local res = require('telescope.make_entry').gen_from_buffer()(entry)
   res.display = function(entry_tbl)
     local icon, dir, name = refine_filename(entry_tbl.filename)
-    local offset = generate_offset(tostring(entry_tbl.bufnr), 3)
+    local offset = generate_offset(tostring(entry_tbl.bufnr), 4)
     return generate_display {
       { tostring(entry_tbl.bufnr) .. offset, 'TelescopeResultsNumber' },
       { entry_tbl.indicator, 'TelescopeResultsComment' },
