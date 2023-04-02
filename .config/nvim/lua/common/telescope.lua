@@ -5,7 +5,7 @@ local actions = require 'telescope.actions'
 local builtin = require 'telescope.builtin'
 
 local generate_offset = function(str, tabsize)
-  local offset = tabsize - str:len() % tabsize
+  local offset = (tabsize - vim.fn.strdisplaywidth(str) % tabsize) % tabsize
   return string.rep(' ', offset)
 end
 
@@ -30,6 +30,7 @@ local refine_filename = function(filename, cwd)
   local name = relative_filename:match '[^/]*$'
   local dir = relative_filename:match '^.*/' or ''
   local icon, hl_icon = require('telescope.utils').transform_devicons(filename)
+  icon = icon .. generate_offset(icon, 3)
   return { icon, hl_icon }, { dir, 'TelescopeResultsSpecialComment' }, { name }
 end
 
@@ -90,13 +91,12 @@ end
 local diagnostics_entry_maker = function(entry)
   local res = require('telescope.make_entry').gen_from_diagnostics()(entry)
   res.display = function(entry_tbl)
-    print(vim.inspect(entry_tbl))
     local sign = vim.fn.sign_getdefined('DiagnosticSign' .. entry_tbl.type:lower():gsub('^%l', string.upper))[1]
+    local signature = sign.text .. ' ' .. entry_tbl.lnum .. ':' .. entry_tbl.col .. ' '
     local icon, dir, name = refine_filename(entry_tbl.filename)
     local trimmed_text = entry_tbl.text:gsub('^%s*(.-)%s*$', '%1')
     return generate_display {
-      { sign.text, sign.texthl },
-      { ' ' .. entry_tbl.lnum .. ':' .. entry_tbl.col .. ' ', sign.texthl },
+      { signature .. generate_offset(signature, 11), sign.texthl },
       icon,
       dir,
       name,
