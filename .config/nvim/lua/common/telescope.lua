@@ -38,8 +38,8 @@ local lsp_entry_maker = function(entry)
   local res = require('telescope.make_entry').gen_from_quickfix()(entry)
   res.display = function(entry_tbl)
     local icon, dir, name = refine_filename(entry_tbl.filename)
-    local pos = ' ' .. entry_tbl.lnum .. ':' .. entry_tbl.col
-    local offset = generate_offset(icon[1] .. dir[1] .. name[1] .. pos .. '  ', 10)
+    local pos = ' ' .. entry_tbl.lnum .. ':' .. entry_tbl.col .. '  '
+    local offset = generate_offset(icon[1] .. dir[1] .. name[1] .. pos, 10)
     local trimmed_text = entry_tbl.text:gsub('^%s*(.-)%s*$', '%1')
     return generate_display {
       icon,
@@ -66,7 +66,7 @@ local grep_entry_maker = function(entry)
     local _, _, filename, pos, text = string.find(entry_tbl[1], '^(.*):(%d+:%d+):(.*)$')
     local icon, dir, name = refine_filename(filename)
     local offset = generate_offset(icon[1] .. dir[1] .. name[1] .. ' ' .. pos .. '  ', 10)
-    return generate_display { icon, dir, name, { ' ' .. pos, 'TelescopeResultsLineNr' }, { offset .. text } }
+    return generate_display { icon, dir, name, { ' ' .. pos .. '  ', 'TelescopeResultsLineNr' }, { offset .. text } }
   end
   return res
 end
@@ -100,7 +100,7 @@ local diagnostics_entry_maker = function(entry)
       icon,
       dir,
       name,
-      { ': ' .. trimmed_text },
+      { ':  ' .. trimmed_text },
     }
   end
   return res
