@@ -183,6 +183,11 @@ telescope.setup {
     buffers = {
       entry_maker = buffers_entry_maker,
       sort_mru = true,
+      mappings = {
+        i = {
+          ['<C-q>'] = actions.delete_buffer,
+        },
+      },
     },
     lsp_references = {
       entry_maker = lsp_entry_maker,
