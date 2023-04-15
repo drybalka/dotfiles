@@ -15,7 +15,7 @@ local on_attach = function(client, bufnr)
   vim.keymap.set('n', '<Leader>=', vim.lsp.buf.format, keyopts)
   vim.keymap.set('v', '<Leader>=', 'gq', keyopts)
   vim.keymap.set('n', '<Leader>a', vim.lsp.buf.code_action, keyopts)
-  vim.keymap.set('v', '<Leader>a', vim.lsp.buf.range_code_action, keyopts)
+  -- vim.keymap.set('v', '<Leader>a', vim.lsp.buf.range_code_action, keyopts)
 
   if client.server_capabilities.documentHighlightProvider then
     vim.api.nvim_clear_autocmds { group = lsp_document_highlight, buffer = bufnr }
