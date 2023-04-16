@@ -1,5 +1,6 @@
 local lspconfig = require 'lspconfig'
 local null_ls = require 'null-ls'
+local navbuddy = require 'nvim-navbuddy'
 
 local lsp_document_highlight = vim.api.nvim_create_augroup('lsp_document_highlight', { clear = true })
 
@@ -16,6 +17,11 @@ local on_attach = function(client, bufnr)
   vim.keymap.set('v', '<Leader>=', 'gq', keyopts)
   vim.keymap.set('n', '<Leader>a', vim.lsp.buf.code_action, keyopts)
   -- vim.keymap.set('v', '<Leader>a', vim.lsp.buf.range_code_action, keyopts)
+  vim.keymap.set('n', '<Leader>n', navbuddy.open, keyopts)
+
+  if client.server_capabilities.documentSymbolProvider then
+    navbuddy.attach(client, bufnr)
+  end
 
   if client.server_capabilities.documentHighlightProvider then
     vim.api.nvim_clear_autocmds { group = lsp_document_highlight, buffer = bufnr }
@@ -31,6 +37,23 @@ local on_attach = function(client, bufnr)
     })
   end
 end
+
+navbuddy.setup {
+  window = {
+    size = '90%',
+    sections = {
+      left = {
+        size = "15%",
+      },
+      mid = {
+        size = "25%",
+      },
+    },
+  },
+  source_buffer = {
+    highlight = false,
+  },
+}
 
 vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, {
   border = 'rounded',

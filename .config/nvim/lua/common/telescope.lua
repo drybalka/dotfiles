@@ -207,7 +207,7 @@ telescope.setup {
     },
   },
   extensions = {
-    ['file_browser'] = {
+    file_browser = {
       dir_icon = '',
       cwd = '%:p:h',
       select_buffer = true,

@@ -25,6 +25,10 @@ require 'paq' {
   'jose-elias-alvarez/null-ls.nvim',
   'ThePrimeagen/refactoring.nvim',
 
+  'MunifTanjim/nui.nvim',
+  'SmiteshP/nvim-navic',
+  'SmiteshP/nvim-navbuddy',
+
   'lewis6991/gitsigns.nvim',
   'sindrets/diffview.nvim',
   'numToStr/FTerm.nvim',
