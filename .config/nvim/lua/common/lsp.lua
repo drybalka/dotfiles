@@ -7,9 +7,6 @@ local lsp_document_highlight = vim.api.nvim_create_augroup('lsp_document_highlig
 local on_attach = function(client, bufnr)
   local keyopts = { noremap = true, silent = true, buffer = bufnr }
   vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, keyopts)
-  -- vim.keymap.set('n', 'gd', vim.lsp.buf.definition, keyopts)
-  -- vim.keymap.set('n', 'gt', vim.lsp.buf.type_definition, keyopts)
-  -- vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, keyopts)
   vim.keymap.set({ 'n', 'i' }, '<C-/>', vim.lsp.buf.hover, keyopts)
   vim.keymap.set({ 'n', 'i' }, '<C-space>', vim.lsp.buf.signature_help, keyopts)
   vim.keymap.set('n', '<Leader>r', vim.lsp.buf.rename, keyopts)
@@ -17,7 +14,7 @@ local on_attach = function(client, bufnr)
   vim.keymap.set('v', '<Leader>=', 'gq', keyopts)
   vim.keymap.set('n', '<Leader>a', vim.lsp.buf.code_action, keyopts)
   -- vim.keymap.set('v', '<Leader>a', vim.lsp.buf.range_code_action, keyopts)
-  vim.keymap.set('n', '<Leader>n', navbuddy.open, keyopts)
+  vim.keymap.set('n', '<Leader>s', navbuddy.open, keyopts)
 
   if client.server_capabilities.documentSymbolProvider then
     navbuddy.attach(client, bufnr)
@@ -43,10 +40,10 @@ navbuddy.setup {
     size = '90%',
     sections = {
       left = {
-        size = "15%",
+        size = '15%',
       },
       mid = {
-        size = "25%",
+        size = '25%',
       },
     },
   },
@@ -130,9 +127,11 @@ null_ls.setup {
     null_ls.builtins.diagnostics.eslint_d,
 
     null_ls.builtins.diagnostics.stylelint.with {
+      filetypes = { 'css' },
       extra_args = { '--config', '/usr/lib/node_modules/stylelint-config-standard/index.js' },
     },
     null_ls.builtins.formatting.stylelint.with {
+      filetypes = { 'css' },
       extra_args = { '--config', '/usr/lib/node_modules/stylelint-config-standard/index.js' },
     },
 
