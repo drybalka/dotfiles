@@ -1,3 +1,4 @@
+require('neodev').setup()
 local lspconfig = require 'lspconfig'
 local null_ls = require 'null-ls'
 local navbuddy = require 'nvim-navbuddy'
@@ -60,8 +61,18 @@ vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(vim.lsp.handlers.s
 })
 require('lspconfig.ui.windows').default_options.border = 'rounded'
 
-local standard_servers =
-  { 'pylsp', 'clangd', 'tsserver', 'kotlin_language_server', 'metals', 'rust_analyzer', 'html', 'cssls', 'jsonls' }
+local standard_servers = {
+  'pylsp',
+  'clangd',
+  'tsserver',
+  'kotlin_language_server',
+  'metals',
+  'rust_analyzer',
+  'html',
+  'cssls',
+  'jsonls',
+  'lua_ls',
+}
 
 -- nvim-cmp supports additional completion capabilities
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
@@ -71,27 +82,6 @@ for _, server in ipairs(standard_servers) do
     on_attach = on_attach,
   }
 end
-
-lspconfig.lua_ls.setup {
-  settings = {
-    Lua = {
-      runtime = {
-        version = 'LuaJIT', -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
-      },
-      diagnostics = {
-        globals = { 'vim' }, -- Get the language server to recognize the `vim` global
-      },
-      workspace = {
-        library = vim.api.nvim_get_runtime_file('', true), -- Make the server aware of Neovim runtime files
-      },
-      telemetry = {
-        enable = false, -- Do not send telemetry data containing a randomized but unique identifier
-      },
-    },
-  },
-  capabilities = capabilities,
-  on_attach = on_attach,
-}
 
 -- vim.g.markdown_fenced_languages = {
 --   "ts=typescript"

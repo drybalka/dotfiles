@@ -1,15 +1,48 @@
-local keyopts = { noremap = true, silent = true }
-
 local dap = require 'dap'
+local stackmap = require 'stackmap'
+local dapui = require 'dapui'
 
-vim.keymap.set('n', '<F1>', dap.step_back, keyopts)
-vim.keymap.set('n', '<F2>', dap.step_into, keyopts)
-vim.keymap.set('n', '<F3>', dap.step_over, keyopts)
-vim.keymap.set('n', '<F4>', dap.step_out, keyopts)
-vim.keymap.set('n', '<F5>', dap.continue, keyopts)
-vim.keymap.set('n', '<F6>', dap.toggle_breakpoint, keyopts)
+dapui.setup {
+  controls = { enabled = false },
+  floating = { border = 'rounded', max_height = 0.9, max_width = 0.9 },
+}
 
--- vim.fn.sign_define('DapBreakpoint', {text='🛑', texthl='', linehl='', numhl=''})
+vim.fn.sign_define('DapBreakpoint', { text = '', texthl = 'Red', linehl = '', numhl = '' })
+vim.fn.sign_define('DapBreakpointRejected', { text = '', texthl = 'Red', linehl = '', numhl = '' })
+
+vim.keymap.set('n', '<Leader>db', dap.toggle_breakpoint, { desc = 'dap breakpoint' })
+vim.keymap.set('n', '<Leader>dr', dap.continue, { desc = 'dap run' })
+vim.keymap.set('n', '<Leader>dc', dap.repl.toggle, { desc = 'dap console' })
+vim.keymap.set('n', '<Leader>dt', dap.terminate, { desc = 'dap terminate' })
+vim.keymap.set({ 'n', 'v' }, '<Leader>de', require('dapui').eval, { desc = 'dap eval' })
+vim.keymap.set('n', '<Leader>dd', function()
+  dapui.float_element(nil, { enter = true })
+end, { desc = 'dap elements' })
+
+local is_debugging = false
+dap.listeners.after.event_initialized['dapui_config'] = function()
+  is_debugging = true
+  stackmap.push('Dap', 'n', {
+    ['<C-j>'] = dap.step_over,
+    ['<C-l>'] = dap.step_into,
+    ['<C-h>'] = dap.step_out,
+    ['<C-k>'] = dap.step_back,
+  })
+end
+dap.listeners.before.event_terminated['dapui_config'] = function()
+  if is_debugging then
+    is_debugging = false
+    stackmap.pop('Dap', 'n')
+  end
+end
+dap.listeners.before.event_exited['dapui_config'] = function()
+  if is_debugging then
+    is_debugging = false
+    stackmap.pop('Dap', 'n')
+  end
+end
+
+require('dap-python').setup()
 
 dap.configurations.lua = {
   {

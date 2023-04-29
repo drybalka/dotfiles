@@ -4,6 +4,7 @@ require 'paq' {
   'sainnhe/gruvbox-material',
 
   'neovim/nvim-lspconfig',
+  'folke/neodev.nvim',
 
   {
     'nvim-treesitter/nvim-treesitter',
@@ -34,6 +35,8 @@ require 'paq' {
   'numToStr/FTerm.nvim',
 
   'mfussenegger/nvim-dap',
+  'rcarriga/nvim-dap-ui',
+  'mfussenegger/nvim-dap-python',
   'jbyuki/one-small-step-for-vimkind',
 
   'nvim-telescope/telescope.nvim',
@@ -50,6 +53,7 @@ require 'paq' {
   'folke/twilight.nvim',
   'kylechui/nvim-surround',
   'chrisgrieser/nvim-spider',
+  'tjdevries/stackmap.nvim',
 }
 
 -- vim.opt.runtimepath:append("/home/drybalka/code/tree-climber.nvim")

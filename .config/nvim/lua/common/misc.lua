@@ -61,6 +61,45 @@ specs.setup {
   },
 }
 
+local function dap_controls()
+  local dap = require 'dap'
+  local is_debugging = false
+  dap.listeners.after.event_initialized['lualine'] = function()
+    is_debugging = true
+  end
+  dap.listeners.before.event_terminated['lualine'] = function()
+    is_debugging = false
+  end
+  dap.listeners.before.event_exited['lualine'] = function()
+    is_debugging = false
+  end
+  local controls = {
+    { icon = '', func = 'continue', color = 'Green' },
+    { icon = '', func = 'run_last', color = 'Green' },
+    { icon = '', func = 'step_into', color = 'Blue' },
+    { icon = '', func = 'step_over', color = 'Blue' },
+    { icon = '', func = 'step_out', color = 'Blue' },
+    { icon = '', func = 'step_back', color = 'Blue' },
+    { icon = '', func = 'terminate', color = 'Red' },
+  }
+  local res = { dap.status }
+  for _, elem in ipairs(controls) do
+    table.insert(res, {
+      function()
+        return elem.icon
+      end,
+      cond = function()
+        return is_debugging
+      end,
+      color = { fg = string.format('#%06x', vim.api.nvim_get_hl(0, {})[elem.color].fg) },
+      on_click = function()
+        dap[elem.func]()
+      end,
+    })
+  end
+  return res
+end
+
 -- Lualine setup
 lualine.setup {
   options = {
@@ -75,7 +114,7 @@ lualine.setup {
     lualine_a = { 'location' },
     lualine_b = { 'diagnostics', 'diff' },
     lualine_c = { { 'filetype', icon_only = true, separator = '' }, { 'filename', path = 1 } },
-    lualine_x = { 'tabs' },
+    lualine_x = dap_controls(),
     lualine_y = {},
     lualine_z = { 'progress' },
   },
