@@ -69,8 +69,8 @@ vim.keymap.set('n', '<c-i>', '<c-i>')
 
 -- Diagnostics
 vim.diagnostic.config { float = { border = 'rounded' } }
-vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, keyopts)
-vim.keymap.set('n', ']d', vim.diagnostic.goto_next, keyopts)
+vim.keymap.set('n', '[p', vim.diagnostic.goto_prev, keyopts)
+vim.keymap.set('n', ']p', vim.diagnostic.goto_next, keyopts)
 
 local signs = { Error = ' ', Warn = ' ', Hint = ' ', Info = ' ' }
 for type, icon in pairs(signs) do
