@@ -5,6 +5,7 @@ require 'paq' {
 
   'neovim/nvim-lspconfig',
   'folke/neodev.nvim',
+  'lukas-reineke/lsp-format.nvim',
 
   {
     'nvim-treesitter/nvim-treesitter',

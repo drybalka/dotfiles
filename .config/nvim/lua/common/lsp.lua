@@ -2,6 +2,9 @@ require('neodev').setup()
 local lspconfig = require 'lspconfig'
 local null_ls = require 'null-ls'
 local navbuddy = require 'nvim-navbuddy'
+local lsp_format = require 'lsp-format'
+
+lsp_format.setup()
 
 local lsp_document_highlight = vim.api.nvim_create_augroup('lsp_document_highlight', { clear = true })
 
@@ -16,6 +19,8 @@ local on_attach = function(client, bufnr)
   vim.keymap.set('n', '<Leader>a', vim.lsp.buf.code_action, keyopts)
   -- vim.keymap.set('v', '<Leader>a', vim.lsp.buf.range_code_action, keyopts)
   vim.keymap.set('n', '<Leader>s', navbuddy.open, keyopts)
+
+  require('lsp-format').on_attach(client)
 
   if client.server_capabilities.documentSymbolProvider then
     navbuddy.attach(client, bufnr)
