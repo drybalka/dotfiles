@@ -54,7 +54,7 @@ require 'paq' {
   'folke/twilight.nvim',
   'kylechui/nvim-surround',
   'chrisgrieser/nvim-spider',
-  'tjdevries/stackmap.nvim',
+  'asiryk/auto-hlsearch.nvim',
 }
 
 -- vim.opt.runtimepath:append("/home/drybalka/code/tree-climber.nvim")

@@ -1,5 +1,3 @@
-local keyopts = { noremap = true, silent = true }
-
 local dressing = require 'dressing'
 local comment = require 'Comment'
 local surround = require 'nvim-surround'
@@ -7,6 +5,9 @@ local indent_blankline = require 'indent_blankline'
 local specs = require 'specs'
 local lualine = require 'lualine'
 local twilight = require 'twilight'
+local dap = require 'dap'
+
+require('auto-hlsearch').setup()
 
 dressing.setup {
   input = {
@@ -62,17 +63,6 @@ specs.setup {
 }
 
 local function dap_controls()
-  local dap = require 'dap'
-  local is_debugging = false
-  dap.listeners.after.event_initialized['lualine'] = function()
-    is_debugging = true
-  end
-  dap.listeners.before.event_terminated['lualine'] = function()
-    is_debugging = false
-  end
-  dap.listeners.before.event_exited['lualine'] = function()
-    is_debugging = false
-  end
   local controls = {
     { icon = '', func = 'continue', color = 'Green' },
     { icon = '', func = 'run_last', color = 'Green' },
@@ -89,7 +79,7 @@ local function dap_controls()
         return elem.icon
       end,
       cond = function()
-        return is_debugging
+        return dap.session() ~= nil
       end,
       color = { fg = string.format('#%06x', vim.api.nvim_get_hl(0, {})[elem.color].fg) },
       on_click = function()
@@ -163,7 +153,7 @@ local function toggle()
   vim.api.nvim_set_current_line(line_start .. toggled_line)
 end
 
-vim.keymap.set('n', '<C-s>', toggle, keyopts)
+vim.keymap.set('n', '<C-s>', toggle, { desc = 'toggle boolean' })
 vim.keymap.set({ 'n', 'o', 'x' }, 'w', "<cmd>lua require('spider').motion('w')<CR>", { desc = 'Spider-w' })
 vim.keymap.set({ 'n', 'o', 'x' }, 'e', "<cmd>lua require('spider').motion('e')<CR>", { desc = 'Spider-e' })
 vim.keymap.set({ 'n', 'o', 'x' }, 'b', "<cmd>lua require('spider').motion('b')<CR>", { desc = 'Spider-b' })

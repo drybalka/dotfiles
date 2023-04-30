@@ -1,6 +1,5 @@
-local keyopts = { noremap = true, silent = true }
-
 local climber = require 'tree-climber'
+local dap = require 'dap'
 
 -- Treesitter configuration
 require('nvim-treesitter.configs').setup {
@@ -35,21 +34,44 @@ local tree_climber_opts = {
 }
 vim.keymap.set({ 'n', 'v', 'o' }, 'H', function()
   climber.goto_parent(tree_climber_opts)
-end, keyopts)
+end, { desc = 'tree-climber goto parent' })
 vim.keymap.set({ 'n', 'v', 'o' }, 'L', function()
   climber.goto_child(tree_climber_opts)
-end, keyopts)
+end, { desc = 'tree-climber goto child' })
 vim.keymap.set({ 'n', 'v', 'o' }, 'J', function()
   climber.goto_next(tree_climber_opts)
-end, keyopts)
+end, { desc = 'tree-climber goto next' })
 vim.keymap.set({ 'n', 'v', 'o' }, 'K', function()
   climber.goto_prev(tree_climber_opts)
-end, keyopts)
+end, { desc = 'tree-climber goto prev' })
 vim.keymap.set({ 'v', 'o' }, 'in', function()
   climber.select_node(tree_climber_opts)
-end, keyopts)
-vim.keymap.set('n', '<C-k>', climber.swap_prev, keyopts)
-vim.keymap.set('n', '<C-j>', climber.swap_next, keyopts)
+end, { desc = 'tree-climber select node' })
+vim.keymap.set('n', '<C-k>', function()
+  if dap.session() ~= nil then
+    dap.step_back()
+  else
+    climber.swap_prev()
+  end
+end, { desc = 'tree-climber swap prev / dap step back' })
+vim.keymap.set('n', '<C-j>', function()
+  if dap.session() ~= nil then
+    dap.step_over()
+  else
+    climber.swap_next()
+  end
+end, { desc = 'tree-climber swap next / dap step over' })
 vim.keymap.set('n', '<C-h>', function()
-  climber.highlight_node()
-end, keyopts)
+  if dap.session() ~= nil then
+    dap.step_out()
+  else
+    climber.highlight_node()
+  end
+end, { desc = 'tree-climber highlight node / dap step out' })
+vim.keymap.set('n', '<C-l>', function()
+  if dap.session() ~= nil then
+    dap.step_into()
+  else
+    vim.cmd 'nohlsearch'
+  end
+end, { desc = 'dap step into' })
