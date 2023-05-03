@@ -6,8 +6,8 @@ dapui.setup {
   floating = { border = 'rounded', max_height = 0.9, max_width = 0.9 },
 }
 
-vim.fn.sign_define('DapBreakpoint', { text = '', texthl = 'Red', linehl = '', numhl = '' })
-vim.fn.sign_define('DapBreakpointRejected', { text = '', texthl = 'Red', linehl = '', numhl = '' })
+vim.fn.sign_define('DapBreakpoint', { text = ' ', texthl = 'Red', linehl = '', numhl = '' })
+vim.fn.sign_define('DapBreakpointRejected', { text = ' ', texthl = 'Red', linehl = '', numhl = '' })
 
 vim.keymap.set('n', '<Leader>db', dap.toggle_breakpoint, { desc = 'dap breakpoint' })
 vim.keymap.set('n', '<Leader>dr', dap.continue, { desc = 'dap run' })
