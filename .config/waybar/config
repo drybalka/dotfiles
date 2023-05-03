@@ -20,7 +20,7 @@
   "fixed-center": false,
 
   "custom/media": {
-    "format": " {}",
+    "format": "󰐍 {}",
     "exec": "playerctl metadata -f '{{trunc(title, 20)}} - {{trunc(artist, 20)}}' -F",
     "on-click": "playerctl play-pause",
     "on-click-middle": "playerctl stop",
@@ -50,9 +50,10 @@
       "warning": 30,
       "critical": 15
     },
-    "format": " {icon} {capacity}%",
-    "format-discharging": "{icon} {capacity}%",
-    "format-icons": ["", "", "", "", ""]
+    "format-full": "󰂄",
+    "format-charging": "{icon}",
+    "format-discharging": "{icon}",
+    "format-icons": ["󰂎", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"]
   },
 
   "clock": {
@@ -63,7 +64,7 @@
 
   "cpu": {
     "interval": 5,
-    "format": "龍 {usage}%",
+    "format": "󰘚 {usage}%",
     "states": {
       "warning": 70,
       "critical": 90
@@ -71,12 +72,12 @@
   },
 
   "sway/language": {
-    "format": " {}"
+    "format": "󰥻 {}"
   },
 
   "memory": {
     "interval": 5,
-    "format": " {}%",
+    "format": "󰍛 {}%",
     "states": {
       "warning": 70,
       "critical": 90
@@ -85,19 +86,19 @@
 
   "network": {
     "interval": 5,
-    "format-wifi": " {signalStrength}%",
-    "format-ethernet": " {ifname}: {ipaddr}/{cidr}",
-    "format-disconnected": " Disconnected",
+    "format-wifi": "󰖩 {signalStrength}%",
+    "format-ethernet": "󰈁 {ifname}: {ipaddr}/{cidr}",
+    "format-disconnected": "󰖪 Disconnected",
     "tooltip-format": "{bandwidthUpBits} / {bandwidthDownBits}",
     "on-click": "foot -e nmtui &"
   },
 
   "bluetooth": {
-    "format": " {status}",
-    "format-off": "",
-    "format-on": "",
-    "format-connected": " {device_alias}",
-    "format-connected-battery": " {device_alias} {device_battery_percentage}%",
+    "format": "󰂯 {status}",
+    "format-off": "󰂲",
+    "format-on": "󰂯",
+    "format-connected": "󰂱 {device_alias}",
+    "format-connected-battery": "󰂱 {device_alias} {device_battery_percentage}%",
     "on-click": "bluetooth-toggle",
     "tooltip-format": "{controller_alias}\t{controller_address}\n\n{num_connections} connected",
     "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{num_connections} connected\n\n{device_enumerate}",

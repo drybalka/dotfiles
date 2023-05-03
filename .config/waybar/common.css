@@ -13,7 +13,7 @@
 
 #waybar {
   color: @fg;
-  font-family: "DejaVu Sans Mono";
+  font-family: "DejaVuSansM Nerd Font", monospace;
   background: linear-gradient(
     to bottom,
     @bg 60%,
@@ -42,7 +42,7 @@
 }
 
 tooltip {
-  font-family: "DejaVu Sans Mono";
+  font-family: "DejaVuSansM Nerd Font", monospace;
   border-radius: 4px;
   background-color: @bg;
 }
