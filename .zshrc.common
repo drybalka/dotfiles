@@ -111,3 +111,6 @@ then
   source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
   source ~/.config/p10k.zsh
 fi
+
+# Set correct gpg tty for pinenetry
+gpg-connect-agent UPDATESTARTUPTTY /bye >/dev/null
