@@ -153,6 +153,21 @@ local function toggle()
   vim.api.nvim_set_current_line(line_start .. toggled_line)
 end
 
+local saved_views = {}
+vim.api.nvim_create_autocmd('BufLeave', {
+  callback = function()
+    saved_views[vim.api.nvim_get_current_buf()] = vim.fn.winsaveview()
+  end,
+})
+vim.api.nvim_create_autocmd('BufEnter', {
+  callback = function()
+    local bufnr = vim.api.nvim_get_current_buf()
+    if saved_views[bufnr] then
+      vim.fn.winrestview(saved_views[bufnr])
+    end
+  end,
+})
+
 vim.keymap.set('n', '<C-s>', toggle, { desc = 'toggle boolean' })
 vim.keymap.set({ 'n', 'o', 'x' }, 'w', "<cmd>lua require('spider').motion('w')<CR>", { desc = 'Spider-w' })
 vim.keymap.set({ 'n', 'o', 'x' }, 'e', "<cmd>lua require('spider').motion('e')<CR>", { desc = 'Spider-e' })
