@@ -1,14 +1,14 @@
 local keyopts = { noremap = true, silent = true }
 
 -- Standard options
-vim.opt.expandtab = true -- Use spaces instead of tabs
-vim.opt.ignorecase = true -- Ignore case
-vim.opt.smartcase = true -- Do not ignore case with capitals
-vim.opt.scrolloff = 4 -- Lines of context
-vim.opt.softtabstop = -1 -- Set softtabstop to shiftwidth
+vim.opt.expandtab = true   -- Use spaces instead of tabs
+vim.opt.ignorecase = true  -- Ignore case
+vim.opt.smartcase = true   -- Do not ignore case with capitals
+vim.opt.scrolloff = 4      -- Lines of context
+vim.opt.softtabstop = -1   -- Set softtabstop to shiftwidth
 vim.opt.smartindent = true -- Insert indents automatically
-vim.opt.splitbelow = true -- Put new windows below current
-vim.opt.splitright = true -- Put new windows right of current
+vim.opt.splitbelow = true  -- Put new windows below current
+vim.opt.splitright = true  -- Put new windows right of current
 vim.opt.wrapscan = false
 vim.opt.mouse = 'a'
 vim.opt.showmode = false -- Do not show --INSERT-- and others on the last line
@@ -69,8 +69,8 @@ vim.keymap.set('n', '<c-i>', '<c-i>')
 
 -- Diagnostics
 vim.diagnostic.config { float = { border = 'rounded' } }
-vim.keymap.set('n', '[p', vim.diagnostic.goto_prev, keyopts)
-vim.keymap.set('n', ']p', vim.diagnostic.goto_next, keyopts)
+vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, keyopts)
+vim.keymap.set('n', ']d', vim.diagnostic.goto_next, keyopts)
 
 local signs = { Error = ' ', Warn = ' ', Hint = ' ', Info = ' ' }
 for type, icon in pairs(signs) do

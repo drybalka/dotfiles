@@ -31,7 +31,7 @@ end
 local on_attach = function(client, bufnr)
   local keyopts = { noremap = true, silent = true, buffer = bufnr }
   local builtin = require 'telescope.builtin'
-  vim.keymap.set('n', '<Tab>p', builtin.diagnostics, keyopts)
+  vim.keymap.set('n', '<Tab>d', builtin.diagnostics, keyopts)
   vim.keymap.set('n', '<Tab>s', builtin.lsp_document_symbols, keyopts)
   vim.keymap.set('n', '<Tab>r', builtin.lsp_references, keyopts)
   vim.keymap.set('n', 'gd', jump_and_scroll(builtin.lsp_definitions), keyopts)
