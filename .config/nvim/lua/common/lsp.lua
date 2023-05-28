@@ -8,9 +8,36 @@ lsp_format.setup()
 
 local lsp_document_highlight = vim.api.nvim_create_augroup('lsp_document_highlight', { clear = true })
 
+-- scroll cursor to the top on jumps
+local jump_and_scroll = function(jumper)
+  return function()
+    local name = vim.api.nvim_buf_get_name(0)
+    local cursor = vim.api.nvim_win_get_cursor(0)
+
+    jumper()
+
+    local wait_result = vim.wait(1000, function()
+      local new_name = vim.api.nvim_buf_get_name(0)
+      local new_cursor = vim.api.nvim_win_get_cursor(0)
+      return new_name ~= name or new_cursor[1] ~= cursor[1] or new_cursor[2] ~= cursor[2]
+    end, 10)
+
+    if wait_result then
+      vim.cmd 'normal zt'
+    end
+  end
+end
+
 local on_attach = function(client, bufnr)
   local keyopts = { noremap = true, silent = true, buffer = bufnr }
-  vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, keyopts)
+  local builtin = require 'telescope.builtin'
+  vim.keymap.set('n', '<Tab>p', builtin.diagnostics, keyopts)
+  vim.keymap.set('n', '<Tab>s', builtin.lsp_document_symbols, keyopts)
+  vim.keymap.set('n', '<Tab>r', builtin.lsp_references, keyopts)
+  vim.keymap.set('n', 'gd', jump_and_scroll(builtin.lsp_definitions), keyopts)
+  vim.keymap.set('n', 'gt', jump_and_scroll(builtin.lsp_type_definitions), keyopts)
+  vim.keymap.set('n', 'gi', jump_and_scroll(builtin.lsp_implementations), keyopts)
+  vim.keymap.set('n', 'gD', jump_and_scroll(vim.lsp.buf.declaration), keyopts)
   vim.keymap.set({ 'n', 'i' }, '<C-/>', vim.lsp.buf.hover, keyopts)
   vim.keymap.set({ 'n', 'i' }, '<C-space>', vim.lsp.buf.signature_help, keyopts)
   vim.keymap.set('n', '<Leader>r', vim.lsp.buf.rename, keyopts)

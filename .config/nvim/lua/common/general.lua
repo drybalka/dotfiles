@@ -17,7 +17,7 @@ vim.opt.relativenumber = false
 vim.opt.signcolumn = 'yes'
 vim.opt.showtabline = 0
 vim.opt.updatetime = 300
-vim.opt.jumpoptions = 'stack'
+vim.opt.jumpoptions = 'view'
 
 -- Indents
 vim.opt.shiftwidth = 4

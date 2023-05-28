@@ -3,6 +3,7 @@ local keyopts = { noremap = true, silent = true }
 local gitsigns = require 'gitsigns'
 local fterm = require 'FTerm'
 local diffview = require 'diffview'
+local telescope_builtins = require 'telescope.builtin'
 
 gitsigns.setup {
   on_attach = function(bufnr)
@@ -89,3 +90,8 @@ diffview.setup {
   },
 }
 vim.keymap.set('n', '<Tab>gd', ':DiffviewOpen<CR>', keyopts)
+
+vim.keymap.set('n', '<Tab>gs', telescope_builtins.git_status, keyopts)
+vim.keymap.set('n', '<Tab>gb', telescope_builtins.git_branches, keyopts)
+vim.keymap.set('n', '<Tab>gc', telescope_builtins.git_commits, keyopts)
+vim.keymap.set('n', '<Tab>gf', telescope_builtins.git_bcommits, keyopts)
