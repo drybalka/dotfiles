@@ -33,7 +33,6 @@ require 'paq' {
 
   'lewis6991/gitsigns.nvim',
   'sindrets/diffview.nvim',
-  'numToStr/FTerm.nvim',
 
   'mfussenegger/nvim-dap',
   'rcarriga/nvim-dap-ui',
@@ -58,7 +57,6 @@ require 'paq' {
 }
 
 -- vim.opt.runtimepath:append("/home/drybalka/code/tree-climber.nvim")
--- vim.opt.runtimepath:append("/home/tng/code/null-ls.nvim")
 
 require 'common.general'
 require 'common.lsp'

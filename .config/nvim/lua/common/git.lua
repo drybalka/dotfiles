@@ -1,7 +1,6 @@
 local keyopts = { noremap = true, silent = true }
 
 local gitsigns = require 'gitsigns'
-local fterm = require 'FTerm'
 local diffview = require 'diffview'
 local telescope_builtins = require 'telescope.builtin'
 
@@ -20,35 +19,26 @@ gitsigns.setup {
 vim.keymap.set('n', '<Leader>hp', gitsigns.preview_hunk, keyopts)
 vim.keymap.set({ 'n', 'v' }, '<Leader>hr', gitsigns.reset_hunk, keyopts)
 
-local fterm_options = {
-  dimensions = {
-    height = 0.9,
-    width = 0.9,
-  },
-}
-local terminal = fterm:new(fterm_options)
+local terminal
 vim.keymap.set('n', '<Tab>tt', function()
-  terminal:open()
+  local window_opts = {
+    minwidth = math.floor(vim.o.columns * 0.9),
+    minheight = math.floor(vim.o.lines * 0.9),
+    borderchars = { '─', '│', '─', '│', '╭', '╮', '╯', '╰' },
+    borderhighlight = 'TelescopeBorder',
+  }
+  if terminal ~= nil then
+    require('plenary.popup').create(terminal, window_opts)
+  else
+    terminal = vim.api.nvim_create_buf(false, false)
+    require('plenary.popup').create(terminal, window_opts)
+    vim.fn.termopen(os.getenv 'SHELL')
+    vim.keymap.set('t', '<C-[>', function()
+      vim.api.nvim_win_close(0, false)
+    end, { buffer = terminal })
+  end
+  vim.cmd 'startinsert'
 end, keyopts)
-local terminals = {}
-for i = 1, 9 do
-  local new_terminal = fterm:new(fterm_options)
-  table.insert(terminals, new_terminal)
-  vim.keymap.set('n', '<Tab>t' .. i, function()
-    new_terminal:open()
-  end, keyopts)
-end
-vim.api.nvim_create_autocmd('FileType', {
-  pattern = 'FTerm',
-  callback = function()
-    vim.keymap.set({ 't', 'n' }, '<C-[>', function()
-      terminal:close(false)
-      for _, term in ipairs(terminals) do
-        term:close(false)
-      end
-    end, { buffer = 0 })
-  end,
-})
 
 local diffview_actions = require 'diffview.actions'
 local diffview_select = function()
