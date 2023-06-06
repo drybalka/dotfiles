@@ -20,7 +20,7 @@ vim.keymap.set('n', '<Leader>hp', gitsigns.preview_hunk, keyopts)
 vim.keymap.set({ 'n', 'v' }, '<Leader>hr', gitsigns.reset_hunk, keyopts)
 
 local terminal
-vim.keymap.set('n', '<Tab>tt', function()
+vim.keymap.set('n', '<Tab>t', function()
   local window_opts = {
     minwidth = math.floor(vim.o.columns * 0.9),
     minheight = math.floor(vim.o.lines * 0.9),
@@ -56,18 +56,18 @@ diffview.setup {
     },
     file_panel = {
       ['<C-[>'] = ':DiffviewClose<CR>',
-      { 'n', 'j', diffview_actions.select_next_entry, { desc = 'Next entry' } },
-      { 'n', '<C-n>', diffview_actions.select_next_entry, { desc = 'Next entry' } },
-      { 'n', 'k', diffview_actions.select_prev_entry, { desc = 'Previous entry' } },
-      { 'n', '<C-p>', diffview_actions.select_prev_entry, { desc = 'Previous entry' } },
-      { 'n', '<CR>', diffview_select, { desc = 'Open the file' } },
-      { 'n', 'l', diffview_select, { desc = 'Open the file' } },
-      { 'n', '<C-d>', diffview_actions.scroll_view(0.25), { desc = 'Scroll the view down' } },
+      { 'n', 'j',     diffview_actions.select_next_entry,  { desc = 'Next entry' } },
+      { 'n', '<C-n>', diffview_actions.select_next_entry,  { desc = 'Next entry' } },
+      { 'n', 'k',     diffview_actions.select_prev_entry,  { desc = 'Previous entry' } },
+      { 'n', '<C-p>', diffview_actions.select_prev_entry,  { desc = 'Previous entry' } },
+      { 'n', '<CR>',  diffview_select,                     { desc = 'Open the file' } },
+      { 'n', 'l',     diffview_select,                     { desc = 'Open the file' } },
+      { 'n', '<C-d>', diffview_actions.scroll_view(0.25),  { desc = 'Scroll the view down' } },
       { 'n', '<C-u>', diffview_actions.scroll_view(-0.25), { desc = 'Scroll the view up' } },
-      { 'n', '<C-/>', diffview_actions.help 'file_panel', { desc = 'Open the help panel' } },
-      { 'n', '-', diffview_actions.toggle_stage_entry, { desc = 'Stage / unstage the selected entry' } },
-      { 'n', 'S', diffview_actions.stage_all, { desc = 'Stage all entries' } },
-      { 'n', 'U', diffview_actions.unstage_all, { desc = 'Unstage all entries' } },
+      { 'n', '<C-/>', diffview_actions.help 'file_panel',  { desc = 'Open the help panel' } },
+      { 'n', '-',     diffview_actions.toggle_stage_entry, { desc = 'Stage / unstage the selected entry' } },
+      { 'n', 'S',     diffview_actions.stage_all,          { desc = 'Stage all entries' } },
+      { 'n', 'U',     diffview_actions.unstage_all,        { desc = 'Unstage all entries' } },
     },
     help_panel = {
       { 'n', '<esc>', diffview_actions.close, { desc = 'Close help menu' } },
