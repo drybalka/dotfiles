@@ -3,46 +3,28 @@ local lspconfig = require 'lspconfig'
 local null_ls = require 'null-ls'
 local navbuddy = require 'nvim-navbuddy'
 local lsp_format = require 'lsp-format'
+local metals = require 'metals'
 
 lsp_format.setup()
 
 local lsp_document_highlight = vim.api.nvim_create_augroup('lsp_document_highlight', { clear = true })
-
--- scroll cursor to the top on jumps
-local jump_and_scroll = function(jumper)
-  return function()
-    local name = vim.api.nvim_buf_get_name(0)
-    local cursor = vim.api.nvim_win_get_cursor(0)
-
-    jumper()
-
-    local wait_result = vim.wait(1000, function()
-      local new_name = vim.api.nvim_buf_get_name(0)
-      local new_cursor = vim.api.nvim_win_get_cursor(0)
-      return new_name ~= name or new_cursor[1] ~= cursor[1] or new_cursor[2] ~= cursor[2]
-    end, 10)
-
-    if wait_result then
-      vim.cmd 'normal zt'
-    end
-  end
-end
 
 local on_attach = function(client, bufnr)
   local keyopts = { noremap = true, silent = true, buffer = bufnr }
   local builtin = require 'telescope.builtin'
   vim.keymap.set('n', '<Tab>d', builtin.diagnostics, keyopts)
   vim.keymap.set('n', '<Tab>s', builtin.lsp_document_symbols, keyopts)
-  vim.keymap.set('n', '<Tab>r', builtin.lsp_references, keyopts)
-  vim.keymap.set('n', 'gd', jump_and_scroll(builtin.lsp_definitions), keyopts)
-  vim.keymap.set('n', 'gt', jump_and_scroll(builtin.lsp_type_definitions), keyopts)
-  vim.keymap.set('n', 'gi', jump_and_scroll(builtin.lsp_implementations), keyopts)
-  vim.keymap.set('n', 'gD', jump_and_scroll(vim.lsp.buf.declaration), keyopts)
+  vim.keymap.set('n', '<Tab>S', builtin.lsp_dynamic_workspace_symbols, keyopts)
+  vim.keymap.set('n', 'gr', builtin.lsp_references, keyopts)
+  vim.keymap.set('n', 'gd', builtin.lsp_definitions, keyopts)
+  vim.keymap.set('n', 'gt', builtin.lsp_type_definitions, keyopts)
+  vim.keymap.set('n', 'gi', builtin.lsp_implementations, keyopts)
+  vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, keyopts)
   vim.keymap.set({ 'n', 'i' }, '<C-/>', vim.lsp.buf.hover, keyopts)
   vim.keymap.set({ 'n', 'i' }, '<C-space>', vim.lsp.buf.signature_help, keyopts)
   vim.keymap.set('n', '<Leader>r', vim.lsp.buf.rename, keyopts)
-  vim.keymap.set('n', '<Leader>=', vim.lsp.buf.format, keyopts)
-  vim.keymap.set('v', '<Leader>=', 'gq', keyopts)
+  -- vim.keymap.set('n', '<Leader>=', vim.lsp.buf.format, keyopts)
+  -- vim.keymap.set('v', '<Leader>=', 'gq', keyopts)
   vim.keymap.set('n', '<Leader>a', vim.lsp.buf.code_action, keyopts)
   -- vim.keymap.set('v', '<Leader>a', vim.lsp.buf.range_code_action, keyopts)
   vim.keymap.set('n', '<Leader>s', navbuddy.open, keyopts)
@@ -93,12 +75,17 @@ vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(vim.lsp.handlers.s
 })
 require('lspconfig.ui.windows').default_options.border = 'rounded'
 
+local jump_to_location = vim.lsp.util.jump_to_location
+vim.lsp.util.jump_to_location = function(location, offset_encoding, reuse_win)
+  jump_to_location(location, offset_encoding, reuse_win)
+  vim.cmd 'normal zt'
+end
+
 local standard_servers = {
   'pylsp',
   'clangd',
   'tsserver',
-  'kotlin_language_server',
-  'metals',
+  -- 'metals',
   'rust_analyzer',
   'html',
   'cssls',
@@ -115,14 +102,30 @@ for _, server in ipairs(standard_servers) do
   }
 end
 
--- vim.g.markdown_fenced_languages = {
---   "ts=typescript"
--- }
--- lspconfig.denols.setup {
---   init_options = {
---     lint = true,
---   },
--- }
+local metals_config = metals.bare_config()
+metals_config.settings = {
+  showImplicitArguments = true,
+  showImplicitConversionsAndClasses = true,
+  showInferredType = true,
+  superMethodLensesEnabled = false,
+  excludedPackages = { 'akka.actor.typed.javadsl', 'com.github.swagger.akka.javadsl' },
+  serverProperties = { '-Xmx3g' },
+  serverVersion = 'latest.snapshot',
+}
+metals_config.capabilities = capabilities
+metals_config.on_attach = function(client, bufnr)
+  on_attach(client, bufnr)
+  vim.keymap.set('n', '<Tab>i', require('telescope').extensions.metals.commands, { desc = 'Metals commands' })
+  require('metals').setup_dap()
+end
+local nvim_metals_group = vim.api.nvim_create_augroup('nvim-metals', { clear = true })
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = { 'scala', 'sbt' },
+  callback = function()
+    metals.initialize_or_attach(metals_config)
+  end,
+  group = nvim_metals_group,
+})
 
 lspconfig.jdtls.setup {
   capabilities = capabilities,

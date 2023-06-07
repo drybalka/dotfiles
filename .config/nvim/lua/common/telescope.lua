@@ -106,6 +106,15 @@ local diagnostics_entry_maker = function(entry)
   return res
 end
 
+local jump_to_top = function()
+  require('telescope.actions.set').select:enhance {
+    post = function()
+      vim.cmd 'normal zt'
+    end,
+  }
+  return true
+end
+
 telescope.setup {
   defaults = {
     mappings = {
@@ -191,18 +200,23 @@ telescope.setup {
     },
     lsp_references = {
       entry_maker = lsp_entry_maker,
+      attach_mappings = jump_to_top,
     },
     lsp_definitions = {
       entry_maker = lsp_entry_maker,
+      attach_mappings = jump_to_top,
     },
     lsp_type_definitions = {
       entry_maker = lsp_entry_maker,
+      attach_mappings = jump_to_top,
     },
     lsp_implementations = {
       entry_maker = lsp_entry_maker,
+      attach_mappings = jump_to_top,
     },
     diagnostics = {
       entry_maker = diagnostics_entry_maker,
+      attach_mappings = jump_to_top,
       wrap_results = true,
     },
   },

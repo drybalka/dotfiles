@@ -4,6 +4,7 @@ require 'paq' {
   'sainnhe/gruvbox-material',
 
   'neovim/nvim-lspconfig',
+  'scalameta/nvim-metals',
   'folke/neodev.nvim',
   'lukas-reineke/lsp-format.nvim',
 
