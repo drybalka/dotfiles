@@ -1,5 +1,3 @@
-local keyopts = { noremap = true, silent = true }
-
 local gitsigns = require 'gitsigns'
 local diffview = require 'diffview'
 local telescope_builtins = require 'telescope.builtin'
@@ -16,8 +14,8 @@ gitsigns.setup {
     map('n', '[h', "&diff ? '[c' : '<Cmd>Gitsigns prev_hunk<CR>'", { expr = true })
   end,
 }
-vim.keymap.set('n', '<Leader>hp', gitsigns.preview_hunk, keyopts)
-vim.keymap.set({ 'n', 'v' }, '<Leader>hr', gitsigns.reset_hunk, keyopts)
+vim.keymap.set('n', '<Leader>hp', gitsigns.preview_hunk)
+vim.keymap.set({ 'n', 'v' }, '<Leader>hr', gitsigns.reset_hunk)
 
 local terminal
 vim.keymap.set('n', '<Tab>t', function()
@@ -40,7 +38,7 @@ vim.keymap.set('n', '<Tab>t', function()
     end, { buffer = terminal })
   end
   vim.cmd 'startinsert'
-end, keyopts)
+end)
 
 local diffview_actions = require 'diffview.actions'
 local diffview_select = function()
@@ -81,9 +79,9 @@ diffview.setup {
     end,
   },
 }
-vim.keymap.set('n', '<Tab>gd', ':DiffviewOpen<CR>', keyopts)
+vim.keymap.set('n', '<Tab>gd', ':DiffviewOpen<CR>')
 
-vim.keymap.set('n', '<Tab>gs', telescope_builtins.git_status, keyopts)
-vim.keymap.set('n', '<Tab>gb', telescope_builtins.git_branches, keyopts)
-vim.keymap.set('n', '<Tab>gc', telescope_builtins.git_commits, keyopts)
-vim.keymap.set('n', '<Tab>gf', telescope_builtins.git_bcommits, keyopts)
+vim.keymap.set('n', '<Tab>gs', telescope_builtins.git_status)
+vim.keymap.set('n', '<Tab>gb', telescope_builtins.git_branches)
+vim.keymap.set('n', '<Tab>gc', telescope_builtins.git_commits)
+vim.keymap.set('n', '<Tab>gf', telescope_builtins.git_bcommits)

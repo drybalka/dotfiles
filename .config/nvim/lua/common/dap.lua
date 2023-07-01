@@ -1,5 +1,6 @@
 local dap = require 'dap'
 local dapui = require 'dapui'
+local python = require 'dap-python'
 
 dapui.setup {
   controls = { enabled = false },
@@ -12,12 +13,12 @@ vim.fn.sign_define('DapBreakpointRejected', { text = ' ', texthl = 'Red', lin
 vim.keymap.set('n', '<Leader>db', dap.toggle_breakpoint, { desc = 'dap breakpoint' })
 vim.keymap.set('n', '<Leader>dr', dap.continue, { desc = 'dap run' })
 vim.keymap.set('n', '<Leader>dt', dap.terminate, { desc = 'dap terminate' })
-vim.keymap.set({ 'n', 'v' }, '<Leader>de', require('dapui').eval, { desc = 'dap eval' })
+vim.keymap.set({ 'n', 'v' }, '<Leader>de', dapui.eval, { desc = 'dap eval' })
 vim.keymap.set('n', '<Leader>dd', function()
   dapui.float_element(nil, { enter = true })
 end, { desc = 'dap elements' })
 
-require('dap-python').setup()
+python.setup()
 
 dap.configurations.scala = {
   {

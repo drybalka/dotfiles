@@ -1,5 +1,7 @@
-require('neodev').setup()
+local neodev = require 'neodev'
+neodev.setup() -- must be run before lspconfig
 local lspconfig = require 'lspconfig'
+local cmp_nvim_lsp = require 'cmp_nvim_lsp'
 local null_ls = require 'null-ls'
 local navbuddy = require 'nvim-navbuddy'
 local lsp_format = require 'lsp-format'
@@ -29,7 +31,7 @@ local on_attach = function(client, bufnr)
   -- vim.keymap.set('v', '<Leader>a', vim.lsp.buf.range_code_action, keyopts)
   vim.keymap.set('n', '<Leader>s', navbuddy.open, keyopts)
 
-  require('lsp-format').on_attach(client)
+  lsp_format.on_attach(client)
 
   if client.server_capabilities.documentSymbolProvider then
     navbuddy.attach(client, bufnr)
@@ -94,7 +96,7 @@ local standard_servers = {
 }
 
 -- nvim-cmp supports additional completion capabilities
-local capabilities = require('cmp_nvim_lsp').default_capabilities()
+local capabilities = cmp_nvim_lsp.default_capabilities()
 for _, server in ipairs(standard_servers) do
   lspconfig[server].setup {
     capabilities = capabilities,
@@ -116,7 +118,7 @@ metals_config.capabilities = capabilities
 metals_config.on_attach = function(client, bufnr)
   on_attach(client, bufnr)
   vim.keymap.set('n', '<Tab>i', require('telescope').extensions.metals.commands, { desc = 'Metals commands' })
-  require('metals').setup_dap()
+  metals.setup_dap()
 end
 local nvim_metals_group = vim.api.nvim_create_augroup('nvim-metals', { clear = true })
 vim.api.nvim_create_autocmd('FileType', {

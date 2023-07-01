@@ -1,8 +1,9 @@
 local climber = require 'tree-climber'
 local dap = require 'dap'
+local treesitter = require 'nvim-treesitter.configs'
 
 -- Treesitter configuration
-require('nvim-treesitter.configs').setup {
+treesitter.setup {
   ensure_installed = 'all',
   highlight = {
     enable = true, -- false will disable the whole extension

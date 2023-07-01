@@ -1,8 +1,7 @@
-local keyopts = { noremap = true, silent = true }
-
 local lspkind = require 'lspkind'
 local luasnip = require 'luasnip'
 local cmp = require 'cmp'
+
 if not cmp then
   return
 end
@@ -85,7 +84,7 @@ require('luasnip/loaders/from_vscode').lazy_load()
 
 vim.keymap.set({ 'i', 's' }, '<C-j>', function()
   luasnip.jump(1)
-end, keyopts)
+end)
 vim.keymap.set({ 'i', 's' }, '<C-k>', function()
   luasnip.jump(-1)
-end, keyopts)
+end)

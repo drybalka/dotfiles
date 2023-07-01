@@ -1,8 +1,7 @@
-local keyopts = { noremap = true, silent = true }
-
 local telescope = require 'telescope'
 local actions = require 'telescope.actions'
 local builtin = require 'telescope.builtin'
+local nvim_web_devicons = require 'nvim-web-devicons'
 
 local generate_offset = function(str, tabsize)
   local offset = (tabsize - vim.fn.strdisplaywidth(str) % tabsize) % tabsize
@@ -247,14 +246,14 @@ telescope.setup {
   },
 }
 telescope.load_extension 'fzf'
-require('nvim-web-devicons').setup()
+nvim_web_devicons.setup()
 telescope.load_extension 'file_browser'
 
-vim.keymap.set('n', '<Tab><Tab>', builtin.resume, keyopts)
-vim.keymap.set('n', '<Tab><Leader>', builtin.builtin, keyopts)
-vim.keymap.set('n', '<Tab>/', builtin.live_grep, keyopts)
-vim.keymap.set('n', '<Tab>?', builtin.current_buffer_fuzzy_find, keyopts)
-vim.keymap.set('n', '<Tab>f', builtin.find_files, keyopts)
-vim.keymap.set('n', '<Tab>w', builtin.buffers, keyopts)
-vim.keymap.set('n', '<Tab>o', builtin.oldfiles, keyopts)
-vim.keymap.set('n', '<Tab>b', telescope.extensions.file_browser.file_browser, keyopts)
+vim.keymap.set('n', '<Tab><Tab>', builtin.resume)
+vim.keymap.set('n', '<Tab><Leader>', builtin.builtin)
+vim.keymap.set('n', '<Tab>/', builtin.live_grep)
+vim.keymap.set('n', '<Tab>?', builtin.current_buffer_fuzzy_find)
+vim.keymap.set('n', '<Tab>f', builtin.find_files)
+vim.keymap.set('n', '<Tab>w', builtin.buffers)
+vim.keymap.set('n', '<Tab>o', builtin.oldfiles)
+vim.keymap.set('n', '<Tab>b', telescope.extensions.file_browser.file_browser)
