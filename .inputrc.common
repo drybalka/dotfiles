@@ -1,0 +1,3 @@
+# Prefix-based search on up/down keys in sbt
+"\e[A": history-search-backward
+"\e[B": history-search-forward
