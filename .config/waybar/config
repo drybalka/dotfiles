@@ -13,6 +13,7 @@
     "memory",
     "cpu",
     "temperature",
+    "idle_inhibitor",
     "battery",
     "clock"
   ],
@@ -42,6 +43,14 @@
     "exec": "swaymsg -t get_tree | jq 'recurse(.nodes[]) | first(select(.name==\"__i3_scratch\")) | .floating_nodes | length | select(. >= 1)'",
     "format": " :{}",
     "on-click": "swaymsg 'scratchpad show'"
+  },
+
+  "idle_inhibitor": {
+    "format": "{icon}",
+    "format-icons": {
+        "activated": "",
+        "deactivated": ""
+    }
   },
 
   "battery": {
