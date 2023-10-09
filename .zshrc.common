@@ -81,11 +81,11 @@ if (( ${+terminfo[smkx]} && ${+terminfo[rmkx]} )); then
 fi
 
 # Aliases
-alias ls='exa --group-directories-first --sort=extension'
-alias l='exa -lg --group-directories-first --sort=extension --git'
-alias la='exa -lag --group-directories-first --sort=extension --git'
-alias lt='exa -l --group-directories-first --sort=extension --tree --level=2 --git'
-alias lT='exa -l --group-directories-first --sort=extension --tree --git'
+alias ls='eza --group-directories-first --sort=extension'
+alias l='eza -lg --group-directories-first --sort=extension --git'
+alias la='eza -lag --group-directories-first --sort=extension --git'
+alias lt='eza -l --group-directories-first --sort=extension --tree --level=2 --git'
+alias lT='eza -l --group-directories-first --sort=extension --tree --git'
 alias rg='rg --pretty --smart-case'
 
 alias -g ...="../.."
@@ -94,7 +94,7 @@ alias -g .....="../../../.."
 alias dotfiles="git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME"
 
 fd () {
-    /usr/bin/fd "$@" -X exa -ld --group-directories-first --sort=extension --git
+    /usr/bin/fd "$@" -X eza -ld --group-directories-first --sort=extension --git
 }
 
 # Plugins
