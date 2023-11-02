@@ -10,9 +10,7 @@ require 'paq' {
 
   {
     'nvim-treesitter/nvim-treesitter',
-    run = function()
-      vim.cmd [[:TSUpdateSync]]
-    end,
+    build = ':TSUpdateSync',
   },
   'drybalka/tree-climber.nvim',
 
@@ -41,7 +39,10 @@ require 'paq' {
   'jbyuki/one-small-step-for-vimkind',
 
   'nvim-telescope/telescope.nvim',
-  { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' },
+  {
+    'nvim-telescope/telescope-fzf-native.nvim',
+    build = 'make',
+  },
   'nvim-telescope/telescope-file-browser.nvim',
   'kyazdani42/nvim-web-devicons',
   'tami5/sqlite.lua',
