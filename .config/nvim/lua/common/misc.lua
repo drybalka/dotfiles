@@ -1,7 +1,7 @@
 local dressing = require 'dressing'
 local comment = require 'Comment'
 local surround = require 'nvim-surround'
-local indent_blankline = require 'indent_blankline'
+local indent_blankline = require 'ibl'
 local specs = require 'specs'
 local lualine = require 'lualine'
 local twilight = require 'twilight'
@@ -44,15 +44,13 @@ comment.setup {
 surround.setup()
 
 indent_blankline.setup {
-  filetype_exclude = { 'help' },
-  buftype_exclude = { 'terminal', 'nofile' },
-  use_treesitter = true,
-  -- show_first_indent_level = false,
-  space_char_blankline = ' ',
-  show_current_context = true,
-  -- show_current_context_start = true,
-  --char = "",
-  char_list = { '|', '¦', '┆', '┊' },
+  indent = {
+    char = { '|', '¦', '┆', '┊' },
+  },
+  scope = {
+    show_start = false,
+    show_end = false,
+  },
 }
 
 -- Shows where the cursor moves
