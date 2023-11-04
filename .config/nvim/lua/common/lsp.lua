@@ -2,10 +2,10 @@ local neodev = require 'neodev'
 neodev.setup() -- must be run before lspconfig
 local lspconfig = require 'lspconfig'
 local cmp_nvim_lsp = require 'cmp_nvim_lsp'
-local null_ls = require 'null-ls'
 local navbuddy = require 'nvim-navbuddy'
 local lsp_format = require 'lsp-format'
 local metals = require 'metals'
+local refactoring = require 'refactoring'
 
 lsp_format.setup()
 
@@ -24,7 +24,7 @@ local on_attach = function(client, bufnr)
   vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, keyopts)
   vim.keymap.set({ 'n', 'i' }, '<C-/>', vim.lsp.buf.hover, keyopts)
   vim.keymap.set({ 'n', 'i' }, '<C-space>', vim.lsp.buf.signature_help, keyopts)
-  vim.keymap.set('n', '<Leader>r', vim.lsp.buf.rename, keyopts)
+  vim.keymap.set('n', '<Leader>rn', vim.lsp.buf.rename, keyopts)
   -- vim.keymap.set('n', '<Leader>=', vim.lsp.buf.format, keyopts)
   -- vim.keymap.set('v', '<Leader>=', 'gq', keyopts)
   vim.keymap.set('n', '<Leader>a', vim.lsp.buf.code_action, keyopts)
@@ -93,6 +93,10 @@ local standard_servers = {
   'cssls',
   'jsonls',
   'lua_ls',
+  -- 'stylelint-lsp',
+  -- 'ruff-lsp',
+  -- 'eslint?',
+  -- 'prettier?',
 }
 
 -- nvim-cmp supports additional completion capabilities
@@ -145,30 +149,9 @@ lspconfig.jdtls.setup {
   end,
 }
 
-null_ls.setup {
-  -- debug = true,
-  border = 'rounded',
-  on_attach = on_attach,
-  sources = {
-    null_ls.builtins.code_actions.eslint_d,
-    null_ls.builtins.diagnostics.eslint_d,
+refactoring.setup {}
+vim.keymap.set({ 'n', 'x' }, '<leader>rf', function()
+  refactoring.select_refactor {}
+end)
 
-    null_ls.builtins.diagnostics.stylelint.with {
-      filetypes = { 'css' },
-      extra_args = { '--config', '/usr/lib/node_modules/stylelint-config-standard/index.js' },
-    },
-    null_ls.builtins.formatting.stylelint.with {
-      filetypes = { 'css' },
-      extra_args = { '--config', '/usr/lib/node_modules/stylelint-config-standard/index.js' },
-    },
-
-    null_ls.builtins.formatting.yapf,
-    null_ls.builtins.diagnostics.ruff,
-
-    null_ls.builtins.code_actions.refactoring,
-    null_ls.builtins.formatting.prettier,
-    null_ls.builtins.formatting.stylua,
-    null_ls.builtins.diagnostics.cfn_lint,
-  },
-}
 -- vim.lsp.set_log_level 'debug'

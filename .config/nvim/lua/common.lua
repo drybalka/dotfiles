@@ -23,7 +23,6 @@ require 'paq' {
   'L3MON4D3/LuaSnip',
   'saadparwaiz1/cmp_luasnip',
   'onsails/lspkind-nvim',
-  'jose-elias-alvarez/null-ls.nvim',
   'ThePrimeagen/refactoring.nvim',
 
   'MunifTanjim/nui.nvim',
