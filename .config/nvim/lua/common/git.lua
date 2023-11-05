@@ -1,6 +1,7 @@
 local gitsigns = require 'gitsigns'
 local diffview = require 'diffview'
 local telescope_builtins = require 'telescope.builtin'
+local toggleterm = require 'toggleterm'
 
 gitsigns.setup {
   on_attach = function(bufnr)
@@ -17,28 +18,19 @@ gitsigns.setup {
 vim.keymap.set('n', '<Leader>hp', gitsigns.preview_hunk)
 vim.keymap.set({ 'n', 'v' }, '<Leader>hr', gitsigns.reset_hunk)
 
-local terminal
-vim.keymap.set('n', '<Tab>t', function()
-  local window_opts = {
-    minwidth = math.floor(vim.o.columns * 0.9),
-    maxwidth = math.floor(vim.o.columns * 0.9),
-    minheight = math.floor(vim.o.lines * 0.9),
-    maxheight = math.floor(vim.o.lines * 0.9),
-    borderchars = { '─', '│', '─', '│', '╭', '╮', '╯', '╰' },
-    borderhighlight = 'TelescopeBorder',
-  }
-  if terminal ~= nil then
-    require('plenary.popup').create(terminal, window_opts)
-  else
-    terminal = vim.api.nvim_create_buf(false, false)
-    require('plenary.popup').create(terminal, window_opts)
-    vim.fn.termopen(os.getenv 'SHELL')
-    vim.keymap.set('t', '<C-[>', function()
-      vim.api.nvim_win_close(0, false)
-    end, { buffer = terminal })
-  end
-  vim.cmd 'startinsert'
-end)
+toggleterm.setup {
+  open_mapping = '<Tab>t',
+  insert_mappings = false,
+  terminal_mappings = false,
+  on_open = function()
+    vim.keymap.set({ 'n', 't' }, '<C-[>', toggleterm.toggle, { buffer = true })
+  end,
+  direction = 'float',
+  float_opts = { border = 'rounded' },
+  highlights = {
+    FloatBorder = { link = 'TelescopeBorder' },
+  },
+}
 
 local diffview_actions = require 'diffview.actions'
 local diffview_select = function()
@@ -56,18 +48,18 @@ diffview.setup {
     },
     file_panel = {
       ['<C-[>'] = ':DiffviewClose<CR>',
-      { 'n', 'j', diffview_actions.select_next_entry, { desc = 'Next entry' } },
-      { 'n', '<C-n>', diffview_actions.select_next_entry, { desc = 'Next entry' } },
-      { 'n', 'k', diffview_actions.select_prev_entry, { desc = 'Previous entry' } },
-      { 'n', '<C-p>', diffview_actions.select_prev_entry, { desc = 'Previous entry' } },
-      { 'n', '<CR>', diffview_select, { desc = 'Open the file' } },
-      { 'n', 'l', diffview_select, { desc = 'Open the file' } },
-      { 'n', '<C-d>', diffview_actions.scroll_view(0.25), { desc = 'Scroll the view down' } },
+      { 'n', 'j',     diffview_actions.select_next_entry,  { desc = 'Next entry' } },
+      { 'n', '<C-n>', diffview_actions.select_next_entry,  { desc = 'Next entry' } },
+      { 'n', 'k',     diffview_actions.select_prev_entry,  { desc = 'Previous entry' } },
+      { 'n', '<C-p>', diffview_actions.select_prev_entry,  { desc = 'Previous entry' } },
+      { 'n', '<CR>',  diffview_select,                     { desc = 'Open the file' } },
+      { 'n', 'l',     diffview_select,                     { desc = 'Open the file' } },
+      { 'n', '<C-d>', diffview_actions.scroll_view(0.25),  { desc = 'Scroll the view down' } },
       { 'n', '<C-u>', diffview_actions.scroll_view(-0.25), { desc = 'Scroll the view up' } },
-      { 'n', '<C-/>', diffview_actions.help 'file_panel', { desc = 'Open the help panel' } },
-      { 'n', '-', diffview_actions.toggle_stage_entry, { desc = 'Stage / unstage the selected entry' } },
-      { 'n', 'S', diffview_actions.stage_all, { desc = 'Stage all entries' } },
-      { 'n', 'U', diffview_actions.unstage_all, { desc = 'Unstage all entries' } },
+      { 'n', '<C-/>', diffview_actions.help 'file_panel',  { desc = 'Open the help panel' } },
+      { 'n', '-',     diffview_actions.toggle_stage_entry, { desc = 'Stage / unstage the selected entry' } },
+      { 'n', 'S',     diffview_actions.stage_all,          { desc = 'Stage all entries' } },
+      { 'n', 'U',     diffview_actions.unstage_all,        { desc = 'Unstage all entries' } },
     },
     help_panel = {
       { 'n', '<esc>', diffview_actions.close, { desc = 'Close help menu' } },

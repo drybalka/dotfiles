@@ -31,6 +31,7 @@ require 'paq' {
 
   'lewis6991/gitsigns.nvim',
   'sindrets/diffview.nvim',
+  'akinsho/toggleterm.nvim',
 
   'mfussenegger/nvim-dap',
   'rcarriga/nvim-dap-ui',
