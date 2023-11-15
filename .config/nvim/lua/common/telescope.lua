@@ -197,6 +197,11 @@ telescope.setup {
         },
       },
     },
+    keymaps = {
+      lhs_filter = function(lhs)
+        return not vim.startswith(lhs, '<Plug>')
+      end,
+    },
     lsp_references = {
       entry_maker = lsp_entry_maker,
       attach_mappings = jump_to_top,

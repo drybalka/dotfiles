@@ -19,6 +19,18 @@ vim.opt.showtabline = 0
 vim.opt.updatetime = 300
 vim.opt.jumpoptions = 'view'
 
+-- Disable builtin
+vim.g.loaded_gzip = 1
+vim.g.loaded_zip = 1
+vim.g.loaded_zipPlugin = 1
+vim.g.loaded_tar = 1
+vim.g.loaded_tarPlugin = 1
+vim.g.loaded_matchit = 1
+vim.g.loaded_2html_plugin = 1
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+vim.g.loaded_netrwSettings = 1
+
 -- Indents
 vim.opt.shiftwidth = 4
 vim.api.nvim_create_autocmd('FileType', { pattern = { 'lua', 'html', 'css' }, command = 'setlocal shiftwidth=2' })
