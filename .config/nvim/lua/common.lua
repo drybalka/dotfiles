@@ -6,7 +6,7 @@ require 'paq' {
   'neovim/nvim-lspconfig',
   'scalameta/nvim-metals',
   'folke/neodev.nvim',
-  'lukas-reineke/lsp-format.nvim',
+  'stevearc/conform.nvim',
 
   {
     'nvim-treesitter/nvim-treesitter',

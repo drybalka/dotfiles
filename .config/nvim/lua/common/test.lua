@@ -10,7 +10,7 @@ neotest.setup {
     enabled = false,
   },
   output_panel = {
-    open = ''
+    open = '',
   },
   summary = {
     enabled = false,
@@ -22,17 +22,16 @@ vim.keymap.set('n', ']t', neotest.jump.next, { desc = 'Test next' })
 vim.keymap.set('n', '[t', neotest.jump.prev, { desc = 'Test prev' })
 
 vim.keymap.set('n', '<Tab>t', function()
-  vim.api.nvim_open_win(0, true,
-    {
-      relative = 'win',
-      row = 2,
-      col = 4,
-      width = vim.api.nvim_win_get_width(0) - 10,
-      height = vim.api.nvim_win_get_height(0) - 4,
-      border = 'rounded',
-      title = ' Test output ',
-      title_pos = 'center'
-    })
+  vim.api.nvim_open_win(0, true, {
+    relative = 'win',
+    row = 2,
+    col = 4,
+    width = vim.api.nvim_win_get_width(0) - 10,
+    height = vim.api.nvim_win_get_height(0) - 4,
+    border = 'rounded',
+    title = ' Test output ',
+    title_pos = 'center',
+  })
   neotest.output_panel.open()
   vim.keymap.set('n', '<C-[>', function()
     vim.api.nvim_win_close(0, false)
