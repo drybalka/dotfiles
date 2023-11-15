@@ -153,6 +153,28 @@ local function toggle()
   vim.api.nvim_set_current_line(line_start .. toggled_line)
 end
 
+-- Scratch buffer
+local scratch_buffer
+local function open_scratch_buffer()
+  if not scratch_buffer then
+    scratch_buffer = vim.api.nvim_create_buf(false, true)
+    vim.keymap.set('n', '<C-[>', function()
+      vim.api.nvim_win_close(0, false)
+    end, { buffer = scratch_buffer })
+  end
+  return vim.api.nvim_open_win(scratch_buffer, true,
+    {
+      relative = 'win',
+      row = 2,
+      col = 4,
+      width = vim.api.nvim_win_get_width(0) - 10,
+      height = vim.api.nvim_win_get_height(0) - 4,
+      border = 'rounded',
+      title = ' Scratch buffer ',
+      title_pos = 'center'
+    })
+end
+
 local saved_views = {}
 vim.api.nvim_create_autocmd('BufLeave', {
   callback = function()
@@ -168,6 +190,7 @@ vim.api.nvim_create_autocmd('BufEnter', {
   end,
 })
 
+vim.keymap.set('n', '<Tab>y', open_scratch_buffer, { desc = 'open scratch buffer' })
 vim.keymap.set('n', '<C-s>', toggle, { desc = 'toggle boolean' })
 vim.keymap.set({ 'n', 'o', 'x' }, 'w', function()
   spider.motion 'w'

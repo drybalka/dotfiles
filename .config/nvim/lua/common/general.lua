@@ -1,4 +1,4 @@
-local keyopts = { noremap = true, silent = true }
+local neodev = require 'neodev'
 
 -- Standard options
 vim.opt.expandtab = true   -- Use spaces instead of tabs
@@ -31,7 +31,8 @@ vim.opt.termguicolors = true
 vim.g.gruvbox_material_transparent_background = 1
 vim.cmd [[colorscheme gruvbox-material]]
 vim.cmd [[highlight! link NormalFloat Normal]]
-vim.cmd [[highlight! link FloatBorder FloatermBorder]]
+vim.cmd [[highlight! link FloatBorder TelescopeBorder]]
+vim.cmd [[highlight! link FloatTitle  TelescopeTitle]]
 
 vim.cmd [[highlight! link DiagnosticError RedSign   ]]
 vim.cmd [[highlight! link DiagnosticWarn  YellowSign]]
@@ -44,8 +45,8 @@ vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
 vim.opt.foldenable = false
 
 --Remap space as leader key
-vim.keymap.set('', '<Space>', '<Nop>', keyopts)
-vim.keymap.set('', '_', '<Nop>', keyopts)
+vim.keymap.set('', '<Space>', '<Nop>')
+vim.keymap.set('', '_', '<Nop>')
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
@@ -56,27 +57,31 @@ vim.opt.breakindentopt = 'shift:2,min:40,sbr'
 vim.opt.showbreak = ' >> '
 
 -- Allow scrolling to wraped lines with arrow keys
-vim.keymap.set('', '<Up>', 'gk', keyopts)
-vim.keymap.set('i', '<Up>', '<C-o>gk', keyopts)
-vim.keymap.set('', '<Down>', 'gj', keyopts)
-vim.keymap.set('i', '<Down>', '<C-o>gj', keyopts)
+vim.keymap.set('', '<Up>', 'gk')
+vim.keymap.set('i', '<Up>', '<C-o>gk')
+vim.keymap.set('', '<Down>', 'gj')
+vim.keymap.set('i', '<Down>', '<C-o>gj')
 
 -- Exit terminal mode on escape
-vim.keymap.set('t', '<C-[>', [[<C-\><C-n>]], keyopts)
+vim.keymap.set('t', '<C-[>', [[<C-\><C-n>]])
 
 -- Restore <c-i> as jump forward keymap
 vim.keymap.set('n', '<c-i>', '<c-i>')
 
 -- Diagnostics
 vim.diagnostic.config { float = { border = 'rounded' } }
-vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, keyopts)
-vim.keymap.set('n', ']d', vim.diagnostic.goto_next, keyopts)
+vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
+vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
 
 local signs = { Error = ' ', Warn = ' ', Hint = ' ', Info = ' ' }
 for type, icon in pairs(signs) do
   local hl = 'DiagnosticSign' .. type
   vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
 end
+
+neodev.setup {
+  library = { plugins = { 'neotest' }, types = true },
+}
 
 function P(v)
   local function dump(o, level)
