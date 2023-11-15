@@ -10,13 +10,13 @@ dapui.setup {
 vim.fn.sign_define('DapBreakpoint', { text = ' ', texthl = 'Red', linehl = '', numhl = '' })
 vim.fn.sign_define('DapBreakpointRejected', { text = ' ', texthl = 'Red', linehl = '', numhl = '' })
 
-vim.keymap.set('n', '<Leader>db', dap.toggle_breakpoint, { desc = 'dap breakpoint' })
-vim.keymap.set('n', '<Leader>dr', dap.continue, { desc = 'dap run' })
-vim.keymap.set('n', '<Leader>ds', dap.terminate, { desc = 'dap stop' })
-vim.keymap.set({ 'n', 'v' }, '<Leader>de', dapui.eval, { desc = 'dap eval' })
+vim.keymap.set('n', '<Leader>db', dap.toggle_breakpoint, { desc = 'DAP set breakpoint' })
+vim.keymap.set('n', '<Leader>dr', dap.continue, { desc = 'DAP run' })
+vim.keymap.set('n', '<Leader>ds', dap.terminate, { desc = 'DAP stop' })
+vim.keymap.set({ 'n', 'v' }, '<Leader>de', dapui.eval, { desc = 'DAP evaluate expression' })
 vim.keymap.set('n', '<Leader>dd', function()
   dapui.float_element(nil, { enter = true })
-end, { desc = 'dap elements' })
+end, { desc = 'DAP open element' })
 
 python.setup()
 

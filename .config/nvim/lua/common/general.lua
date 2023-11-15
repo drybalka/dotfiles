@@ -63,15 +63,15 @@ vim.keymap.set('', '<Down>', 'gj')
 vim.keymap.set('i', '<Down>', '<C-o>gj')
 
 -- Exit terminal mode on escape
-vim.keymap.set('t', '<C-[>', [[<C-\><C-n>]])
+-- vim.keymap.set('t', '<C-[>', [[<C-\><C-n>]])
 
 -- Restore <c-i> as jump forward keymap
 vim.keymap.set('n', '<c-i>', '<c-i>')
 
 -- Diagnostics
 vim.diagnostic.config { float = { border = 'rounded' } }
-vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
-vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
+vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Diagnostics prev' })
+vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Diagnostics next' })
 
 local signs = { Error = ' ', Warn = ' ', Hint = ' ', Info = ' ' }
 for type, icon in pairs(signs) do

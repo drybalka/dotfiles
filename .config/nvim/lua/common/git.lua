@@ -3,20 +3,11 @@ local diffview = require 'diffview'
 local telescope_builtins = require 'telescope.builtin'
 local toggleterm = require 'toggleterm'
 
-gitsigns.setup {
-  on_attach = function(bufnr)
-    local function map(mode, lhs, rhs, opts)
-      opts = vim.tbl_extend('force', { noremap = true, silent = true }, opts or {})
-      vim.api.nvim_buf_set_keymap(bufnr, mode, lhs, rhs, opts)
-    end
-
-    -- Navigation
-    map('n', ']h', "&diff ? ']c' : '<Cmd>Gitsigns next_hunk<CR>'", { expr = true })
-    map('n', '[h', "&diff ? '[c' : '<Cmd>Gitsigns prev_hunk<CR>'", { expr = true })
-  end,
-}
-vim.keymap.set('n', '<Leader>hp', gitsigns.preview_hunk)
-vim.keymap.set({ 'n', 'v' }, '<Leader>hr', gitsigns.reset_hunk)
+gitsigns.setup()
+vim.keymap.set('n', ']h', gitsigns.next_hunk, { desc = 'Git next hunk' })
+vim.keymap.set('n', '[h', gitsigns.prev_hunk, { desc = 'Git previous hunk' })
+vim.keymap.set('n', '<Leader>hp', gitsigns.preview_hunk, { desc = 'Git preview hunk' })
+vim.keymap.set({ 'n', 'v' }, '<Leader>hr', gitsigns.reset_hunk, { desc = 'Git reset hunk' })
 
 toggleterm.setup {
   open_mapping = '<Tab><CR>',
@@ -71,9 +62,9 @@ diffview.setup {
     end,
   },
 }
-vim.keymap.set('n', '<Tab>gd', ':DiffviewOpen<CR>')
+vim.keymap.set('n', '<Tab>gd', ':DiffviewOpen<CR>', { desc = 'Git diffview' })
 
-vim.keymap.set('n', '<Tab>gs', telescope_builtins.git_status)
-vim.keymap.set('n', '<Tab>gb', telescope_builtins.git_branches)
-vim.keymap.set('n', '<Tab>gc', telescope_builtins.git_commits)
-vim.keymap.set('n', '<Tab>gf', telescope_builtins.git_bcommits)
+vim.keymap.set('n', '<Tab>gs', telescope_builtins.git_status, { desc = 'Git status' })
+vim.keymap.set('n', '<Tab>gb', telescope_builtins.git_branches, { desc = 'Git branches' })
+vim.keymap.set('n', '<Tab>gc', telescope_builtins.git_commits, { desc = 'Git commits' })
+vim.keymap.set('n', '<Tab>gf', telescope_builtins.git_bcommits, { desc = 'Git commits for current file' })

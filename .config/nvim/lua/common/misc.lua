@@ -189,8 +189,8 @@ vim.api.nvim_create_autocmd('BufEnter', {
   end,
 })
 
-vim.keymap.set('n', '<Tab>y', open_scratch_buffer, { desc = 'open scratch buffer' })
-vim.keymap.set('n', '<C-s>', toggle, { desc = 'toggle boolean' })
+vim.keymap.set('n', '<Tab>y', open_scratch_buffer, { desc = 'Scratch buffer open' })
+vim.keymap.set('n', '<C-s>', toggle, { desc = 'Toggle boolean' })
 vim.keymap.set({ 'n', 'o', 'x' }, 'w', function()
   spider.motion 'w'
 end, { desc = 'Spider-w' })
