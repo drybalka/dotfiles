@@ -19,7 +19,7 @@ vim.keymap.set('n', '<Leader>hp', gitsigns.preview_hunk)
 vim.keymap.set({ 'n', 'v' }, '<Leader>hr', gitsigns.reset_hunk)
 
 toggleterm.setup {
-  open_mapping = '<Tab>t',
+  open_mapping = '<Tab><CR>',
   insert_mappings = false,
   terminal_mappings = false,
   on_open = function()

@@ -44,7 +44,7 @@ local lsp_entry_maker = function(entry)
       icon,
       dir,
       name,
-      { pos, 'TelescopeResultsLineNr' },
+      { pos,                   'TelescopeResultsLineNr' },
       { offset .. trimmed_text },
     }
   end
@@ -77,7 +77,7 @@ local buffers_entry_maker = function(entry)
     local offset = generate_offset(tostring(entry_tbl.bufnr), 4)
     return generate_display {
       { tostring(entry_tbl.bufnr) .. offset, 'TelescopeResultsNumber' },
-      { entry_tbl.indicator, 'TelescopeResultsComment' },
+      { entry_tbl.indicator,                 'TelescopeResultsComment' },
       icon,
       dir,
       name,

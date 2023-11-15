@@ -38,6 +38,9 @@ require 'paq' {
   'mfussenegger/nvim-dap-python',
   'jbyuki/one-small-step-for-vimkind',
 
+  'nvim-neotest/neotest',
+  'stevanmilic/neotest-scala',
+
   'nvim-telescope/telescope.nvim',
   {
     'nvim-telescope/telescope-fzf-native.nvim',
@@ -58,8 +61,6 @@ require 'paq' {
   'asiryk/auto-hlsearch.nvim',
 }
 
--- vim.opt.runtimepath:append("/home/drybalka/code/tree-climber.nvim")
-
 require 'common.general'
 require 'common.lsp'
 require 'common.git'
@@ -67,4 +68,5 @@ require 'common.telescope'
 require 'common.misc'
 require 'common.cmp'
 require 'common.dap'
+require 'common.test'
 require 'common.treesitter'

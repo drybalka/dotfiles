@@ -1,5 +1,3 @@
-local neodev = require 'neodev'
-neodev.setup() -- must be run before lspconfig
 local lspconfig = require 'lspconfig'
 local cmp_nvim_lsp = require 'cmp_nvim_lsp'
 local navbuddy = require 'nvim-navbuddy'
@@ -113,7 +111,7 @@ metals_config.settings = {
   showImplicitArguments = true,
   showImplicitConversionsAndClasses = true,
   showInferredType = true,
-  superMethodLensesEnabled = false,
+  superMethodLensesEnabled = true,
   excludedPackages = { 'akka.actor.typed.javadsl', 'com.github.swagger.akka.javadsl' },
   serverProperties = { '-Xmx3g' },
   serverVersion = 'latest.snapshot',
