@@ -114,6 +114,7 @@ metals_config.settings = {
   excludedPackages = { 'akka.actor.typed.javadsl', 'com.github.swagger.akka.javadsl' },
   serverProperties = { '-Xmx3g' },
   serverVersion = 'latest.snapshot',
+  testUserInterface = 'Test Explorer', -- disables virtual text for tests
 }
 metals_config.capabilities = capabilities
 metals_config.on_attach = function(client, bufnr)
