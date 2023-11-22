@@ -11,7 +11,7 @@ vim.fn.sign_define('DapBreakpoint', { text = ' ', texthl = 'Red', linehl = ''
 vim.fn.sign_define('DapBreakpointRejected', { text = ' ', texthl = 'Red', linehl = '', numhl = '' })
 
 vim.keymap.set('n', '<Leader>db', dap.toggle_breakpoint, { desc = 'DAP set breakpoint' })
-vim.keymap.set('n', '<Leader>dr', dap.continue, { desc = 'DAP run' })
+vim.keymap.set('n', '<Leader>dr', dap.continue, { desc = 'DAP run/continue' })
 vim.keymap.set('n', '<Leader>ds', dap.terminate, { desc = 'DAP stop' })
 vim.keymap.set({ 'n', 'v' }, '<Leader>de', dapui.eval, { desc = 'DAP evaluate expression' })
 vim.keymap.set('n', '<Leader>dd', function()
