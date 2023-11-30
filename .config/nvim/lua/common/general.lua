@@ -18,6 +18,7 @@ vim.opt.signcolumn = 'yes'
 vim.opt.showtabline = 0
 vim.opt.updatetime = 300
 vim.opt.jumpoptions = 'view'
+vim.opt.spell = true
 
 -- Disable builtin
 vim.g.loaded_gzip = 1
@@ -68,7 +69,7 @@ vim.opt.breakindent = true
 vim.opt.breakindentopt = 'shift:2,min:40,sbr'
 vim.opt.showbreak = ' >> '
 
--- Allow scrolling to wraped lines with arrow keys
+-- Allow scrolling to wrapped lines with arrow keys
 vim.keymap.set('', '<Up>', 'gk')
 vim.keymap.set('i', '<Up>', '<C-o>gk')
 vim.keymap.set('', '<Down>', 'gj')
