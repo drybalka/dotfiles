@@ -7,6 +7,7 @@ vim.opt.smartcase = true -- Do not ignore case with capitals
 vim.opt.scrolloff = 4 -- Lines of context
 vim.opt.softtabstop = -1 -- Set softtabstop to shiftwidth
 vim.opt.smartindent = true -- Insert indents automatically
+vim.opt.shiftwidth = 2
 vim.opt.splitbelow = true -- Put new windows below current
 vim.opt.splitright = true -- Put new windows right of current
 vim.opt.wrapscan = false
@@ -31,10 +32,6 @@ vim.g.loaded_2html_plugin = 1
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 vim.g.loaded_netrwSettings = 1
-
--- Indents
-vim.opt.shiftwidth = 4
-vim.api.nvim_create_autocmd('FileType', { pattern = { 'lua', 'html', 'css' }, command = 'setlocal shiftwidth=2' })
 
 -- Do not insert comment on newline
 vim.api.nvim_create_autocmd('FileType', { command = 'set formatoptions-=o' })

@@ -261,5 +261,5 @@ vim.keymap.set('n', '<Tab>?', builtin.current_buffer_fuzzy_find, { desc = 'Teles
 vim.keymap.set('n', '<Tab>f', builtin.find_files, { desc = 'Telescope search files' })
 vim.keymap.set('n', '<Tab>w', builtin.buffers, { desc = 'Telescope opened buffers' })
 vim.keymap.set('n', '<Tab>o', builtin.oldfiles, { desc = 'Telescope recent files' })
-vim.keymap.set('n', '<Tab>s', builtin.spell_suggest, { desc = 'Telescope spell suggest' })
+vim.keymap.set('n', '<Space>s', builtin.spell_suggest, { desc = 'Telescope spell suggest' })
 vim.keymap.set('n', '<Tab>b', telescope.extensions.file_browser.file_browser, { desc = 'Telescope file browser' })
