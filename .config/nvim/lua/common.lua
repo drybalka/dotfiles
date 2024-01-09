@@ -39,7 +39,7 @@ require 'paq' {
   'jbyuki/one-small-step-for-vimkind',
 
   'nvim-neotest/neotest',
-  'stevanmilic/neotest-scala',
+  -- 'stevanmilic/neotest-scala',
 
   'nvim-telescope/telescope.nvim',
   {
@@ -70,3 +70,4 @@ require 'common.cmp'
 require 'common.dap'
 require 'common.test'
 require 'common.treesitter'
+require 'common.openai'

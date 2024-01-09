@@ -162,16 +162,18 @@ local function open_scratch_buffer()
       vim.api.nvim_win_close(0, false)
     end, { buffer = scratch_buffer })
   end
-  return vim.api.nvim_open_win(scratch_buffer, true, {
-    relative = 'win',
-    row = 2,
-    col = 4,
-    width = vim.api.nvim_win_get_width(0) - 10,
-    height = vim.api.nvim_win_get_height(0) - 4,
-    border = 'rounded',
-    title = ' Scratch buffer ',
-    title_pos = 'center',
-  })
+  if vim.fn.bufnr() ~= scratch_buffer then
+    vim.api.nvim_open_win(scratch_buffer, true, {
+      relative = 'win',
+      row = 2,
+      col = 4,
+      width = vim.api.nvim_win_get_width(0) - 10,
+      height = vim.api.nvim_win_get_height(0) - 4,
+      border = 'rounded',
+      title = ' Scratch buffer ',
+      title_pos = 'center',
+    })
+  end
 end
 
 local saved_views = {}
