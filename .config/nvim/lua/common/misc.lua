@@ -11,6 +11,8 @@ local auto_hlsearch = require 'auto-hlsearch'
 
 auto_hlsearch.setup()
 
+vim.keymap.set('n', 'gx', '<cmd>silent !firefox <cfile><CR>')
+
 dressing.setup {
   input = {
     win_options = {
