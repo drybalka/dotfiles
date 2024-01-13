@@ -1,0 +1,8 @@
+#!/bin/bash
+STATUS_FILE="$HOME/.cache/lock-inhibitor"
+
+if [ -f "$STATUS_FILE" ]; then
+  echo -E '{"alt": "activated", "tooltip": "activated"}'
+else
+  echo -E '{"alt": "deactivated", "tooltip": "deactivated"}'
+fi

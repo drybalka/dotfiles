@@ -13,6 +13,7 @@
     "memory",
     "cpu",
     "temperature",
+    "custom/lock-inhibitor",
     "idle_inhibitor",
     "battery",
     "clock"
@@ -43,6 +44,20 @@
     "exec": "swaymsg -t get_tree | jq 'recurse(.nodes[]) | first(select(.name==\"__i3_scratch\")) | .floating_nodes | length | select(. >= 1)'",
     "format": " :{}",
     "on-click": "swaymsg 'scratchpad show'"
+  },
+
+  "custom/lock-inhibitor": {
+    "interval": "once",
+    "exec": "waybar-lock-inhibitor-status",
+    "return-type": "json",
+    "on-click": "waybar-lock-inhibitor-toggle; pkill -SIGRTMIN+10 waybar",
+    "signal": 10,
+    "exec-on-event": false,
+    "format": "{icon}",
+    "format-icons": {
+        "activated": "󰿆",
+        "deactivated": "󰍁"
+    }
   },
 
   "idle_inhibitor": {

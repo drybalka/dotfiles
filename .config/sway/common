@@ -25,10 +25,10 @@ gaps top -2
 
 ### Idle configuration
 exec swayidle -w \
-    timeout 240 'if [[ $(session-state) == "active" ]]; then swaymsg "output * dpms off"; fi' \
-    resume      'if [[ $(session-state) == "active" ]]; then swaymsg "output * dpms on"; fi' \
-    timeout 300 'if [[ $(session-state) == "active" ]]; then systemctl suspend -i; fi' \
-    before-sleep 'swaylock -f -e -i $HOME/.cache/wallpaper-large'
+    timeout 240 'swaymsg "output * dpms off"' \
+    resume      'swaymsg "output * dpms on"' \
+    timeout 300 'systemctl suspend -i' \
+    before-sleep 'if [ ! -f $HOME/.cache/lock-inhibitor ]; then swaylock -f -e -i $HOME/.cache/wallpaper-large; fi'
 
 ### Output configuration
 output DP-1 bg $HOME/.cache/wallpaper-large fill

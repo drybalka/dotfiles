@@ -1,0 +1,8 @@
+#!/bin/bash
+STATUS_FILE="$HOME/.cache/lock-inhibitor"
+
+if [ -f "$STATUS_FILE" ]; then
+  rm "$STATUS_FILE"
+else
+  touch "$STATUS_FILE"
+fi

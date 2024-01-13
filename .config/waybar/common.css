@@ -14,18 +14,17 @@
 #waybar {
   color: @fg;
   font-family: "DejaVuSansM Nerd Font", monospace;
-  background: linear-gradient(
-    to bottom,
-    @bg 60%,
-    alpha(@bg, 0.94),
-    alpha(@bg, 0.75),
-    alpha(@bg, 0.44),
-    alpha(@bg, 0)
-  );
+  background: linear-gradient(to bottom,
+      @bg 60%,
+      alpha(@bg, 0.94),
+      alpha(@bg, 0.75),
+      alpha(@bg, 0.44),
+      alpha(@bg, 0));
 }
 
 #clock,
 #battery,
+#custom-lock-inhibitor,
 #idle_inhibitor,
 #temperature,
 #cpu,

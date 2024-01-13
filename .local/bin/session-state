@@ -1,4 +1,0 @@
-#!/usr/bin/env bash
-
-STATUS=$(loginctl session-status | grep State: | head -n1 | awk '{print $2;}')
-echo $STATUS
