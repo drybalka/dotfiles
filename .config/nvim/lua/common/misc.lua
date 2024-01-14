@@ -53,6 +53,9 @@ indent_blankline.setup {
     show_start = false,
     show_end = false,
   },
+  exclude = {
+    filetypes = { 'markdown' },
+  },
 }
 
 -- Shows where the cursor moves
