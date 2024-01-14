@@ -119,7 +119,7 @@ metals_config.settings = {
 metals_config.capabilities = capabilities
 metals_config.on_attach = function(client, bufnr)
   on_attach(client, bufnr)
-  vim.keymap.set('n', '<Tab>i', require('telescope').extensions.metals.commands, { desc = 'Metals commands' })
+  vim.keymap.set('n', '<Tab>l', require('telescope').extensions.metals.commands, { desc = 'Metals commands' })
   metals.setup_dap()
 end
 local nvim_metals_group = vim.api.nvim_create_augroup('nvim-metals', { clear = true })

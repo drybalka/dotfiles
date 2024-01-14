@@ -1,15 +1,9 @@
 local api_key = os.getenv 'OPENAI_API_KEY'
 local chat_url = os.getenv 'OPENAI_CHAT_URL'
 local info_url = os.getenv 'OPENAI_INFO_URL'
+
 local model_num = 1
 local models
-
-local separator = '---------------------------------------'
-local chat_prompt =
-  'You are an AI programming assistant. Follow the users requirements carefully and to the letter. First, think step-by-step and describe your plan for what to build in pseudocode, written out in great detail. Then, output the code in a single code block. Minimize any other prose.'
-local chat_buffer
-local chat_win
-local chat_process
 
 local log_path = vim.fn.stdpath 'log' .. '/openai.log'
 local log_file
@@ -19,6 +13,7 @@ local log = function(message)
   end
 end
 
+local curl_process
 local curl = function(args, stream_handler, exit_handler)
   if type(args) == 'function' then
     args = args()
@@ -27,7 +22,7 @@ local curl = function(args, stream_handler, exit_handler)
   local stdout = vim.loop.new_pipe()
   log_file = vim.loop.fs_open(log_path, 'a', 0x1A4)
 
-  chat_process = vim.loop.spawn(
+  curl_process = vim.loop.spawn(
     'curl',
     {
       args = args,
@@ -40,9 +35,9 @@ local curl = function(args, stream_handler, exit_handler)
         vim.loop.fs_close(log_file)
         log_file = nil
       end
-      if chat_process and not chat_process:is_closing() then
-        chat_process:close()
-        chat_process = nil
+      if curl_process and not curl_process:is_closing() then
+        curl_process:close()
+        curl_process = nil
       end
       if exit_handler then
         exit_handler()
@@ -62,12 +57,37 @@ local curl = function(args, stream_handler, exit_handler)
   end))
 end
 
-local info_args = {
-  info_url,
-  '--silent',
-  '-H',
-  'Authorization: Bearer ' .. api_key,
-}
+-- Info
+
+---@param on_finish_callback function
+local with_models_info = function(on_finish_callback)
+  if not models then
+    os.remove(log_path)
+    local info_args = {
+      info_url,
+      '--silent',
+      '-H',
+      'Authorization: Bearer ' .. api_key,
+    }
+
+    ---@param data string
+    local info_response_handler = function(data)
+      models = vim.json.decode(data)['models']
+    end
+
+    curl(info_args, info_response_handler, on_finish_callback)
+  else
+    vim.schedule(on_finish_callback)
+  end
+end
+
+-- Chat completion
+
+local chat_separator = '---------------------------------------'
+local chat_system_prompt =
+  'You are an AI programming assistant. Follow the users requirements carefully and to the letter. First, think step-by-step and describe your plan for what to build in pseudocode, written out in great detail. Then, output the code in a single code block. Minimize any other prose.'
+local chat_buffer
+local chat_win
 
 local update_chat_window_title = function()
   vim.api.nvim_win_set_config(chat_win, {
@@ -77,16 +97,9 @@ local update_chat_window_title = function()
 end
 
 ---@param data string
-local info_stream_handler = function(data)
-  models = vim.json.decode(data)['models']
-  update_chat_window_title()
-end
-
----@param data string
 local chat_stream_handler = function(data)
   local content = data:match '"content": "(.-)"}'
   if content then
-    log(content)
     content = content:gsub('<', '<LT>'):gsub('\\n', '\r'):gsub('\\t', '\t'):gsub('\\"', '"')
     log(content)
     vim.api.nvim_input(content)
@@ -95,7 +108,7 @@ end
 
 local chat_exit_handler = function()
   vim.cmd 'stopinsert'
-  vim.api.nvim_buf_set_lines(chat_buffer, -1, -1, true, { '', separator, '' })
+  vim.api.nvim_buf_set_lines(chat_buffer, -1, -1, true, { '', chat_separator, '' })
   vim.api.nvim_input 'G'
 end
 
@@ -103,7 +116,7 @@ local chat_to_messages = function()
   local chat = vim.api.nvim_buf_get_lines(chat_buffer, 0, -1, true)
   local contents = { '' }
   for _, line in ipairs(chat) do
-    if line:match(separator) then
+    if line:match(chat_separator) then
       contents[#contents + 1] = ''
     else
       contents[#contents] = contents[#contents] .. line .. '\n'
@@ -140,19 +153,11 @@ end
 
 local open_chat_buffer = function()
   if not chat_buffer then
-    os.remove(log_path)
     chat_buffer = vim.api.nvim_create_buf(false, true)
     vim.api.nvim_buf_set_option(chat_buffer, 'filetype', 'markdown')
-    vim.api.nvim_buf_set_lines(chat_buffer, 0, 0, true, { '', chat_prompt, '', separator })
-    curl(info_args, info_stream_handler)
+    vim.api.nvim_buf_set_lines(chat_buffer, 0, 0, true, { '', chat_system_prompt, '', chat_separator })
     vim.api.nvim_input 'G'
-    vim.keymap.set('i', '<C-[>', function()
-      if chat_process then
-        chat_process:kill(15)
-      else
-        vim.cmd 'stopinsert'
-      end
-    end, { buffer = chat_buffer })
+
     vim.keymap.set('n', '<C-[>', function()
       vim.api.nvim_win_close(0, false)
     end, { buffer = chat_buffer })
@@ -173,12 +178,20 @@ local open_chat_buffer = function()
       update_chat_window_title()
     end, { buffer = chat_buffer })
     vim.keymap.set({ 'n', 'i' }, '<C-CR>', function()
-      vim.cmd 'stopinsert'
-      vim.schedule(function()
-        vim.api.nvim_buf_set_lines(chat_buffer, -1, -1, true, { '', separator .. ' ' .. models[model_num]['name'], '' })
-        vim.api.nvim_input 'Go'
-        curl(chat_args, chat_stream_handler, chat_exit_handler)
-      end)
+      if not curl_process then
+        vim.cmd 'stopinsert'
+        with_models_info(function()
+          vim.api.nvim_buf_set_lines(
+            chat_buffer,
+            -1,
+            -1,
+            true,
+            { '', chat_separator .. ' ' .. models[model_num]['name'], '' }
+          )
+          vim.api.nvim_input 'Go'
+          curl(chat_args, chat_stream_handler, chat_exit_handler)
+        end)
+      end
     end, { buffer = chat_buffer })
   end
   if vim.fn.bufnr() ~= chat_buffer then
@@ -193,5 +206,92 @@ local open_chat_buffer = function()
       title_pos = 'center',
     })
   end
+  with_models_info(update_chat_window_title)
 end
-vim.keymap.set('n', '<Tab>c', open_chat_buffer, { desc = 'OpenAi chat open' })
+vim.keymap.set('n', '<Tab>i', open_chat_buffer, { desc = 'OpenAi chat open' })
+
+-- Code completion
+
+local code_inside_code_block = false
+local code_system_prompt =
+  'You are an expert programmer. You are requested to provide a snippet of code that performs the task requested by the user and fits best to the content of the source file. Output ONLY the code with no explanations or other text.'
+
+local code_to_messages = function()
+  local user_instruction = vim.api.nvim_get_current_line():match '^[^%w]*(.*)'
+
+  local cursor_row = vim.fn.getcurpos()[2]
+  local code_before = table.concat(vim.api.nvim_buf_get_lines(0, 0, cursor_row - 1, true), '\n')
+  local code_after = table.concat(vim.api.nvim_buf_get_lines(0, cursor_row, -1, true), '\n')
+
+  local code_user_prompt = user_instruction
+    -- .. '.\n\n The filetype of the source file is '
+    -- .. vim.o.filetype
+    .. '.\n\nThe content of the source file before the snippet is:\n ```'
+    .. vim.o.filetype
+    .. '\n'
+    .. code_before
+    .. '\n```\n\nThe content of the source file after the snippet is:\n```'
+    .. vim.o.filetype
+    .. '\n'
+    .. code_after
+    .. '\n```'
+  print(code_user_prompt)
+  return { { role = 'system', content = code_system_prompt }, { role = 'user', content = code_user_prompt } }
+end
+
+local code_args = function()
+  return {
+    chat_url,
+    '-X',
+    'POST',
+    '--no-buffer',
+    '--silent',
+    '-H',
+    'Content-Type: application/json',
+    '-H',
+    'Authorization: Bearer ' .. api_key,
+    '-d',
+    vim.json.encode { messages = code_to_messages(), model = models[model_num]['name'], stream = true },
+  }
+end
+
+---@param data string
+local code_stream_handler = function(data)
+  local content = data:match '"content": "(.-)"}'
+  if content then
+    content = content:gsub('<', '<LT>'):gsub('\\n', '\r'):gsub('\\t', '\t'):gsub('\\"', '"')
+    log(content)
+    if code_inside_code_block then
+      if content:match '%s*```%s*' then
+        code_inside_code_block = false
+        curl_process:kill(15)
+      else
+        vim.api.nvim_input(content)
+      end
+    elseif content:match '%s*```%s*' then
+      code_inside_code_block = true
+    end
+  end
+end
+
+local code_exit_handler = function()
+  vim.cmd 'stopinsert'
+end
+
+local code_complete_line = function()
+  code_inside_code_block = false
+  vim.cmd 'stopinsert'
+  with_models_info(function()
+    vim.api.nvim_input 'cc'
+    curl(code_args, code_stream_handler, code_exit_handler)
+  end)
+end
+
+vim.keymap.set('n', '<Leader>i', code_complete_line, { desc = 'OpenAi chat open' })
+vim.keymap.set('i', '<C-[>', function()
+  if curl_process then
+    curl_process:kill(15)
+  else
+    vim.cmd 'stopinsert'
+  end
+end, { desc = 'OpanAi stop generation and exit to normal mode' })
