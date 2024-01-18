@@ -91,6 +91,7 @@ local standard_servers = {
   'cssls',
   'jsonls',
   'lua_ls',
+  'bashls',
   -- 'stylelint-lsp',
   -- 'eslint?',
   -- 'prettier?',
