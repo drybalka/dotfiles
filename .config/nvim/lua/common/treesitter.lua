@@ -1,6 +1,6 @@
+local treesitter = require 'nvim-treesitter.configs'
 local climber = require 'tree-climber'
 local dap = require 'dap'
-local treesitter = require 'nvim-treesitter.configs'
 
 -- Treesitter configuration
 treesitter.setup {

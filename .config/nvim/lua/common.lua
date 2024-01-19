@@ -1,64 +1,72 @@
 require 'paq' {
   'savq/paq-nvim', -- Let Paq manage itself
-  'nvim-lua/plenary.nvim',
+  'nvim-lua/plenary.nvim', -- common dependency
+
+  -- general
+  'folke/neodev.nvim',
   'sainnhe/gruvbox-material',
 
+  -- lsp
   'neovim/nvim-lspconfig',
   'scalameta/nvim-metals',
-  'folke/neodev.nvim',
   'stevearc/conform.nvim',
-
-  {
-    'nvim-treesitter/nvim-treesitter',
-    build = ':TSUpdateSync',
-  },
-  'drybalka/tree-climber.nvim',
-
-  'hrsh7th/nvim-cmp',
   'hrsh7th/cmp-nvim-lsp',
+  'ThePrimeagen/refactoring.nvim',
+  'SmiteshP/nvim-navbuddy',
+  'SmiteshP/nvim-navic', -- dependency of navbuddy
+  'MunifTanjim/nui.nvim', -- dependency of navbuddy
+
+  -- cmp
+  'hrsh7th/nvim-cmp',
   'hrsh7th/cmp-buffer',
   'hrsh7th/cmp-path',
   'hrsh7th/cmp-cmdline',
-  'rafamadriz/friendly-snippets',
   'L3MON4D3/LuaSnip',
   'saadparwaiz1/cmp_luasnip',
-  'onsails/lspkind-nvim',
-  'ThePrimeagen/refactoring.nvim',
+  'rafamadriz/friendly-snippets',
+  'onsails/lspkind.nvim',
 
-  'MunifTanjim/nui.nvim',
-  'SmiteshP/nvim-navic',
-  'SmiteshP/nvim-navbuddy',
-
+  -- git
   'lewis6991/gitsigns.nvim',
   'sindrets/diffview.nvim',
   'akinsho/toggleterm.nvim',
 
-  'mfussenegger/nvim-dap',
-  'rcarriga/nvim-dap-ui',
-  'mfussenegger/nvim-dap-python',
-  'jbyuki/one-small-step-for-vimkind',
-
-  'nvim-neotest/neotest',
-  -- 'stevanmilic/neotest-scala',
-
+  -- telescope
   'nvim-telescope/telescope.nvim',
   {
     'nvim-telescope/telescope-fzf-native.nvim',
     build = 'make',
   },
   'nvim-telescope/telescope-file-browser.nvim',
-  'kyazdani42/nvim-web-devicons',
-  'tami5/sqlite.lua',
+  'kyazdani42/nvim-web-devicons', -- optional dependency of telescope
 
-  'stevearc/dressing.nvim',
-  'numToStr/Comment.nvim',
-  'lukas-reineke/indent-blankline.nvim',
-  'edluffy/specs.nvim',
+  -- dap
+  'mfussenegger/nvim-dap',
+  'rcarriga/nvim-dap-ui',
+  'mfussenegger/nvim-dap-python',
+  'jbyuki/one-small-step-for-vimkind',
+
+  -- test
+  'nvim-neotest/neotest',
+  -- 'stevanmilic/neotest-scala',
+
+  -- treesitter
+  {
+    'nvim-treesitter/nvim-treesitter',
+    build = ':TSUpdateSync',
+  },
+  'drybalka/tree-climber.nvim',
+
+  -- misc
   'nvim-lualine/lualine.nvim',
-  'folke/twilight.nvim',
+  'lukas-reineke/indent-blankline.nvim',
+  'asiryk/auto-hlsearch.nvim',
   'kylechui/nvim-surround',
   'chrisgrieser/nvim-spider',
-  'asiryk/auto-hlsearch.nvim',
+  'stevearc/dressing.nvim',
+  'numToStr/Comment.nvim',
+  'edluffy/specs.nvim',
+  'folke/twilight.nvim',
 }
 
 require 'common.general'
