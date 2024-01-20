@@ -32,7 +32,8 @@ HISTORY_SUBSTRING_SEARCH_FUZZY=true # fuzzy search by words
 bindkey -N clean
 bindkey -A clean main
 bindkey -R "^@"-"\M-^?" self-insert
-bindkey "^M" accept-line      # map Enter key
+bindkey "^[[200~" bracketed-paste   # properly handle pasting into terminal
+bindkey "^M" accept-line            # map Enter key
 # bindkey "^J" accept-line
 # bindkey "^V" quoted-insert
 
