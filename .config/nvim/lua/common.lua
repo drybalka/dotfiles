@@ -69,6 +69,7 @@ require 'paq' {
   'folke/twilight.nvim',
 }
 
+require 'common.keymap'
 require 'common.general'
 require 'common.lsp'
 require 'common.git'

@@ -29,9 +29,8 @@ cmp.setup {
     { name = 'buffer', option = { get_bufnrs = vim.api.nvim_list_bufs } },
   }),
   mapping = cmp.mapping.preset.insert {
-    ['<C-u>'] = { i = cmp.mapping.scroll_docs(-4) },
-    ['<C-d>'] = { i = cmp.mapping.scroll_docs(4) },
-    ['<C-M-Space>'] = { i = cmp.mapping.complete {} },
+    ['<C-u>'] = { i = cmp.mapping.scroll_docs(-1) },
+    ['<C-d>'] = { i = cmp.mapping.scroll_docs(1) },
     ['<C-y>'] = { i = cmp.mapping.confirm { select = true } },
   },
   experimental = {

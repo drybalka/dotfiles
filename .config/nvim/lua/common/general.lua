@@ -1,43 +1,32 @@
 local neodev = require 'neodev'
 
 -- Standard options
-vim.opt.expandtab = true -- Use spaces instead of tabs
-vim.opt.ignorecase = true -- Ignore case
-vim.opt.smartcase = true -- Do not ignore case with capitals
-vim.opt.scrolloff = 4 -- Lines of context
-vim.opt.softtabstop = -1 -- Set softtabstop to shiftwidth
-vim.opt.smartindent = true -- Insert indents automatically
-vim.opt.shiftwidth = 2
-vim.opt.splitbelow = true -- Put new windows below current
-vim.opt.splitright = true -- Put new windows right of current
-vim.opt.wrapscan = false
-vim.opt.mouse = 'a'
-vim.opt.showmode = false -- Do not show --INSERT-- and others on the last line
-vim.opt.number = false
-vim.opt.relativenumber = false
-vim.opt.signcolumn = 'yes'
-vim.opt.showtabline = 0
-vim.opt.updatetime = 300
-vim.opt.jumpoptions = 'view'
-vim.opt.spell = true
-
--- Disable builtin
-vim.g.loaded_gzip = 1
-vim.g.loaded_zip = 1
-vim.g.loaded_zipPlugin = 1
-vim.g.loaded_tar = 1
-vim.g.loaded_tarPlugin = 1
-vim.g.loaded_matchit = 1
-vim.g.loaded_2html_plugin = 1
-vim.g.loaded_netrw = 1
-vim.g.loaded_netrwPlugin = 1
-vim.g.loaded_netrwSettings = 1
+vim.o.expandtab = true -- Use spaces instead of tabs
+vim.o.ignorecase = true -- Ignore case
+vim.o.smartcase = true -- Do not ignore case with capitals
+vim.o.scrolloff = 4 -- Lines of context
+vim.o.softtabstop = -1 -- Set softtabstop to shiftwidth
+vim.o.smartindent = true -- Insert indents automatically
+vim.o.shiftwidth = 2
+vim.o.splitbelow = true -- Put new windows below current
+vim.o.splitright = true -- Put new windows right of current
+vim.o.wrapscan = false
+vim.o.mouse = 'a'
+vim.o.showmode = false -- Do not show --INSERT-- and others on the last line
+vim.o.number = false
+vim.o.relativenumber = false
+vim.o.signcolumn = 'yes'
+vim.o.showtabline = 0
+vim.o.updatetime = 300
+vim.o.jumpoptions = 'view'
+vim.o.spell = true
+vim.o.digraph = false
 
 -- Do not insert comment on newline
 vim.api.nvim_create_autocmd('FileType', { command = 'set formatoptions-=o' })
 
 -- Appearance
-vim.opt.termguicolors = true
+vim.o.termguicolors = true
 vim.g.gruvbox_material_transparent_background = 1
 vim.cmd [[colorscheme gruvbox-material]]
 vim.cmd [[highlight! link NormalFloat Normal]]
@@ -50,9 +39,9 @@ vim.cmd [[highlight! link DiagnosticInfo  BlueSign  ]]
 vim.cmd [[highlight! link DiagnosticHint  AquaSign  ]]
 
 -- Folding
-vim.opt.foldmethod = 'expr'
-vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
-vim.opt.foldenable = false
+vim.o.foldmethod = 'expr'
+vim.o.foldexpr = 'nvim_treesitter#foldexpr()'
+vim.o.foldenable = false
 
 --Remap space as leader key
 vim.keymap.set('', '<Space>', '<Nop>')
@@ -61,10 +50,10 @@ vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
 -- Set line wrap options
-vim.opt.linebreak = true
-vim.opt.breakindent = true
-vim.opt.breakindentopt = 'shift:2,min:40,sbr'
-vim.opt.showbreak = ' >> '
+vim.o.linebreak = true
+vim.o.breakindent = true
+vim.o.breakindentopt = 'shift:2,min:40,sbr'
+vim.o.showbreak = ' >> '
 
 -- Allow scrolling to wrapped lines with arrow keys
 vim.keymap.set('', '<Up>', 'gk')
