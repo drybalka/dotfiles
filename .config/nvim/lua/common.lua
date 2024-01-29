@@ -2,6 +2,9 @@ require 'paq' {
   'savq/paq-nvim', -- Let Paq manage itself
   'nvim-lua/plenary.nvim', -- common dependency
 
+  -- keymap
+  'drybalka/clean.nvim',
+
   -- general
   'folke/neodev.nvim',
   'sainnhe/gruvbox-material',
@@ -64,7 +67,7 @@ require 'paq' {
   'kylechui/nvim-surround',
   'chrisgrieser/nvim-spider',
   'stevearc/dressing.nvim',
-  'numToStr/Comment.nvim',
+  'echasnovski/mini.comment',
   'edluffy/specs.nvim',
   'folke/twilight.nvim',
 }

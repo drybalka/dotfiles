@@ -1,5 +1,5 @@
 local dressing = require 'dressing'
-local comment = require 'Comment'
+local comment = require 'mini.comment'
 local surround = require 'nvim-surround'
 local indent_blankline = require 'ibl'
 local specs = require 'specs'
@@ -9,9 +9,11 @@ local dap = require 'dap'
 local spider = require 'spider'
 local auto_hlsearch = require 'auto-hlsearch'
 
-auto_hlsearch.setup()
+auto_hlsearch.setup {
+  remap_keys = { '/', 'n', 'N' },
+}
 
-vim.keymap.set('n', 'gx', '<cmd>silent !firefox <cfile><CR>')
+vim.keymap.set('n', 'gx', '<cmd>silent !firefox <cfile><CR>', { desc = 'Open link under cursor in firefox' })
 
 dressing.setup {
   input = {
@@ -28,22 +30,28 @@ vim.api.nvim_create_autocmd('FileType', {
 })
 
 comment.setup {
-  opleader = {
-    line = '<Leader>c',
-    block = '<Leader>b',
+  mappings = {
+    comment = '<Space>c',
+    comment_visual = '<Space>c',
+    comment_line = '<Space>cc',
+    textobject = 'ic',
   },
-  toggler = {
-    line = '<Leader>cc',
-    block = '<Leader>bc',
-  },
-  extra = {
-    above = '<Leader>cO',
-    below = '<Leader>co',
-    eol = '<Leader>cA',
+  aliases = {
+    ['a'] = false,
+    ['b'] = false,
+    ['B'] = false,
+    ['r'] = false,
   },
 }
 
-surround.setup()
+surround.setup {
+  keymaps = {
+    insert = '<C-s>',
+    insert_line = '<C-S-s>',
+    visual = 's',
+    visual_line = 'S',
+  },
+}
 
 indent_blankline.setup {
   indent = {
@@ -180,6 +188,7 @@ local function open_scratch_buffer()
     })
   end
 end
+vim.keymap.set('n', '<Tab>y', open_scratch_buffer, { desc = 'Scratch buffer open' })
 
 local saved_views = {}
 vim.api.nvim_create_autocmd('BufLeave', {
@@ -196,17 +205,17 @@ vim.api.nvim_create_autocmd('BufEnter', {
   end,
 })
 
-vim.keymap.set('n', '<Tab>y', open_scratch_buffer, { desc = 'Scratch buffer open' })
 vim.keymap.set('n', '<C-s>', toggle, { desc = 'Toggle boolean' })
-vim.keymap.set({ 'n', 'o', 'x' }, 'w', function()
+
+vim.keymap.set('', 'w', function()
   spider.motion 'w'
 end, { desc = 'Spider-w' })
-vim.keymap.set({ 'n', 'o', 'x' }, 'e', function()
+vim.keymap.set('', 'e', function()
   spider.motion 'e'
 end, { desc = 'Spider-e' })
-vim.keymap.set({ 'n', 'o', 'x' }, 'b', function()
+vim.keymap.set('', 'b', function()
   spider.motion 'b'
 end, { desc = 'Spider-b' })
-vim.keymap.set({ 'n', 'o', 'x' }, 'ge', function()
+vim.keymap.set('', 'ge', function()
   spider.motion 'ge'
 end, { desc = 'Spider-ge' })

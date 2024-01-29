@@ -2,10 +2,6 @@ local lspkind = require 'lspkind'
 local luasnip = require 'luasnip'
 local cmp = require 'cmp'
 
-if not cmp then
-  return
-end
-
 vim.opt.completeopt = { 'menu', 'menuone', 'noselect' }
 
 cmp.setup {
@@ -50,18 +46,8 @@ cmp.setup {
 }
 
 cmp.setup.cmdline('/', {
-  ---@diagnostic disable-next-line: assign-type-mismatch
-  completion = { autocomplete = false },
-  mapping = {
-    ['<C-n>'] = {
-      c = cmp.mapping.select_next_item { behavior = require('cmp.types').cmp.SelectBehavior.Insert },
-    },
-    ['<C-p>'] = {
-      c = cmp.mapping.select_prev_item { behavior = require('cmp.types').cmp.SelectBehavior.Insert },
-    },
-    ['<C-M-Space>'] = { c = cmp.mapping.complete {} },
+  mapping = cmp.mapping.preset.cmdline {
     ['<C-y>'] = { c = cmp.mapping.confirm { select = true } },
-    ['<C-e>'] = { c = cmp.mapping.abort() },
   },
   sources = {
     { name = 'buffer' },

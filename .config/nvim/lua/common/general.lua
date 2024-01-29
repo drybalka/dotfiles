@@ -64,8 +64,8 @@ vim.keymap.set('i', '<Down>', '<C-o>gj')
 -- Exit terminal mode on escape
 -- vim.keymap.set('t', '<C-[>', [[<C-\><C-n>]])
 
--- Restore <c-i> as jump forward keymap
-vim.keymap.set('n', '<c-i>', '<c-i>')
+-- Restore <C-i> as jump forward keymap
+vim.keymap.set('n', '<C-i>', '<C-i>')
 
 -- Diagnostics
 vim.diagnostic.config { float = { border = 'rounded' } }

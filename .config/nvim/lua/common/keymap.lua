@@ -5,8 +5,7 @@ clean.clean_plugins()
 vim.keymap.del({ '!', 'n', 'v', 'o' }, '<C-[>') -- escape
 
 vim.keymap.del('!', '<C-h>') -- delete previous character
-vim.keymap.del('c', '<C-w>') -- delete previous word
-vim.keymap.set('i', '<C-w>', '<Cmd>normal db<Cr>') -- delete previous word using nvim-spider
+vim.keymap.del('!', '<C-w>') -- delete previous word
 vim.keymap.del('!', '<C-u>') -- delete previous text
 vim.keymap.del('!', '<C-o>') -- execute single normal command
 vim.keymap.del('c', '<C-b>') -- cursor to line beginning
@@ -14,8 +13,8 @@ vim.keymap.set('i', '<C-b>', '<C-o>^')
 vim.keymap.del('c', '<C-e>') -- cursor to line end
 vim.keymap.set('i', '<C-e>', '<C-o>$')
 
-vim.keymap.set('!', '<C-.>', '<C-t>') -- indent line
-vim.keymap.set('!', '<C-,>', '<C-d>') -- unindent line
+vim.keymap.set('!', '<C-.>', '<C-t>', { desc = 'indent line' })
+vim.keymap.set('!', '<C-,>', '<C-d>', { desc = 'unindent line' })
 vim.keymap.del({ 'n', 'v' }, '>') -- indent line
 vim.keymap.del({ 'n', 'v' }, '<') -- unindent line
 
@@ -37,16 +36,16 @@ vim.keymap.set({ 'n', 'v' }, 'q', function()
   else
     vim.cmd 'normal! q<Cr>'
   end
-end, { nowait = true }) -- record macro (only q register allowed)
+end, { nowait = true, desc = 'record macro' })
 vim.keymap.del({ 'n', 'v' }, 'Q') -- execute macro
 
 vim.keymap.del('n', '.') -- repeat last change
-vim.keymap.set('v', '.', 'gv') -- repeat last selection
+vim.keymap.set('v', '.', 'gv', { desc = 'repeat last selection' })
 
 vim.keymap.del('v', 'o') -- jump to other selection end
 
-vim.keymap.del({ 'n', 'v', 'o' }, '{') -- jump to previous paragraph
-vim.keymap.del({ 'n', 'v', 'o' }, '}') -- jump to next paragraph
+vim.keymap.del('', '{') -- jump to previous paragraph
+vim.keymap.del('', '}') -- jump to next paragraph
 
 vim.keymap.del({ 'n', 'v' }, '"') -- use register
 
@@ -54,7 +53,7 @@ vim.keymap.del({ 'n', 'v' }, '"') -- use register
 
 -- Insert from registers and under cursor
 vim.keymap.del('c', '<C-r>') -- insert content of a register
-vim.keymap.set('i', '<C-r>', '<C-r><C-p>') -- insert content of a register
+vim.keymap.set('i', '<C-r>', '<C-r><C-p>', { desc = 'insert content of register' })
 vim.keymap.del('c', '<C-r><C-w>') -- insert word under cursor
 vim.keymap.del('c', '<C-r><C-a>') -- insert WORD under cursor
 vim.keymap.del('c', '<C-r><C-l>') -- insert line under cursor
@@ -77,48 +76,48 @@ vim.keymap.del({ 'n', 'v' }, '<C-w>K')
 vim.keymap.del({ 'n', 'v' }, '<C-w>L')
 vim.keymap.del({ 'n', 'v' }, '<C-w>o') -- close all other windows
 vim.keymap.del({ 'n', 'v' }, '<C-w><C-o>')
-vim.keymap.set({ 'n', 'v' }, '<C-w>s', ':new<Cr>') -- split window horizontally
-vim.keymap.set({ 'n', 'v' }, '<C-w>v', ':vnew<Cr>') -- split window vertically
+vim.keymap.set({ 'n', 'v' }, '<C-w>s', ':new<Cr>', { desc = 'window split horizontally' })
+vim.keymap.set({ 'n', 'v' }, '<C-w>v', ':vnew<Cr>', { desc = 'window split vertically' })
 
 -- Scrolling
-vim.keymap.set({ 'n', 'v', 'o' }, '<C-d>', '<C-e>') -- scoll down
-vim.keymap.set('i', '<C-d>', '<C-x><C-e>')
-vim.keymap.set({ 'n', 'v', 'o' }, '<C-u>', '<C-y>') -- scoll up
-vim.keymap.set('i', '<C-u>', '<C-x><C-y>')
+vim.keymap.set('', '<C-d>', '<C-e>', { desc = 'scroll down' })
+vim.keymap.set('i', '<C-d>', '<C-x><C-e>', { desc = 'scroll down' })
+vim.keymap.set('', '<C-u>', '<C-y>', { desc = 'scroll up' })
+vim.keymap.set('i', '<C-u>', '<C-x><C-y>', { desc = 'scroll up' })
 vim.keymap.del({ 'n', 'v' }, 'z')
 vim.keymap.del({ 'n', 'v' }, 'zt')
 vim.keymap.del({ 'n', 'v' }, 'zz')
 vim.keymap.del({ 'n', 'v' }, 'zb')
 
 -- Jump to chars on the line
-vim.keymap.del({ 'n', 'v', 'o' }, 'f')
-vim.keymap.del({ 'n', 'v', 'o' }, 'F')
-vim.keymap.del({ 'n', 'v', 'o' }, 't')
-vim.keymap.del({ 'n', 'v', 'o' }, 'T')
-vim.keymap.del({ 'n', 'v', 'o' }, ';') -- repeat horizontal jump
-vim.keymap.del({ 'n', 'v', 'o' }, ',') -- same backwards
+vim.keymap.del('', 'f')
+vim.keymap.del('', 'F')
+vim.keymap.del('', 't')
+vim.keymap.del('', 'T')
+vim.keymap.del('', ';') -- repeat horizontal jump
+vim.keymap.del('', ',') -- same backwards
 
 -- Bracket jumps
-vim.keymap.del({ 'n', 'v', 'o' }, '[')
-vim.keymap.del({ 'n', 'v', 'o' }, ']')
-vim.keymap.del({ 'n', 'v', 'o' }, '])') -- jump to next unmatched ()
-vim.keymap.del({ 'n', 'v', 'o' }, '[(')
-vim.keymap.del({ 'n', 'v', 'o' }, ']}') -- jump to next unmatched {}
-vim.keymap.del({ 'n', 'v', 'o' }, '[{')
-vim.keymap.del({ 'n', 'v', 'o' }, ']s') -- jump to next misspelled word
-vim.keymap.del({ 'n', 'v', 'o' }, '[s')
+vim.keymap.del('', '[')
+vim.keymap.del('', ']')
+vim.keymap.del('', '])') -- jump to next unmatched ()
+vim.keymap.del('', '[(')
+vim.keymap.del('', ']}') -- jump to next unmatched {}
+vim.keymap.del('', '[{')
+vim.keymap.del('', ']s') -- jump to next misspelled word
+vim.keymap.del('', '[s')
 
 -- Marks
 vim.keymap.del({ 'n', 'v' }, 'm') -- use marks
-vim.keymap.del({ 'n', 'v', 'o' }, '`') -- enable mark jumps
-vim.keymap.set({ 'n', 'v', 'o' }, "'", '`', { nowait = true, remap = true }) -- quote same as backward quote
-vim.keymap.del({ 'n', 'v', 'o' }, '``') -- jump back
-vim.keymap.del({ 'n', 'v', 'o' }, "`'")
-vim.keymap.del({ 'n', 'v', 'o' }, '`"') -- jump to where last exited neovim
-vim.keymap.del({ 'n', 'v', 'o' }, '`.') -- jump to last change
-vim.keymap.set({ 'n', 'v', 'o' }, '`,', '`^') -- jump to last insert stop
-vim.keymap.del({ 'n', 'v', 'o' }, '`<') -- jump to start of last selection
-vim.keymap.del({ 'n', 'v', 'o' }, '`>') -- jump to end of last selection
+vim.keymap.del('', '`') -- enable mark jumps
+vim.keymap.set('', "'", '`', { nowait = true, remap = true, desc = 'jump to mark' }) -- quote same as backward quote
+vim.keymap.del('', '``') -- jump back
+vim.keymap.del('', "`'")
+vim.keymap.del('', '`"') -- jump to where last exited neovim
+vim.keymap.del('', '`.') -- jump to last change
+vim.keymap.set('', '`,', '`^', { desc = 'jump to last insert stop' })
+vim.keymap.del('', '`<') -- jump to start of last selection
+vim.keymap.del('', '`>') -- jump to end of last selection
 
 -- Textobjects
 vim.keymap.del({ 'v', 'o' }, 'i')

@@ -198,8 +198,9 @@ telescope.setup {
       },
     },
     keymaps = {
-      lhs_filter = function(lhs)
-        return not vim.startswith(lhs, '<Plug>')
+      show_plug = false,
+      filter = function(keymap)
+        return not keymap.rhs or keymap.rhs ~= ''
       end,
     },
     lsp_references = {
