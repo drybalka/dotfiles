@@ -3,7 +3,6 @@ local comment = require 'mini.comment'
 local ts_context_commentstring = require 'ts_context_commentstring'
 local surround = require 'nvim-surround'
 local indent_blankline = require 'ibl'
-local specs = require 'specs'
 local lualine = require 'lualine'
 local twilight = require 'twilight'
 local dap = require 'dap'
@@ -83,15 +82,6 @@ indent_blankline.setup {
   },
   exclude = {
     filetypes = { 'markdown' },
-  },
-}
-
--- Shows where the cursor moves
-specs.setup {
-  popup = {
-    winhl = 'Search',
-    fader = specs.exp_fader,
-    resizer = specs.shrink_resizer,
   },
 }
 
