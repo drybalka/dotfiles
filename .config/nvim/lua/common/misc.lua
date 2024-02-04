@@ -43,6 +43,17 @@ comment.setup {
     ['r'] = false,
   },
 }
+vim.keymap.set('v', '<Space>C', 'yv.<Space>cP', { remap = true }) -- duplicate and comment the selection
+vim.keymap.set('n', '<Space>Cc', 'V<Space>C', { remap = true })
+vim.keymap.set('n', '<Space>CC', 'V<Space>C', { remap = true })
+vim.keymap.set('n', '<Space>C', function()
+  vim.o.operatorfunc = 'v:lua.comment_duplicate'
+  return 'g@'
+end, { expr = true })
+function _G.comment_duplicate()
+  vim.cmd.normal { "'[V']", bang = true }
+  vim.api.nvim_input '<Space>C'
+end
 
 surround.setup {
   keymaps = {
