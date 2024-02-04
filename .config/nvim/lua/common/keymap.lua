@@ -17,6 +17,10 @@ vim.keymap.set('!', '<C-.>', '<C-t>', { desc = 'indent line' })
 vim.keymap.set('!', '<C-,>', '<C-d>', { desc = 'unindent line' })
 vim.keymap.del({ 'n', 'v' }, '>') -- indent line
 vim.keymap.del({ 'n', 'v' }, '<') -- unindent line
+vim.keymap.set('n', '>p', "<Cmd>'[,']><Cr>") -- indent previous changed text
+vim.keymap.set('n', '>P', "<Cmd>'[,']><Cr>")
+vim.keymap.set('n', '<p', "<Cmd>'[,']<<Cr>") -- unindent previous changed text
+vim.keymap.set('n', '<P', "<Cmd>'[,']<<Cr>")
 
 vim.keymap.set({ 'n', 'v' }, 'p', ']p') -- put and adjust indent
 vim.keymap.set({ 'n', 'v' }, 'P', '[p')
@@ -118,6 +122,8 @@ vim.keymap.del('', '`.') -- jump to last change
 vim.keymap.set('', '`,', '`^', { desc = 'jump to last insert stop' })
 vim.keymap.del('', '`<') -- jump to start of last selection
 vim.keymap.del('', '`>') -- jump to end of last selection
+vim.keymap.del('', '`[') -- jump to start of last changed text
+vim.keymap.del('', '`]') -- jump to end of last changed text
 
 -- Textobjects
 vim.keymap.del({ 'v', 'o' }, 'i')
