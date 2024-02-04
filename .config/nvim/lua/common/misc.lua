@@ -1,5 +1,6 @@
 local dressing = require 'dressing'
 local comment = require 'mini.comment'
+local ts_context_commentstring = require 'ts_context_commentstring'
 local surround = require 'nvim-surround'
 local indent_blankline = require 'ibl'
 local specs = require 'specs'
@@ -29,7 +30,15 @@ vim.api.nvim_create_autocmd('FileType', {
   end,
 })
 
+ts_context_commentstring.setup {
+  enable_autocmd = false,
+}
 comment.setup {
+  options = {
+    custom_commentstring = function()
+      return ts_context_commentstring.calculate_commentstring() or vim.bo.commentstring
+    end,
+  },
   mappings = {
     comment = '<Space>c',
     comment_visual = '<Space>c',

@@ -68,6 +68,7 @@ require 'paq' {
   'chrisgrieser/nvim-spider',
   'stevearc/dressing.nvim',
   'echasnovski/mini.comment',
+  'JoosepAlviste/nvim-ts-context-commentstring',
   'edluffy/specs.nvim',
   'folke/twilight.nvim',
 }
