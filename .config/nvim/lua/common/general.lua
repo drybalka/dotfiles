@@ -22,6 +22,8 @@ vim.o.jumpoptions = 'view'
 vim.o.spell = true
 vim.o.digraph = false
 
+vim.g.markdown_recommended_style = 0
+
 -- Do not insert comment on newline
 vim.api.nvim_create_autocmd('FileType', { command = 'set formatoptions-=o' })
 
