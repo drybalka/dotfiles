@@ -72,7 +72,12 @@ local with_models_info = function(on_finish_callback)
 
     ---@param data string
     local info_response_handler = function(data)
-      models = vim.json.decode(data)['models']
+      local aliases = vim.json.decode(data)['aliases']
+      for _, alias in ipairs(aliases) do
+        if alias['name'] == 'codechat' then
+          models = alias['model_ranking']
+        end
+      end
     end
 
     curl(info_args, info_response_handler, on_finish_callback)
@@ -91,7 +96,7 @@ local chat_win
 
 local update_chat_window_title = function()
   vim.api.nvim_win_set_config(chat_win, {
-    title = ' ' .. models[model_num]['name'] .. ' ',
+    title = ' ' .. models[model_num] .. ' ',
     title_pos = 'center',
   })
 end
@@ -147,7 +152,7 @@ local chat_args = function()
     '-H',
     'Authorization: Bearer ' .. api_key,
     '-d',
-    vim.json.encode { messages = chat_to_messages(), model = models[model_num]['name'], stream = true },
+    vim.json.encode { messages = chat_to_messages(), model = models[model_num], stream = true },
   }
 end
 
@@ -162,32 +167,22 @@ local open_chat_buffer = function()
       vim.api.nvim_win_close(0, false)
     end, { buffer = chat_buffer })
     vim.keymap.set('n', '<C-n>', function()
-      if model_num == #models then
-        model_num = 1
-      else
+      if model_num < #models then
         model_num = model_num + 1
+        update_chat_window_title()
       end
-      update_chat_window_title()
     end, { buffer = chat_buffer })
     vim.keymap.set('n', '<C-p>', function()
-      if model_num == 1 then
-        model_num = #models
-      else
+      if model_num > 1 then
         model_num = model_num - 1
+        update_chat_window_title()
       end
-      update_chat_window_title()
     end, { buffer = chat_buffer })
     vim.keymap.set({ 'n', 'i' }, '<C-CR>', function()
       if not curl_process then
         vim.cmd 'stopinsert'
         with_models_info(function()
-          vim.api.nvim_buf_set_lines(
-            chat_buffer,
-            -1,
-            -1,
-            true,
-            { '', chat_separator .. ' ' .. models[model_num]['name'], '' }
-          )
+          vim.api.nvim_buf_set_lines(chat_buffer, -1, -1, true, { '', chat_separator .. ' ' .. models[model_num], '' })
           vim.api.nvim_input 'Go'
           curl(chat_args, chat_stream_handler, chat_exit_handler)
         end)
@@ -252,7 +247,7 @@ local code_args = function()
     '-d',
     vim.json.encode {
       messages = code_to_messages(),
-      model = models[model_num]['name'],
+      model = models[model_num],
       stream = true,
       assistant_prefix = '```' .. vim.o.filetype .. '\n',
       stop = { '```' },
