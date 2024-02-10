@@ -212,9 +212,9 @@ vim.keymap.set('n', '<Tab>i', open_chat_buffer, { desc = 'OpenAi chat open' })
 
 -- Code completion
 
-local code_inside_code_block = false
+local indentexpr
 local code_system_prompt =
-  'You are an expert programmer. You are requested to provide a snippet of code that performs the task requested by the user and fits best to the content of the source file. Output ONLY the code with no explanations or other text.'
+  'You are an expert programmer. You are requested to provide a snippet of code that performs the task requested by the user and fits best to the content of the source file. Do not indent the first line.'
 
 local code_to_messages = function()
   local user_instruction = vim.api.nvim_get_current_line():match '^[^%w]*(.*)'
@@ -235,7 +235,6 @@ local code_to_messages = function()
     .. '\n'
     .. code_after
     .. '\n```'
-  print(code_user_prompt)
   return { { role = 'system', content = code_system_prompt }, { role = 'user', content = code_user_prompt } }
 end
 
@@ -251,7 +250,13 @@ local code_args = function()
     '-H',
     'Authorization: Bearer ' .. api_key,
     '-d',
-    vim.json.encode { messages = code_to_messages(), model = models[model_num]['name'], stream = true },
+    vim.json.encode {
+      messages = code_to_messages(),
+      model = models[model_num]['name'],
+      stream = true,
+      assistant_prefix = '```' .. vim.o.filetype .. '\n',
+      stop = { '```' },
+    },
   }
 end
 
@@ -261,28 +266,21 @@ local code_stream_handler = function(data)
   if content then
     content = content:gsub('<', '<LT>'):gsub('\\n', '\r'):gsub('\\t', '\t'):gsub('\\"', '"')
     log(content)
-    if code_inside_code_block then
-      if content:match '%s*```%s*' then
-        code_inside_code_block = false
-        curl_process:kill(15)
-      else
-        vim.api.nvim_input(content)
-      end
-    elseif content:match '%s*```%s*' then
-      code_inside_code_block = true
-    end
+    vim.api.nvim_input(content)
   end
 end
 
 local code_exit_handler = function()
   vim.cmd 'stopinsert'
+  vim.bo.indentexpr = indentexpr
 end
 
 local code_complete_line = function()
-  code_inside_code_block = false
   vim.cmd 'stopinsert'
+  indentexpr = vim.bo.indentexpr
+  vim.bo.indentexpr = tostring(vim.fn.indent(vim.api.nvim_win_get_cursor(0)[1]))
   with_models_info(function()
-    vim.api.nvim_input 'cc'
+    vim.api.nvim_input '^C'
     curl(code_args, code_stream_handler, code_exit_handler)
   end)
 end
