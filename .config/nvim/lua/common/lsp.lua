@@ -27,6 +27,7 @@ local on_attach = function(client, bufnr)
   vim.keymap.set('n', '<Leader>rn', vim.lsp.buf.rename, { buffer = bufnr, desc = 'LSP rename' })
   vim.keymap.set({ 'n', 'x' }, '<Leader>rf', refactoring.select_refactor, { buffer = bufnr, desc = 'LSP refactor' })
   vim.keymap.set('n', '<Leader>a', vim.lsp.buf.code_action, { buffer = bufnr, desc = 'LSP code action' })
+  vim.keymap.set('n', '<Leader>l', vim.lsp.codelens.run, { buffer = bufnr, desc = 'LSP codelens run' })
   vim.keymap.set('n', '<Tab>n', navbuddy.open, { buffer = bufnr, desc = 'LSP navbuddy' })
   -- vim.keymap.set('v', '<Leader>a', vim.lsp.buf.range_code_action, { buffer = bufnr, desc = '' })
   -- vim.keymap.set('n', '<Leader>=', vim.lsp.buf.format, { buffer = bufnr, desc = '' })
@@ -115,7 +116,7 @@ metals_config.settings = {
   excludedPackages = { 'akka.actor.typed.javadsl', 'com.github.swagger.akka.javadsl' },
   serverProperties = { '-Xmx3g' },
   serverVersion = 'latest.snapshot',
-  testUserInterface = 'Test Explorer', -- disables virtual text for tests
+  -- testUserInterface = 'Test Explorer', -- disables virtual text for tests
 }
 metals_config.capabilities = capabilities
 metals_config.on_attach = function(client, bufnr)

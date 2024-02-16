@@ -15,7 +15,7 @@ neotest.setup {
   summary = {
     enabled = false,
   },
-  adapters = { scala { framework = 'munit' } },
+  -- adapters = { scala { framework = 'munit' } },
 }
 
 vim.keymap.set('n', ']t', neotest.jump.next, { desc = 'Test next' })

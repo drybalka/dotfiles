@@ -24,7 +24,9 @@ cmp.setup {
   }, {
     { name = 'buffer', option = { get_bufnrs = vim.api.nvim_list_bufs } },
   }),
-  mapping = cmp.mapping.preset.insert {
+  mapping = {
+    ['<C-n>'] = { i = cmp.mapping.select_next_item { behavior = cmp.SelectBehavior.Insert } },
+    ['<C-p>'] = { i = cmp.mapping.select_prev_item { behavior = cmp.SelectBehavior.Insert } },
     ['<C-u>'] = { i = cmp.mapping.scroll_docs(-1) },
     ['<C-d>'] = { i = cmp.mapping.scroll_docs(1) },
     ['<C-y>'] = { i = cmp.mapping.confirm { select = true } },

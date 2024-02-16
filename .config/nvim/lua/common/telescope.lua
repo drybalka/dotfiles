@@ -121,8 +121,8 @@ telescope.setup {
         ['<Esc>'] = actions.close,
         ['<C-[>'] = actions.close,
         ['<C-/>'] = actions.which_key,
-        ['<C-j>'] = actions.cycle_history_next,
-        ['<C-k>'] = actions.cycle_history_prev,
+        ['<Down>'] = actions.cycle_history_next,
+        ['<Up>'] = actions.cycle_history_prev,
       },
       n = {
         ['<C-/>'] = actions.which_key,
