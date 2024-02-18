@@ -51,7 +51,7 @@ require 'paq' {
 
   -- test
   'nvim-neotest/neotest',
-  -- 'stevanmilic/neotest-scala',
+  'stevanmilic/neotest-scala',
 
   -- treesitter
   {
