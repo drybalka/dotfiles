@@ -17,8 +17,8 @@ for_window [app_id=".*"] inhibit_idle fullscreen
 # Move and resize floating windows while pressing $mod
 floating_modifier $mod normal
 
-# Disable paste on 3-finger tap (wait for sway release > 1.8.1)
-# primary_selection disabled 
+# Disable paste on 3-finger tap
+primary_selection disabled 
 
 # Style settings
 default_border none
@@ -52,7 +52,7 @@ input type:touchpad {
 
 input type:keyboard {
     xkb_layout "us,ua"
-    xkb_options "grp:alt_shift_toggle,ctrl:nocaps,compose:ralt"
+    xkb_options "grp:alt_shift_toggle,compose:ralt"
     repeat_delay 300
     repeat_rate 30
 }
