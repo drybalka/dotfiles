@@ -2,6 +2,8 @@ local clean = require 'clean'
 clean.clean_keymap()
 clean.clean_plugins()
 
+vim.g.loaded_matchparen = nil
+
 vim.keymap.del({ '!', 'n', 'v', 'o' }, '<C-[>') -- escape
 
 vim.keymap.del('!', '<C-h>') -- delete previous character
@@ -53,7 +55,7 @@ vim.keymap.del('', '}') -- jump to next paragraph
 
 vim.keymap.del({ 'n', 'v' }, '"') -- use register
 
--- Maybe map %, is there a matchit neovim plugin
+vim.keymap.del('', '%')
 
 -- Insert from registers and under cursor
 vim.keymap.del('c', '<C-r>') -- insert content of a register
