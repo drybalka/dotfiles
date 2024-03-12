@@ -26,6 +26,13 @@ default_floating_border normal
 gaps inner 4
 gaps top -2
 
+font pango:monospace 1
+titlebar_padding 1
+titlebar_border_thickness 0
+client.focused          #000000 #285577 #3A2A4D
+client.focused_inactive #000000 #333333 #333333
+client.unfocused        #000000 #181818 #181818
+
 ### Idle configuration
 exec swayidle -w \
     timeout 240 'swaymsg "output * dpms off"' \
@@ -71,13 +78,6 @@ bindsym {
 
     $mod+Print exec grim -g "$(slurp)" - | wl-copy
 
-    $mod+Shift+f fullscreen
-    $mod+q kill
-    $mod+Shift+c reload
-
-    $mod+Shift+minus move scratchpad
-    $mod+minus scratchpad show, floating disable
-
     --locked XF86MonBrightnessUp exec light -S "$(light -G | awk '{ print int(($1 + .72) * 1.4) }')" && notify-brightness
     --locked XF86MonBrightnessDown exec light -S "$(light -G | awk '{ print int($1 / 1.4) }')"  && notify-brightness
     --locked XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5% && notify-volume
@@ -87,16 +87,15 @@ bindsym {
 }
 
 bindsym {
-    $mod+b splith
-    $mod+v splitv
+    $mod+v splitt
+    $mod+t layout toggle tabbed split
 
-    $mod+s layout stacking
-    $mod+w layout tabbed
-    $mod+e layout toggle split
+    $mod+Shift+f fullscreen
+    $mod+q kill
+    $mod+Shift+c reload
 
-    $mod+Shift+space floating toggle
-    $mod+space focus mode_toggle
-    $mod+a focus parent
+    $mod+Shift+minus move scratchpad
+    $mod+minus scratchpad show, floating disable
 }
 
 mode "resize" {
