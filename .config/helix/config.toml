@@ -1,0 +1,53 @@
+theme = "with_transparency"
+
+[editor]
+color-modes = true
+gutters = ["diff", "diagnostics"]
+auto-pairs = false
+
+[editor.search]
+wrap-around = false
+
+[editor.indent-guides]
+render = true
+
+[editor.statusline]
+left = ["position", "spinner", "file-name", "read-only-indicator", "file-modification-indicator"]
+right = ["diagnostics", "register", "file-encoding", "position-percentage", "spacer"]
+
+[editor.cursor-shape]
+insert = "bar"
+normal = "block"
+select = "underline"
+
+[keys.normal]
+"'" = "repeat_last_motion"
+"X" = "extend_line_above"
+"C-;" = "flip_selections"
+"C-/" = "hover"
+
+"{" = "goto_prev_paragraph"
+"}" = "goto_next_paragraph"
+
+C-k = "select_prev_sibling"
+C-j = "select_next_sibling"
+C-l = "shrink_selection"
+C-h = "expand_selection"
+
+[keys.normal.space]
+space = "last_picker"
+"'" = "no_op"
+"k" = "no_op"
+
+[keys.select]
+# "'" = "repeat_last_motion"
+"X" = "extend_line_above"
+"C-;" = "flip_selections"
+
+"{" = "goto_prev_paragraph"
+"}" = "goto_next_paragraph"
+
+C-k = "select_prev_sibling"
+C-j = "select_next_sibling"
+C-l = "shrink_selection"
+C-h = "expand_selection"
