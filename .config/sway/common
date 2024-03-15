@@ -87,11 +87,12 @@ bindsym {
 }
 
 bindsym {
-    $mod+v splitt
+    $mod+v split toggle
+    $mod+e split none
     $mod+t layout toggle tabbed split
 
-    $mod+Shift+f fullscreen
     $mod+q kill
+    $mod+Shift+f fullscreen
     $mod+Shift+c reload
 
     $mod+Shift+minus move scratchpad
