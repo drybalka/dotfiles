@@ -1,9 +1,9 @@
 theme = "with_transparency"
 
 [editor]
-color-modes = true
 gutters = ["diff", "diagnostics"]
 auto-pairs = false
+middle-click-paste = false
 
 [editor.search]
 wrap-around = false
@@ -20,7 +20,11 @@ insert = "bar"
 normal = "block"
 select = "underline"
 
+[editor.soft-wrap]
+enable = true
+
 [keys.normal]
+tab = "no_op"
 "'" = "repeat_last_motion"
 "X" = "extend_line_above"
 "C-;" = "flip_selections"
@@ -40,7 +44,7 @@ space = "last_picker"
 "k" = "no_op"
 
 [keys.select]
-# "'" = "repeat_last_motion"
+"'" = "repeat_last_motion"
 "X" = "extend_line_above"
 "C-;" = "flip_selections"
 
@@ -51,3 +55,14 @@ C-k = "select_prev_sibling"
 C-j = "select_next_sibling"
 C-l = "shrink_selection"
 C-h = "expand_selection"
+
+[keys.insert]
+C-d = "no_op"
+C-u = "no_op"
+C-x = "no_op"
+C-W = "delete_word_forward"
+C-space = "completion"
+C-l = "delete_char_forward"
+C-j = "kill_to_line_start"
+C-b = "goto_line_start"
+C-e = "goto_line_end_newline"

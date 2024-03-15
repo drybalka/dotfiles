@@ -59,7 +59,7 @@ bindkey "^L" clear-screen
 bindkey "^Y" autosuggest-accept
 bindkey "^H" vi-backward-delete-char
 bindkey "^W" vi-backward-kill-word
-bindkey "^U" vi-kill-line
+bindkey "^J" vi-kill-line
 bindkey "^B" vi-beginning-of-line
 bindkey "^E" vi-end-of-line
 bindkey "^N" history-substring-search-up
