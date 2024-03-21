@@ -105,7 +105,7 @@ end
 local chat_stream_handler = function(data)
   local content = data:match '"content": "(.-)"}'
   if content then
-    content = content:gsub('<', '<LT>'):gsub('\\n', '\r'):gsub('\\t', '\t'):gsub('\\"', '"')
+    content = content:gsub('<', '<LT>'):gsub('\\r\\n', '\r'):gsub('\\n', '\r'):gsub('\\t', '\t'):gsub('\\"', '"')
     log(content)
     vim.api.nvim_input(content)
   end
