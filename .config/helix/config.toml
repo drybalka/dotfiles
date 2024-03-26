@@ -9,7 +9,7 @@ middle-click-paste = false
 wrap-around = false
 
 [editor.indent-guides]
-render = true
+# render = true
 
 [editor.statusline]
 left = ["position", "spinner", "file-name", "read-only-indicator", "file-modification-indicator"]
@@ -28,46 +28,76 @@ auto-signature-help = false
 display-signature-help-docs = false
 
 [keys.normal]
-tab = "no_op"
+"tab" = "no_op"
+"C-c" = "no_op"
 "'" = "repeat_last_motion"
 "X" = "extend_line_above"
 "C-;" = "flip_selections"
-"C-/" = "hover"
+"C-space" = "hover"
+
+"i" = [ "collapse_selection", "insert_mode" ]
+"a" = [ "move_char_right", "insert_mode" ]
+
+"d" = "delete_selection_noyank"
+"c" = "change_selection_noyank"
 
 "{" = "goto_prev_paragraph"
 "}" = "goto_next_paragraph"
 
-C-k = "select_prev_sibling"
-C-j = "select_next_sibling"
-C-l = "shrink_selection"
-C-h = "expand_selection"
+"[" = { "space" = "no_op" }
+"]" = { "space" = "no_op" }
+
+"C-k" = "select_prev_sibling"
+"C-j" = "select_next_sibling"
+"C-l" = "shrink_selection"
+"C-h" = "expand_selection"
 
 [keys.normal.space]
-space = "last_picker"
+"space" = "last_picker"
+"[" = "add_newline_above"
+"]" = "add_newline_below"
+"c" = "toggle_comments"
+"C" = [ "extend_to_line_bounds", "yank", "toggle_comments", "paste_after" ]
 "'" = "no_op"
 "k" = "no_op"
+"w" = "no_op"
 
 [keys.select]
+"C-c" = "no_op"
 "'" = "repeat_last_motion"
 "X" = "extend_line_above"
 "C-;" = "flip_selections"
 
+"i" = [ "collapse_selection", "insert_mode" ]
+"a" = [ "move_char_right", "insert_mode" ]
+
+"d" = "delete_selection_noyank"
+"c" = "change_selection_noyank"
+
 "{" = "goto_prev_paragraph"
 "}" = "goto_next_paragraph"
 
-C-k = "select_prev_sibling"
-C-j = "select_next_sibling"
-C-l = "shrink_selection"
-C-h = "expand_selection"
+"[" = { "space" = "no_op" }
+"]" = { "space" = "no_op" }
+
+[keys.select.space]
+"space" = "last_picker"
+"[" = "add_newline_above"
+"]" = "add_newline_below"
+"c" = "toggle_comments"
+"C" = [ "extend_to_line_bounds", "yank", "toggle_comments", "paste_after" ]
+"'" = "no_op"
+"k" = "no_op"
+"w" = "no_op"
 
 [keys.insert]
-C-d = "no_op"
-C-u = "no_op"
-C-x = "no_op"
-C-W = "delete_word_forward"
-C-space = "completion"
-C-l = "delete_char_forward"
-C-k = "kill_to_line_start"
-C-j = "kill_to_line_end"
-C-b = "goto_first_nonwhitespace"
-C-e = "goto_line_end_newline"
+"C-d" = "no_op"
+"C-u" = "no_op"
+"C-x" = "no_op"
+"C-W" = "delete_word_forward"
+"C-space" = "completion"
+"C-l" = "delete_char_forward"
+"C-k" = "kill_to_line_start"
+"C-j" = "kill_to_line_end"
+"C-b" = "goto_first_nonwhitespace"
+"C-e" = "goto_line_end_newline"
