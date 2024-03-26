@@ -2,7 +2,7 @@ theme = "with_transparency"
 
 [editor]
 gutters = ["diff", "diagnostics"]
-auto-pairs = false
+# auto-pairs = false
 middle-click-paste = false
 
 [editor.search]
@@ -22,6 +22,10 @@ select = "underline"
 
 [editor.soft-wrap]
 enable = true
+
+[editor.lsp]
+auto-signature-help = false
+display-signature-help-docs = false
 
 [keys.normal]
 tab = "no_op"
@@ -63,6 +67,7 @@ C-x = "no_op"
 C-W = "delete_word_forward"
 C-space = "completion"
 C-l = "delete_char_forward"
-C-j = "kill_to_line_start"
-C-b = "goto_line_start"
+C-k = "kill_to_line_start"
+C-j = "kill_to_line_end"
+C-b = "goto_first_nonwhitespace"
 C-e = "goto_line_end_newline"
