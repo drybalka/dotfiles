@@ -4,6 +4,7 @@ theme = "with_transparency"
 gutters = ["diff", "diagnostics"]
 # auto-pairs = false
 middle-click-paste = false
+popup-border = "all"
 
 [editor.search]
 wrap-around = false
@@ -23,6 +24,9 @@ select = "underline"
 [editor.soft-wrap]
 enable = true
 
+[editor.smart-tab]
+supersede-menu = true
+
 [editor.lsp]
 auto-signature-help = false
 display-signature-help-docs = false
@@ -31,7 +35,8 @@ display-signature-help-docs = false
 "tab" = "no_op"
 "C-c" = "no_op"
 "'" = "repeat_last_motion"
-"X" = "extend_line_above"
+"x" = "select_line_below"
+"X" = "select_line_above"
 "C-;" = "flip_selections"
 "C-space" = "hover"
 

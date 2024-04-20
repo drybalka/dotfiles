@@ -1,2 +1,5 @@
 inherits = "onedark"
-"ui.background" ={}
+"ui.background" = {}
+"ui.popup" = {}
+"ui.menu" = { fg = "white" }
+"ui.help" = { fg = "white" }
