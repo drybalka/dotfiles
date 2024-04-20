@@ -2,9 +2,9 @@ theme = "with_transparency"
 
 [editor]
 gutters = ["diff", "diagnostics"]
-# auto-pairs = false
 middle-click-paste = false
 popup-border = "all"
+jump-label-alphabet = "fjdkslaeiwovncmgh"
 
 [editor.search]
 wrap-around = false
