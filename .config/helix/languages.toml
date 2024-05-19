@@ -1,3 +1,33 @@
 [[language]]
 name = "scala"
 auto-format = true
+
+
+[[language]]
+name = "typescript"
+language-servers = [
+  "typescript-language-server",
+  "vscode-eslint-language-server",
+]
+formatter = { command = "npm", args = ["exec", "--no", "--", "prettier", "--parser", "typescript"] }
+auto-format = true
+
+
+
+# TODO: Use default eslint config when it becomes available
+[language-server.vscode-eslint-language-server]
+command = "vscode-eslint-language-server"
+args = ["--stdio"]
+
+[language-server.vscode-eslint-language-server.config]
+validate = "on"
+experimental = { useFlatConfig = false }
+rulesCustomizations = []
+run = "onType"
+problems = { shortenToSingleLine = false }
+nodePath = ""
+workingDirectory = { mode = "auto" }
+
+[language-server.vscode-eslint-language-server.config.codeAction]
+disableRuleComment = { enable = true, location = "separateLine" }
+showDocumentation = { enable = true }
