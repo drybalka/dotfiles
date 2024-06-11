@@ -10,7 +10,8 @@ export __EGL_VENDOR_LIBRARY_FILENAMES="/usr/share/glvnd/egl_vendor.d/50_mesa.jso
 
 export LESSHISTFILE=-
 export BEMENU_OPTS="-i"
-export EDITOR=hx
+export EDITOR=helix
+export SUDO_EDITOR=helix
 
 export _JAVA_AWT_WM_NONREPARENTING=1
 export JAVA_HOME=/usr/lib/jvm/default
