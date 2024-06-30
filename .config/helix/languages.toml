@@ -4,14 +4,6 @@ auto-format = true
 
 
 [[language]]
-name = "rust"
-formatter = { command = "rustfmt" }
-
-[language-server.rust-analyzer.config.check]
-command = "clippy"
-
-
-[[language]]
 name = "typescript"
 language-servers = [
   "typescript-language-server",
@@ -20,6 +12,10 @@ language-servers = [
 formatter = { command = "npm", args = ["exec", "--no", "--", "prettier", "--parser", "typescript"] }
 auto-format = true
 
+
+
+[language-server.rust-analyzer.config.check]
+command = "clippy"
 
 
 # TODO: Use default eslint config when it becomes available
