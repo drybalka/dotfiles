@@ -49,7 +49,10 @@ HISTORY_SUBSTRING_SEARCH_FUZZY=true # fuzzy search by words
 # Map key bindings
 bindkey -N clean
 bindkey -A clean main
-bindkey -R "^@"-"\M-^?" self-insert
+
+bindkey -R " "-"~" self-insert
+bindkey -R "\M-^@"-"\M-^?" self-insert
+
 bindkey "^[[200~" bracketed-paste   # properly handle pasting into terminal
 bindkey "^M" accept-line            # map Enter key
 # bindkey "^J" accept-line
@@ -57,14 +60,19 @@ bindkey "^M" accept-line            # map Enter key
 
 bindkey "^L" clear-screen
 bindkey "^Y" autosuggest-accept
-bindkey "^H" vi-backward-delete-char
-bindkey "^W" vi-backward-kill-word
-bindkey "^K" vi-kill-line
-bindkey "^J" vi-kill-eol
-bindkey "^B" vi-beginning-of-line
-bindkey "^E" vi-end-of-line
-bindkey "^N" history-substring-search-up
-bindkey "^P" history-substring-search-down
+bindkey "^H" backward-delete-char
+bindkey "^W" backward-kill-word
+bindkey "^K" backward-kill-line
+bindkey "^J" kill-line
+bindkey "^L" delete-char
+bindkey "^B" beginning-of-line
+bindkey "^E" end-of-line
+bindkey "^P" history-substring-search-up
+bindkey "^N" history-substring-search-down
+bindkey "\eh" backward-char
+bindkey "\el" forward-char
+bindkey "\ek" backward-word
+bindkey "\ej" forward-word
 
 typeset -g -A key
 key[Home]="${terminfo[khome]}"

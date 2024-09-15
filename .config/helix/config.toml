@@ -66,6 +66,7 @@ display-signature-help-docs = false
 "'" = "no_op"
 "k" = "no_op"
 "w" = "no_op"
+# "e" = "file_browser"
 
 [keys.select]
 "C-c" = "no_op"
@@ -106,3 +107,7 @@ display-signature-help-docs = false
 "C-j" = "kill_to_line_end"
 "C-b" = "goto_first_nonwhitespace"
 "C-e" = "goto_line_end_newline"
+"A-j" = "move_line_down"
+"A-k" = "move_line_up"
+"A-h" = "move_char_left"
+"A-l" = "move_char_right"
