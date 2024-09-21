@@ -20,6 +20,9 @@ floating_modifier $mod normal
 # Disable paste on 3-finger tap
 primary_selection disabled 
 
+# Window under mouse should be focused
+focus_follows_mouse always
+
 # Style settings
 default_border none
 default_floating_border normal
@@ -55,6 +58,7 @@ workspace 10 output eDP-1
 input type:touchpad {
     tap enabled
     scroll_factor 0.5
+    natural_scroll enabled
 }
 
 input type:keyboard {
@@ -78,8 +82,8 @@ bindsym {
 
     $mod+Print exec grim -g "$(slurp)" - | wl-copy
 
-    --locked XF86MonBrightnessUp exec light -S "$(light -G | awk '{ print int(($1 + .72) * 1.4) }')" && notify-brightness
-    --locked XF86MonBrightnessDown exec light -S "$(light -G | awk '{ print int($1 / 1.4) }')"  && notify-brightness
+    --locked XF86MonBrightnessUp exec brightnessctl set +10% && notify-brightness
+    --locked XF86MonBrightnessDown exec brightnessctl set 10%- && notify-brightness
     --locked XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5% && notify-volume
     --locked XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5% && notify-volume
     --locked XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle && notify-volume
@@ -142,6 +146,21 @@ bindsym {
     $mod+Shift+8 move container to workspace number 8
     $mod+Shift+9 move container to workspace number 9
     $mod+Shift+0 move container to workspace number 10
+}
+
+bindgesture {
+    swipe:3:right move right
+    swipe:3:left move left
+    swipe:3:up move up
+    swipe:3:down move down
+
+    pinch:inward move container to scratchpad
+    pinch:outward scratchpad show, floating disable
+
+    swipe:4:right workspace prev
+    swipe:4:left workspace next
+    swipe:4:up move container to workspace next
+    swipe:4:down move container to workspace prev
 }
 
 bar {
