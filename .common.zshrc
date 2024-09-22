@@ -131,11 +131,7 @@ fd () {
 }
 
 # Status line
-if [[ $XDG_SESSION_TYPE == "wayland" ]]
-then
-  source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
-  source ~/.config/p10k.zsh
-fi
+eval "$(starship init zsh)"
 
 # Set correct gpg tty for pinenetry
 export GPG_TTY=$(tty)
