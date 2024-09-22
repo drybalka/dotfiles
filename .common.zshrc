@@ -8,7 +8,7 @@ setopt share_history
 zstyle :compinstall filename $HOME/.zshrc
 autoload -Uz compinit
 compinit -d $HOME/.cache/zcompdump
-source /usr/bin/aws_zsh_completer.sh
+# source /usr/bin/aws_zsh_completer.sh
 
 # History search
 autoload -Uz up-line-or-beginning-search down-line-or-beginning-search
