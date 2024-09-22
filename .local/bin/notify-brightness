@@ -1,5 +1,4 @@
 #!/bin/bash
 
-BRIGHTNESS=$(light -G)
-BRIGHTNESS=${BRIGHTNESS%.*}
-$(notify-send "Brightness: $BRIGHTNESS" -h string:x-canonical-private-synchronous:brightness -h int:value:$BRIGHTNESS -c "brightness")
+BRIGHTNESS=$(brightnessctl get)
+$(notify-send "Brightness" -h string:x-canonical-private-synchronous:brightness -h int:value:$((BRIGHTNESS * 100 / 255)) -c "brightness")

@@ -1,10 +1,12 @@
 #!/bin/bash
-VOLUME=$(pactl get-sink-volume @DEFAULT_SINK@ | grep Volume: | sed -e 's,.* \([0-9][0-9]*\)%.*,\1,')
-MUTE=$(pactl get-sink-mute @DEFAULT_SINK@)
 
-if [[ "$MUTE" == "Mute: yes" ]]
+VOLUME=$(wpctl get-volume @DEFAULT_AUDIO_SINK@)
+VALUE=($VOLUME)
+VALUE=$(echo ${VALUE[1]} | sed 's/0\.//' | sed 's/1\./100/')
+
+if [[ "$VOLUME" == *"[MUTED]"* ]]
 then
-    $(notify-send "Volume: muted" -h string:x-canonical-private-synchronous:volume -h int:value:$VOLUME -c "volume")
+    $(notify-send "Muted" -h string:x-canonical-private-synchronous:volume -h int:value:$VALUE -c "volume-muted")
 else
-    $(notify-send "Volume: $VOLUME" -h string:x-canonical-private-synchronous:volume -h int:value:$VOLUME -c "volume")
+    $(notify-send "Volume" -h string:x-canonical-private-synchronous:volume -h int:value:$VALUE -c "volume")
 fi

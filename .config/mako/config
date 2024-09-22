@@ -1,20 +1,20 @@
 sort=-time
 layer=overlay
-background-color=#0A0E14cc
-text-color=#B3B1AD
+background-color=#282828aa
+text-color=#EBDBB2
 border-size=1
-border-radius=2
-border-color=#B3B1ADcc
+border-radius=0
+border-color=#928374
 default-timeout=5000
 
 [urgency=low]
-border-color=#0A0E14cc
+border-color=#8EC07C
 
 [urgency=normal]
-border-color=#B3B1ADcc
+border-color=#FABD2F
 
 [urgency=high]
-border-color=#EA6C73cc
+border-color=#FB4934
 default-timeout=0
 
 [category=brightness]
@@ -22,16 +22,27 @@ anchor=top-left
 default-timeout=800
 history=0
 width=150
-progress-color=#F9AF4Fcc
-border-color=#F9AF4Fcc
+progress-color=#D79921aa
+border-color=#FABD2F
+text-alignment=center
 
 [category=volume]
 anchor=top-left
 default-timeout=800
 history=0
 width=150
-progress-color=#53BDFAcc
-border-color=#53BDFAcc
+progress-color=#458588aa
+border-color=#83A598
+text-alignment=center
+
+[category=volume-muted]
+anchor=top-left
+default-timeout=800
+history=0
+width=150
+progress-color=#505050aa
+border-color=#83A598
+text-alignment=center
 
 [summary=lichess.org]
 default-timeout=0
