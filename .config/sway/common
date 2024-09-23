@@ -76,7 +76,7 @@ bindsym {
     $mod+z exec thunderbird
     $mod+c exec keepassxc
 
-    $mod+d exec dmenu-run-recent
+    $mod+d exec fuzzel
     $mod+f exec dmenu-locate
     $mod+Escape exec dmenu-session
 

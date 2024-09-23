@@ -2,7 +2,7 @@
 # This script calls dmenu session manager
 
 # Print dmenu options and execute command
-cmd=$( echo -e "reboot\nlock\nreload\nexit\npoweroff" | bemenu -p "")
+cmd=$( echo -e "reboot\nlock\nreload\nexit\npoweroff" | fuzzel --dmenu -p "" --lines=5 --width=9 )
 case $cmd in
 	lock) swaylock -f -e -i $HOME/.cache/wallpaper-large;;
 	reload) swaymsg reload;;

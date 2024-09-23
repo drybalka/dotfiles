@@ -1,4 +1,4 @@
-inherits = "onedark"
+inherits = "rose_pine"
 "ui.background" = {}
 "ui.popup" = {}
 "ui.menu" = { fg = "white" }
