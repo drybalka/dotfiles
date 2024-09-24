@@ -127,7 +127,7 @@ alias -g .....="../../../.."
 alias dotfiles="git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME"
 
 fd () {
-    /usr/bin/fd "$@" -X eza -ld --group-directories-first --sort=extension --git
+    /usr/bin/fd -HI "$@" -X eza -ld --group-directories-first --sort=extension --git
 }
 
 # Status line
