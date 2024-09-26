@@ -75,7 +75,7 @@
       "critical": 15
     },
     "format-plugged": "󰂄",
-    "format-charging": "{icon}",
+    "format-charging": "󱐋{icon}",
     "format-discharging": "{icon}",
     "format-icons": ["󰂎", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"]
   },
