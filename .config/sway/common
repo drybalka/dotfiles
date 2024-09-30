@@ -72,9 +72,6 @@ input type:keyboard {
 bindcode $mod+49 exec dmenu-session
 bindsym {
     $mod+Return exec $term
-    $mod+x exec firefox
-    $mod+z exec thunderbird
-    $mod+c exec keepassxc
 
     $mod+d exec fuzzel
     $mod+f exec dmenu-locate
