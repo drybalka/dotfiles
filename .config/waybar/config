@@ -1,7 +1,8 @@
 {
   "modules-left": [
+    "systemd-failed-units",
     "sway/workspaces",
-    "custom/scratchpad-indicator",
+    "sway/scratchpad",
     "sway/mode"
   ],
   "modules-center": ["custom/media"],
@@ -22,7 +23,7 @@
   "fixed-center": false,
 
   "custom/media": {
-    "format": "󰐍 {}",
+    "format": "  {}",
     "exec": "playerctl metadata -f '{{trunc(title, 20)}} - {{trunc(artist, 20)}}' -F",
     "on-click": "playerctl play-pause",
     "on-click-middle": "playerctl stop",
@@ -39,10 +40,8 @@
     "interval": 3600
   },
 
-  "custom/scratchpad-indicator": {
-    "interval": 3,
-    "exec": "swaymsg -t get_tree | jq 'recurse(.nodes[]) | first(select(.name==\"__i3_scratch\")) | .floating_nodes | length | select(. >= 1)'",
-    "format": "  {}",
+  "sway/scratchpad": {
+    "format": "  {count}",
     "on-click": "swaymsg 'scratchpad show'"
   },
 
@@ -84,14 +83,14 @@
     "tooltip-format": "<tt>{calendar}</tt>",
     "calendar": {
       "format": {
-        "today": "<b>{}</b>"
+        "today": "<span color='#31748f'><b>{}</b></span>"
       }
     }
   },
 
   "cpu": {
     "interval": 5,
-    "format": "󰘚 {usage}%",
+    "format": " {usage}%",
     "states": {
       "warning": 70,
       "critical": 90
@@ -99,12 +98,13 @@
   },
 
   "sway/language": {
-    "format": "󰥻 {}"
+    "format": "  {}",
+    "on-click": "swaymsg input type:keyboard xkb_switch_layout next",
   },
 
   "memory": {
     "interval": 5,
-    "format": "󰍛 {}%",
+    "format": " {}%",
     "states": {
       "warning": 70,
       "critical": 90
@@ -146,7 +146,7 @@
     "thermal-zone": 9,
     "critical-threshold": 80,
     "interval": 5,
-    "format": "{icon}{temperatureC}°C",
+    "format": "{icon} {temperatureC}°C",
     "format-icons": ["", "", "", "", ""],
     "tooltip": true
   }
