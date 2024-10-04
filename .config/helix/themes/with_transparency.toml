@@ -1,5 +1,7 @@
 inherits = "rose_pine"
+
 "ui.background" = {}
 "ui.popup" = {}
-"ui.menu" = { fg = "white" }
-"ui.help" = { fg = "white" }
+"ui.popup.info" = {}
+"ui.menu" = { fg = "subtle" }
+"ui.help" = { fg = "subtle" }
