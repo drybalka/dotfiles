@@ -16,6 +16,3 @@ export PAGER=bat
 export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 
 export _JAVA_AWT_WM_NONREPARENTING=1
-export JAVA_HOME=/usr/lib/jvm/default
-
-export METALS_JDK_PATH=/usr/bin
