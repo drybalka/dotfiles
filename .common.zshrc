@@ -136,3 +136,11 @@ eval "$(starship init zsh)"
 # Set correct gpg tty for pinenetry
 export GPG_TTY=$(tty)
 gpg-connect-agent UPDATESTARTUPTTY /bye >/dev/null
+
+# Scala and coursier completions
+fpath=("$HOME/.local/share/scalacli/completions/zsh" $fpath)
+compinit
+function _cs {
+  eval "$(cs complete zsh-v1 $CURRENT $words[@])"
+}
+compdef _cs cs coursier
