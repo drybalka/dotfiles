@@ -44,13 +44,14 @@ exec swayidle -w \
     before-sleep 'if [ ! -f $HOME/.cache/lock-inhibitor ]; then swaylock -f -e -i $HOME/.cache/wallpaper-large; fi'
 
 ### Output configuration
+output * bg $HOME/.cache/wallpaper-large fill
 # output DP-1 bg $HOME/.cache/wallpaper-large fill
 # output DP-1 pos 0 0
 # focus output DP-1
 # output DP-2 bg $HOME/.cache/wallpaper-large fill
 # output DP-2 pos 0 0
 # focus output DP-2
-output eDP-1 bg $HOME/.cache/wallpaper-small fill
+# output eDP-1 bg $HOME/.cache/wallpaper-small fill
 # output eDP-1 pos 2560 240
 # workspace 10 output eDP-1
 
