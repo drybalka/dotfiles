@@ -41,10 +41,10 @@ exec swayidle -w \
     timeout 240 'swaymsg "output * dpms off"' \
     resume      'swaymsg "output * dpms on"' \
     timeout 300 'systemctl suspend -i' \
-    before-sleep 'if [ ! -f $HOME/.cache/lock-inhibitor ]; then swaylock -f -e -i $HOME/.cache/wallpaper-large; fi'
+    before-sleep 'if [ ! -f $HOME/.cache/lock-inhibitor ]; then swaylock -f -e -i $HOME/.cache/wallpaper; fi'
 
 ### Output configuration
-output * bg $HOME/.cache/wallpaper-large fill
+output * bg $HOME/.cache/wallpaper fill
 # output DP-1 bg $HOME/.cache/wallpaper-large fill
 # output DP-1 pos 0 0
 # focus output DP-1
