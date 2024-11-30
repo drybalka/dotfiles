@@ -67,6 +67,8 @@ display-signature-help-docs = false
 "k" = "no_op"
 "w" = "no_op"
 # "e" = "file_browser"
+# "r" = "file_browser_in_current_buffer_directory"
+# "t" = "file_browser_in_current_directory"
 
 [keys.select]
 "C-c" = "no_op"
