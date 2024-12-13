@@ -14,7 +14,12 @@ language-servers = [
   "typescript-language-server",
   "vscode-eslint-language-server",
 ]
-formatter = { command = "npm", args = ["exec", "--no", "--", "prettier", "--parser", "typescript"] }
+formatter = { command = "npx", args = ["prettier", "--parser", "typescript"] }
+auto-format = true
+
+
+[[language]]
+name = "tsx"
 auto-format = true
 
 
