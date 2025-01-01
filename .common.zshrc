@@ -55,8 +55,6 @@ bindkey -R "\M-^@"-"\M-^?" self-insert
 
 bindkey "^[[200~" bracketed-paste   # properly handle pasting into terminal
 bindkey "^M" accept-line            # map Enter key
-# bindkey "^J" accept-line
-# bindkey "^V" quoted-insert
 
 bindkey "^L" clear-screen
 bindkey "^Y" autosuggest-accept
@@ -69,10 +67,6 @@ bindkey "^B" beginning-of-line
 bindkey "^E" end-of-line
 bindkey "^P" history-substring-search-up
 bindkey "^N" history-substring-search-down
-bindkey "\eh" backward-char
-bindkey "\el" forward-char
-bindkey "\ek" backward-word
-bindkey "\ej" forward-word
 
 typeset -g -A key
 key[Home]="${terminfo[khome]}"
@@ -144,3 +138,7 @@ function _cs {
   eval "$(cs complete zsh-v1 $CURRENT $words[@])"
 }
 compdef _cs cs coursier
+
+# pnpm completions
+source "$HOME/.local/share/pnpm/completions/zsh"
+
