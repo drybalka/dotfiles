@@ -3,9 +3,25 @@
 
 TARGET_DIR="$HOME/.cache"
 
+# check_connectivity() {
+#     max_retries=5
+#     timeout=1
+
+#     for ((retry=0; retry < max_retries; retry++)); do
+#         if curl -fs --connect-timeout 5 "https://bing.com" &> /dev/null; then
+#             return 0
+#         fi
+#         sleep $timeout
+#         timeout=$((timeout * 2))
+#     done
+#     return 1
+# }
+
+# check_connectivity || exit 1
+
 get_image_url() {
-    local RESPONSE=$(curl "https://www.bing.com/HPImageArchive.aspx?format=js&n=1" | jq -r ".images[0].urlbase")
+    local RESPONSE=$(curl -s "https://www.bing.com/HPImageArchive.aspx?format=js&n=1" | jq -r ".images[0].urlbase")
     echo "https://bing.com${RESPONSE}_UHD.jpg"
 }
 
-curl -o "$TARGET_DIR/wallpaper" "$(get_image_url)"
+curl -s -o "$TARGET_DIR/wallpaper" "$(get_image_url)"

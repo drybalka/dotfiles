@@ -93,6 +93,7 @@ bindsym {
     $mod+v split toggle
     $mod+e split none
     $mod+t layout toggle tabbed split
+    $mod+Space floating toggle
 
     $mod+q kill
     $mod+Shift+f fullscreen
