@@ -5,10 +5,10 @@ unsetopt beep
 setopt HIST_IGNORE_DUPS
 setopt share_history
 
+fpath=("$HOME/.zfunc" $fpath)
 zstyle :compinstall filename $HOME/.zshrc
 autoload -Uz compinit
 compinit -d $HOME/.cache/zcompdump
-# source /usr/bin/aws_zsh_completer.sh
 
 # History search
 autoload -Uz up-line-or-beginning-search down-line-or-beginning-search
@@ -113,7 +113,6 @@ alias lt="eza -l --group-directories-first --sort=extension --tree --level=2 --g
 alias lT="eza -l --group-directories-first --sort=extension --tree --git"
 alias rg="rg --pretty --smart-case"
 alias diff="diff --color=auto"
-alias hx="helix"
 
 alias -g ...="../.."
 alias -g ....="../../.."
@@ -124,6 +123,8 @@ fd () {
     /usr/bin/fd -HI "$@" -X eza -ld --group-directories-first --sort=extension --git
 }
 
+mkcd () { mkdir -p "$1" && cd "$1" }
+
 # Status line
 eval "$(starship init zsh)"
 
@@ -131,21 +132,9 @@ eval "$(starship init zsh)"
 export GPG_TTY=$(tty)
 gpg-connect-agent UPDATESTARTUPTTY /bye >/dev/null
 
-# Scala and coursier completions
-fpath=("$HOME/.local/share/scalacli/completions/zsh" $fpath)
-compinit
-function _cs {
-  eval "$(cs complete zsh-v1 $CURRENT $words[@])"
-}
-compdef _cs cs coursier
-
 # pnpm
 export PNPM_HOME="$HOME/.local/share/pnpm"
 case ":$PATH:" in
   *":$PNPM_HOME:"*) ;;
   *) export PATH="$PNPM_HOME:$PATH" ;;
 esac
-
-# pnpm completions
-source "$HOME/.local/share/pnpm/completions/zsh"
-

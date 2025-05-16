@@ -1,0 +1,5 @@
+#compdef _scala scala
+
+function _scala {
+  eval "$(scala complete zsh-v1 $CURRENT $words[@])"
+}
