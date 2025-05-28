@@ -10,8 +10,8 @@ export __EGL_VENDOR_LIBRARY_FILENAMES="/usr/share/glvnd/egl_vendor.d/50_mesa.jso
 
 export LESSHISTFILE=-
 export BEMENU_OPTS="-i"
-export EDITOR=helix
-export SUDO_EDITOR=helix
+export EDITOR=hx
+export SUDO_EDITOR=hx
 export PAGER=bat
 export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 

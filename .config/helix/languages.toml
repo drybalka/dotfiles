@@ -10,11 +10,7 @@ auto-format = true
 
 [[language]]
 name = "typescript"
-language-servers = [
-  "typescript-language-server",
-  "vscode-eslint-language-server",
-]
-formatter = { command = "npx", args = ["prettier", "--parser", "typescript"] }
+formatter = { command = "prettier", args = ["--parser", "typescript"] }
 auto-format = true
 
 
@@ -23,30 +19,24 @@ name = "tsx"
 auto-format = true
 
 
+[[language]]
+name = "astro"
+auto-format = true
+
+[language-server.astro-ls]
+config = {typescript = {tsdk = "../../.local/share/pnpm/global/5/node_modules/typescript/lib"}, environment = "node"}
+
+
+[[language]]
+name = "yaml"
+formatter = { command = "prettier", args = ["--parser", "yaml"] }
+auto-format = true
+
 
 [language-server.jdtls]
 command = "jdtls"
-args = ["--jvm-arg=-javaagent:/home/drybalka/.gradle/caches/modules-2/files-2.1/org.projectlombok/lombok/1.18.36/5a30490a6e14977d97d9c73c924c1f1b5311ea95/lombok-1.18.36.jar"]
+args = ["--jvm-arg=-javaagent:~/.gradle/caches/modules-2/files-2.1/org.projectlombok/lombok/1.18.36/5a30490a6e14977d97d9c73c924c1f1b5311ea95/lombok-1.18.36.jar"]
 
 
 [language-server.rust-analyzer.config.check]
 command = "clippy"
-
-
-# TODO: Use default eslint config when it becomes available
-[language-server.vscode-eslint-language-server]
-command = "vscode-eslint-language-server"
-args = ["--stdio"]
-
-[language-server.vscode-eslint-language-server.config]
-validate = "on"
-experimental = { useFlatConfig = false }
-rulesCustomizations = []
-run = "onType"
-problems = { shortenToSingleLine = false }
-nodePath = ""
-workingDirectory = { mode = "auto" }
-
-[language-server.vscode-eslint-language-server.config.codeAction]
-disableRuleComment = { enable = true, location = "separateLine" }
-showDocumentation = { enable = true }
