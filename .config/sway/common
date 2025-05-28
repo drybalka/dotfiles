@@ -78,7 +78,7 @@ bindsym {
     $mod+f exec dmenu-locate
     $mod+Escape exec dmenu-session
 
-    $mod+Print exec grim -g "$(slurp)" - | wl-copy
+    Print exec grim -g "$(slurp)" - | wl-copy
 
     --locked XF86MonBrightnessUp exec brightnessctl --exponent set 7%+ && notify-brightness
     --locked XF86MonBrightnessDown exec brightnessctl --exponent set 7%- && notify-brightness
