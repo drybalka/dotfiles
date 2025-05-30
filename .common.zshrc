@@ -128,10 +128,6 @@ mkcd () { mkdir -p "$1" && cd "$1" }
 # Status line
 eval "$(starship init zsh)"
 
-# Set correct gpg tty for pinenetry
-export GPG_TTY=$(tty)
-gpg-connect-agent UPDATESTARTUPTTY /bye >/dev/null
-
 # pnpm
 export PNPM_HOME="$HOME/.local/share/pnpm"
 case ":$PATH:" in

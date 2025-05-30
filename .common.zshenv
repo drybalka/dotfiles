@@ -2,8 +2,7 @@ typeset -U PATH path
 path=("$HOME/.local/bin" "$HOME/.local/share/coursier/bin" "$HOME/.cargo/bin" "$path[@]")
 export PATH
 
-unset SSH_AGENT_PID
-export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
+export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
 
 export QT_QPA_PLATFORM="wayland;xcb"
 export __EGL_VENDOR_LIBRARY_FILENAMES="/usr/share/glvnd/egl_vendor.d/50_mesa.json"
