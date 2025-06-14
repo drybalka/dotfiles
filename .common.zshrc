@@ -113,6 +113,7 @@ alias lt="eza -l --group-directories-first --sort=extension --tree --level=2 --g
 alias lT="eza -l --group-directories-first --sort=extension --tree --git"
 alias rg="rg --pretty --smart-case"
 alias diff="diff --color=auto"
+alias lg="lazygit"
 
 alias -g ...="../.."
 alias -g ....="../../.."
