@@ -9,6 +9,11 @@ auto-format = true
 
 
 [[language]]
+name = "bash"
+auto-format = true
+
+
+[[language]]
 name = "typescript"
 formatter = { command = "prettier", args = ["--parser", "typescript"] }
 auto-format = true
@@ -40,3 +45,12 @@ args = ["--jvm-arg=-javaagent:~/.gradle/caches/modules-2/files-2.1/org.projectlo
 
 [language-server.rust-analyzer.config.check]
 command = "clippy"
+
+
+[[language]]
+name = "markdown"
+language-servers = ["harper-ls"]
+
+[language-server.harper-ls]
+command = "harper-ls"
+args = ["--stdio"]
