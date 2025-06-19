@@ -1,7 +1,0 @@
-#!/bin/sh
-
-while getopts Y:n:f: opt; do case $opt in 
-f) ssh-add -T "$OPTARG" 2>&- || ssh-add "$OPTARG" ;;
-esac; done
-
-exec ssh-keygen "$@"
