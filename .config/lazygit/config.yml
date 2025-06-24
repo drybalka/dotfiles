@@ -1,0 +1,12 @@
+gui:
+  border: single
+
+git:
+  paging:
+    colorArg: always
+    pager: delta
+
+keybinding:
+  universal:
+    undo: u
+    redo: U
