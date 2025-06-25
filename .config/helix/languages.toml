@@ -29,7 +29,7 @@ name = "astro"
 auto-format = true
 
 [language-server.astro-ls]
-config = {typescript = {tsdk = "../../.local/share/pnpm/global/5/node_modules/typescript/lib"}, environment = "node"}
+config = {typescript = {tsdk = "/usr/lib/node_modules/typescript/lib"}, environment = "node"}
 
 
 [[language]]
