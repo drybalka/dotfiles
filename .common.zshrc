@@ -128,10 +128,3 @@ mkcd () { mkdir -p "$1" && cd "$1" }
 
 # Status line
 eval "$(starship init zsh)"
-
-# pnpm
-export PNPM_HOME="$HOME/.local/share/pnpm"
-case ":$PATH:" in
-  *":$PNPM_HOME:"*) ;;
-  *) export PATH="$PNPM_HOME:$PATH" ;;
-esac
