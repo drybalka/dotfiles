@@ -45,21 +45,14 @@ exec swayidle -w \
 
 ### Output configuration
 output * bg $HOME/.cache/wallpaper fill
-# output DP-1 bg $HOME/.cache/wallpaper-large fill
-# output DP-1 pos 0 0
-# focus output DP-1
-# output DP-2 bg $HOME/.cache/wallpaper-large fill
-# output DP-2 pos 0 0
-# focus output DP-2
-# output eDP-1 bg $HOME/.cache/wallpaper-small fill
-# output eDP-1 pos 2560 240
-# workspace 10 output eDP-1
+output 'Dell Inc. DELL U3824DW 40KVZR3' pos 0 0
 
 ### Input configuration
 input type:touchpad {
     tap enabled
     scroll_factor 0.5
     natural_scroll enabled
+    drag_lock disable
 }
 
 input type:keyboard {
