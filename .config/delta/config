@@ -6,7 +6,6 @@
 
 [delta]
     features = arctic-fox
-    paging = never
 
 [include]
     path = ./themes.gitconfig
