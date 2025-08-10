@@ -21,6 +21,10 @@ zle -N zle-line-init
 zle -N zle-line-finish
 zle -N zle-keymap-select
 
+# Allows modifying commands in editor
+autoload -Uz edit-command-line
+zle -N edit-command-line
+
 # Allow jumping between prompts in foot
 precmd() {
     print -Pn "\e]133;A\e\\"
@@ -67,6 +71,8 @@ bindkey "^B" beginning-of-line
 bindkey "^E" end-of-line
 bindkey "^P" history-substring-search-up
 bindkey "^N" history-substring-search-down
+bindkey "^ " edit-command-line
+
 
 typeset -g -A key
 key[Home]="${terminfo[khome]}"
