@@ -1,7 +1,7 @@
 export PNPM_HOME="$HOME/.local/share/pnpm"
 
 typeset -U PATH path
-path=("$HOME/.local/bin" "$PNPM_HOME" "$HOME/.local/share/coursier/bin" "$HOME/.cargo/bin" "$path[@]")
+path=("$HOME/.local/bin" "$PNPM_HOME" "$HOME/.local/share/coursier/bin" "$path[@]")
 export PATH
 
 export LESSHISTFILE=-
