@@ -4,9 +4,7 @@
   "autoupdate": false,
   "share": "disabled",
   "permission": {
-    "bash": {
-      "grep": "allow"
-    },
+    "bash": "ask",
     "edit": "ask"
   },
   "keybinds": {
