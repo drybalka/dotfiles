@@ -134,3 +134,6 @@ mkcd () { mkdir -p "$1" && cd "$1" }
 
 # Status line
 eval "$(starship init zsh)"
+
+# Directory jumper
+eval "$(zoxide init zsh)"
