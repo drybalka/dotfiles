@@ -1,12 +1,16 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 VOLUME=$(wpctl get-volume @DEFAULT_AUDIO_SINK@)
-VALUE=($VOLUME)
-VALUE=$(echo ${VALUE[1]} | sed 's/0\.//' | sed 's/1\./100/')
 
-if [[ "$VOLUME" == *"[MUTED]"* ]]
-then
-    $(notify-send "Muted" -h string:x-canonical-private-synchronous:volume -h int:value:$VALUE -c "volume-muted")
+if [[ $VOLUME =~ ([0-9]+\.[0-9]+) ]]; then
+  VALUE=$(awk "BEGIN {printf \"%.0f\", ${BASH_REMATCH[1]} * 100}")
 else
-    $(notify-send "Volume" -h string:x-canonical-private-synchronous:volume -h int:value:$VALUE -c "volume")
+  notify-send "Error" "Invalid volume format" -u critical
+  exit 1
+fi
+
+if [[ "$VOLUME" == *"[MUTED]"* ]]; then
+  notify-send "Muted" -h string:x-canonical-private-synchronous:volume -h int:value:"$VALUE" -c "volume-muted"
+else
+  notify-send "Volume" -h string:x-canonical-private-synchronous:volume -h int:value:"$VALUE" -c "volume"
 fi

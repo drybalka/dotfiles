@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 BRIGHTNESS=$(brightnessctl get)
-$(notify-send "Brightness" -h string:x-canonical-private-synchronous:brightness -h int:value:$((BRIGHTNESS * 100 / 255)) -c "brightness")
+notify-send "Brightness" -h string:x-canonical-private-synchronous:brightness -h int:value:$((BRIGHTNESS * 100 / 255)) -c "brightness"

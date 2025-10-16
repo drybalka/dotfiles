@@ -1,8 +1,8 @@
-#!/bin/bash 
+#!/usr/bin/env bash
 # This script returns results of 'locate' command in a convenient dmenu form
 
-locate "*" \
-	| fuzzel --dmenu --placeholder="filepath" --lines=30 --width=90 \
-	| sed '/^\//!{s/^/\//}' \
-	| tr -d "\n" \
-	| wl-copy && notify-send --urgency=low "Path copied to clipboard"
+locate "*" |
+	fuzzel --dmenu --placeholder="filepath" --lines=30 --width=90 |
+	sed '/^\//!{s/^/\//}' |
+	tr -d "\n" |
+	wl-copy && notify-send --urgency=low "Path copied to clipboard"

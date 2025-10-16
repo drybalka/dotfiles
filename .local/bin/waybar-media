@@ -1,8 +1,7 @@
-#!/bin/bash
-VISIBLE_SIZE=40
+#!/usr/bin/env bash
 
 ARTIST=$(playerctl metadata artist)
 TITLE=$(playerctl metadata title)
 ALBUM=$(playerctl metadata album)
 
-echo {'"text"': '"'$TITLE'"', '"tooltip"': '"'$ARTIST\\n$ALBUM'"'}
+printf '{"text": "%s", "tooltip": "%s\\n%s"}' "$TITLE" "$ARTIST" "$ALBUM"

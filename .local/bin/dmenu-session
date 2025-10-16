@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # This script calls dmenu session manager
 
 # Print dmenu options and execute command

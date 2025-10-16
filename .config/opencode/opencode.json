@@ -11,6 +11,7 @@
     "leader": "ctrl+space",
     "input_submit": "ctrl+enter",
     "input_newline": "enter",
+    "input_clear": "ctrl+k",
     "messages_previous": "ctrl+p",
     "messages_next": "ctrl+n",
     "messages_half_page_up": "ctrl+u",

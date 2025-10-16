@@ -1,4 +1,5 @@
-#!/bin/bash
+#!/usr/bin/env bash
+
 STATUS_FILE="$HOME/.cache/lock-inhibitor"
 
 if [ -f "$STATUS_FILE" ]; then

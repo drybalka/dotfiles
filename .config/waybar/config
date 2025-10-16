@@ -7,7 +7,6 @@
   ],
   "modules-center": ["custom/media"],
   "modules-right": [
-    "custom/weather",
     "bluetooth",
     "sway/language",
     "network",
@@ -24,7 +23,7 @@
 
   "custom/media": {
     "format": "  {}",
-    "exec": "playerctl metadata -f '{{trunc(title, 20)}} - {{trunc(artist, 20)}}' -F",
+    "exec": "playerctl metadata -f '{{trunc(title, 40)}} - {{trunc(artist, 40)}}' -F",
     "on-click": "playerctl play-pause",
     "on-click-middle": "playerctl stop",
     "on-scroll-up": "playerctl previous",
@@ -32,12 +31,6 @@
     "smooth-scrolling-threshold": 10,
     "escape": true,
     "tooltip": false
-  },
-
-  "custom/weather": {
-    "exec": "waybar-weather",
-    "return-type": "json",
-    "interval": 3600
   },
 
   "sway/scratchpad": {
