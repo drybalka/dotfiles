@@ -15,12 +15,12 @@ auto-format = true
 
 [[language]]
 name = "typescript"
-formatter = { command = "pnpm", args = ["--workspace-root", "prettier", "--parser", "typescript"] }
+formatter = { command = "pnpm", args = ["prettier", "--parser", "typescript"] }
 auto-format = true
 
 [[language]]
 name = "tsx"
-formatter = { command = "pnpm", args = ["--workspace-root", "prettier", "--parser", "typescript"] }
+formatter = { command = "pnpm", args = ["prettier", "--parser", "typescript"] }
 auto-format = true
 
 
