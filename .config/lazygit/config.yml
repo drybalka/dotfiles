@@ -2,7 +2,7 @@ gui:
   border: single
 
 git:
-  paging:
-    colorArg: always
-    pager: delta --dark --paging=never
-
+  overrideGpg: true
+  pagers:
+    - pager: delta --dark --paging=never
+      colorArg: always
