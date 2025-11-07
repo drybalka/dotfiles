@@ -14,6 +14,12 @@ auto-format = true
 
 
 [[language]]
+name = "python"
+language-servers = ["ruff", "pyright"]
+auto-format = true
+
+
+[[language]]
 name = "typescript"
 formatter = { command = "pnpm", args = ["prettier", "--parser", "typescript"] }
 auto-format = true
