@@ -9,10 +9,11 @@
   "keybinds": {
     "leader": "ctrl+space",
     "command_list": "<leader>space",
-    "input_submit": "ctrl+enter",
-    "input_newline": "enter",
+    "input_submit": "ctrl+return",
+    "input_newline": "return",
     "input_clear": "ctrl+k",
+    "input_forward_delete": "ctrl+l",
     "messages_half_page_up": "ctrl+u",
-    "messages_half_page_down": "ctrl+d"
+    "messages_half_page_down": "ctrl+d",
   }
 }
