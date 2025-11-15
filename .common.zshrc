@@ -125,6 +125,7 @@ alias -g ...="../.."
 alias -g ....="../../.."
 alias -g .....="../../../.."
 alias dotfiles="git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME"
+alias taia="(cd ~/taia && opencode)"
 
 fd () {
     /usr/bin/fd -HI "$@" -X eza -ld --group-directories-first --sort=extension --git
