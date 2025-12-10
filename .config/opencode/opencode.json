@@ -7,7 +7,7 @@
     "bash": "ask",
   },
   "keybinds": {
-    "leader": "ctrl+space",
+    "leader": "ctrl+ ",
     "command_list": "<leader>space",
     "input_submit": "ctrl+return",
     "input_newline": "return",
