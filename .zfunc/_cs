@@ -1,5 +1,0 @@
-#compdef _cs cs coursier
-
-function _cs {
-  eval "$(cs complete zsh-v1 $CURRENT $words[@])"
-}
