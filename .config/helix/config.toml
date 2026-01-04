@@ -40,6 +40,10 @@ display-signature-help-docs = false
 "C-;" = "flip_selections"
 "C-space" = "hover"
 
+"w" = "move_prev_sub_word_start"
+"e" = "move_next_sub_word_start"
+"b" = "no_op"
+
 "i" = [ "collapse_selection", "insert_mode" ]
 "a" = [ "move_char_right", "insert_mode" ]
 
@@ -75,6 +79,10 @@ display-signature-help-docs = false
 "X" = "extend_line_above"
 "C-;" = "flip_selections"
 
+"w" = "extend_prev_sub_word_start"
+"e" = "extend_next_sub_word_start"
+"b" = "no_op"
+
 "i" = [ "collapse_selection", "insert_mode" ]
 "a" = [ "move_char_right", "insert_mode" ]
 
@@ -101,14 +109,18 @@ display-signature-help-docs = false
 "C-d" = "no_op"
 "C-u" = "no_op"
 "C-x" = "no_op"
-"C-W" = "delete_word_forward"
 "C-space" = "completion"
+
+"C-h" = "delete_char_backward"
 "C-l" = "delete_char_forward"
 "C-k" = "kill_to_line_start"
 "C-j" = "kill_to_line_end"
-"C-b" = "goto_first_nonwhitespace"
-"C-e" = "goto_line_end_newline"
-"A-j" = "move_line_down"
-"A-k" = "move_line_up"
+"C-w" = "delete_word_backward"
+"C-e" = "delete_word_forward"
+
 "A-h" = "move_char_left"
 "A-l" = "move_char_right"
+"A-k" = "goto_first_nonwhitespace"
+"A-j" = "goto_line_end_newline"
+"A-w" = ["move_prev_word_start", "collapse_selection"]
+"A-e" = ["move_next_word_start", "collapse_selection", "move_char_right"]

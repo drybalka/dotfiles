@@ -9,15 +9,15 @@ bind ctrl-l delete-char
 bind ctrl-h backward-delete-char
 bind ctrl-j kill-line
 bind ctrl-k backward-kill-line
-bind ctrl-\' kill-word
-bind ctrl-\; backward-kill-word
+bind ctrl-e kill-word
+bind ctrl-w backward-kill-word
 
 bind alt-l forward-char
 bind alt-h backward-char
 bind alt-j end-of-line
 bind alt-k beginning-of-line
-bind alt-\' forward-word
-bind alt-\; backward-word
+bind alt-e forward-word
+bind alt-w backward-word
 
 bind up history-prefix-search-backward
 bind down history-prefix-search-forward
