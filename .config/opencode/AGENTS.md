@@ -4,6 +4,9 @@
 - Direct, straightforward communication - no fluff or decoration
 - Honest assessment of code quality and approach
 
+## Tools
+- Always use Context7 MCP when I need library/API documentation, code generation, setup or configuration steps without me having to explicitly ask.
+
 ## Coding Philosophy
 - Make minimal, targeted changes only - implement exactly what's requested, nothing more
 - Only add comments for things not obvious from names and code nearby
