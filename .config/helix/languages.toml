@@ -2,6 +2,8 @@
 name = "scala"
 auto-format = true
 
+[language-server.metals]
+args = ["-Dmetals.client=helix"]
 
 [[language]]
 name = "haskell"
