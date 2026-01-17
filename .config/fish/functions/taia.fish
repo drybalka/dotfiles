@@ -1,3 +1,3 @@
 function taia --wraps opencode --description 'TAIA with Opencode'
-    cd ~/taia && opencode
+    fish -c 'cd ~/taia; opencode'
 end
