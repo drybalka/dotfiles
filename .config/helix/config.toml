@@ -43,6 +43,9 @@ display-signature-help-docs = false
 "w" = "move_prev_sub_word_start"
 "e" = "move_next_sub_word_start"
 "b" = "no_op"
+"W" = "move_prev_long_word_start"
+"E" = "move_next_long_word_start"
+"B" = "no_op"
 
 "i" = [ "collapse_selection", "insert_mode" ]
 "a" = [ "move_char_right", "insert_mode" ]
@@ -82,6 +85,9 @@ display-signature-help-docs = false
 "w" = "extend_prev_sub_word_start"
 "e" = "extend_next_sub_word_start"
 "b" = "no_op"
+"W" = "extend_prev_long_word_start"
+"E" = "extend_next_long_word_start"
+"B" = "no_op"
 
 "i" = [ "collapse_selection", "insert_mode" ]
 "a" = [ "move_char_right", "insert_mode" ]

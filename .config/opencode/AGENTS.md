@@ -14,6 +14,7 @@
 - Strive for simple, elegant, and beautiful solutions: the less code - the better
 - Use modern standards and best practices
 - Prefer functional programming approaches: pure functions, immutability, composition, and declarative patterns over imperative code
+- Prefer data model that make impossible states impossible
 - Avoid type casting
 
 - Use conventional commits
