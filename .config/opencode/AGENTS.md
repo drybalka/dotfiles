@@ -5,7 +5,8 @@
 - Honest assessment of code quality and approach
 
 ## Tools
-- Always use Context7 MCP when I need library/API documentation, code generation, setup or configuration steps without me having to explicitly ask.
+- Always use Context7 MCP when I need library/API documentation, code generation, setup, or configuration steps without me having to explicitly ask
+- Prefer the built-in read, grep, glob, list, etc., tools instead of running bash commands
 
 ## Coding Philosophy
 - Make minimal, targeted changes only - implement exactly what's requested, nothing more
