@@ -6,7 +6,7 @@
 
 ## Tools
 - Always use Context7 MCP when I need library/API documentation, code generation, setup, or configuration steps without me having to explicitly ask
-- Prefer the built-in read, grep, glob, list, etc., tools instead of running bash commands
+- Use the built-in read, grep, glob, list, etc. tools for listing, searching, deleting files; ONLY use bash tool when no other can do the task
 
 ## Coding Philosophy
 - Make minimal, targeted changes only - implement exactly what's requested, nothing more
