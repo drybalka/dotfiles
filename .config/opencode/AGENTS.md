@@ -7,6 +7,7 @@
 ## Tools
 - Always use Context7 MCP when I need library/API documentation, code generation, setup, or configuration steps without me having to explicitly ask
 - Use the built-in read, grep, glob, list, etc. tools for listing, searching, deleting files; ONLY use bash tool when no other can do the task
+- If you try to edit a file and get "Error: File [file] has been modified since it was last read." it means that it was manually edited in the meantime - do NOT undo them
 
 ## Coding Philosophy
 - Make minimal, targeted changes only - implement exactly what's requested, nothing more
@@ -18,9 +19,10 @@
 - Prefer data model that make impossible states impossible
 - Avoid type casting
 
+### Git
 - Use conventional commits
 - Use `git switch` and `git restore` instead of `git checkout`
-- Use `pnpm` and its subcommands where possible for node project management
 
 ### TypeScript
+- Use `pnpm` and its subcommands where possible for node project management
 - Use `unknown` instead of `any` type
