@@ -26,3 +26,6 @@
 ### TypeScript
 - Use `pnpm` and its subcommands where possible for node project management
 - Use `unknown` instead of `any` type
+
+### Scala
+- Use `boundary/break` syntax for early returns, avoid explicit `return` keyword
